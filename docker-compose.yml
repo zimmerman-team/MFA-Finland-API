@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  mongodb:
+    image: mongo:3.6.2
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./.data/mongodb:/data/db
+    networks:
+      - mongo
+
+  server:
+    build:
+      context: "."
+    env_file:
+      - .env
+    ports:
+      - "4200:4200"
+    depends_on:
+      - mongodb
+    networks:
+      - mongo
+      - server
+
+networks:
+  mongo:
+    driver: bridge
+  server:
+    driver: bridge
