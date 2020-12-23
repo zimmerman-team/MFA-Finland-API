@@ -1,6 +1,5 @@
 export const globalSearchFields = [
   "iati_identifier",
-  "reporting_org_ref",
   "title_narrative_text",
   "participating_org_ref",
   "recipient_country_code",

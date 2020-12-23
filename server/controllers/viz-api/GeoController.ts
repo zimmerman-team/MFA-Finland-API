@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import find from "lodash/find";
 import uniq from "lodash/uniq";
+import sumBy from "lodash/sumBy";
 import querystring from "querystring";
 import { countries } from "../../static/countries";
 import { genericError } from "../../utils/general";
@@ -10,16 +11,23 @@ import { getCountryISO3 } from "../../utils/countryISOMapping";
 
 export function activitiesGeoChart(req: any, res: any) {
   const values = {
-    q: getFormattedFilters(get(req.body, "filters", {})),
+    q: `${getFormattedFilters(
+      get(req.body, "filters", {})
+    )} AND transaction_type:3`,
     "json.facet": JSON.stringify({
-      items: { type: "terms", field: "recipient_country_code", limit: -1 }
+      items: {
+        type: "terms",
+        field: "activity_recipient_country_code",
+        limit: -1,
+        facet: { sum: "sum(transaction_value)" }
+      }
     }),
     rows: 0
   };
 
   axios
     .get(
-      `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
+      `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
         values,
         "&",
         "=",
@@ -29,20 +37,19 @@ export function activitiesGeoChart(req: any, res: any) {
       )}`
     )
     .then(call1Response => {
-      const numFound = get(call1Response, "data.response.numFound", 0);
       const actualData = get(call1Response, "data.facets.items.buckets", []);
       const result = actualData.map((item: any) => {
         return {
           id: getCountryISO3(item.val),
-          value: item.count,
+          value: item.sum,
           name: get(find(countries, { code: item.val }), "name", item.val)
         };
       });
 
       res.json({
         data: result,
-        count: numFound,
-        label: "activities"
+        label: "activities",
+        count: sumBy(result, "value")
       });
     })
     .catch(error => {

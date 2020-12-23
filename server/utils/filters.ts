@@ -1,9 +1,10 @@
 import { globalSearchFields } from "../static/globalSearchFields";
 
 export function getFormattedSearchParam(q: string) {
-  return globalSearchFields
+  const qstring = globalSearchFields
     .map((field: string) => `${field}:"${q}"`)
     .join(" OR ");
+  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${qstring})`;
 }
 
 export function getFormattedFilters(filters: any): string {
@@ -13,7 +14,7 @@ export function getFormattedFilters(filters: any): string {
 
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0) {
-    return "*:*";
+    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF}`;
   }
 
   let result = "";
@@ -39,7 +40,7 @@ export function getFormattedFilters(filters: any): string {
     }
   });
 
-  return result;
+  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${result})`;
 }
 
 export function getQuery(filters: any, search: string, searchFields: string[]) {
@@ -48,7 +49,7 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   }
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0 && search.length === 0) {
-    return "*:*";
+    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF}`;
   }
 
   let query = "";
@@ -100,5 +101,5 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
       .join(" OR ");
   }
 
-  return query;
+  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${query})`;
 }

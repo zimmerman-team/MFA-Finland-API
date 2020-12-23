@@ -1,5 +1,4 @@
 import get from "lodash/get";
-const FiltersModel = require("../../models/filters");
 import { getFormattedFilters } from "../../utils/filters";
 
 // controllers
@@ -10,29 +9,6 @@ import { getCountriesOptions } from "../../controllers/filter-api/utils/countrie
 import { getPublishersOptions } from "../../controllers/filter-api/utils/publishers";
 import { getOrganisationsOptions } from "../../controllers/filter-api/utils/organisations";
 import { getActivituStatusOptions } from "../../controllers/filter-api/utils/activitystatus";
-
-export async function filterOptions(req: any, res: any) {
-  await FiltersModel.find({}, (err: any, data: any) => {
-    if (err) {
-      res.json(err);
-    } else if (data.length > 0) {
-      res.json(data[0]);
-    } else {
-      res.json({
-        sectors: {
-          dac3: [],
-          dac5: []
-        },
-        countries: [],
-        regions: [],
-        donors: [],
-        publishers: [],
-        organisations: [],
-        activitystatus: []
-      });
-    }
-  });
-}
 
 export async function dynamicFilterOptions(req: any, res: any) {
   const filters: any = get(req.body, "filters", {});

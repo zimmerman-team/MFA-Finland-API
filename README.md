@@ -26,6 +26,7 @@ PROJECT_URL=http://localhost:3000
 # data
 DS_SOLR_API=https://iati.cloud/search
 DS_REST_API=https://iati.cloud/api
+MFA_PUBLISHER_REF=FI-3
 ```
 
 2. `yarn install`
@@ -46,9 +47,10 @@ Project will be running on http://localhost:4200/api
 
 ```
 BACKEND_PORT=4200
+MFA_PUBLISHER_REF=FI-3
 PROJECT_URL=http://localhost:4200
-DS_SOLR_API=https://iati.cloud/search
 DS_REST_API=https://iati.cloud/api
+DS_SOLR_API=https://iati.cloud/search
 ```
 
 2. start Docker

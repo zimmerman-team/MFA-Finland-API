@@ -55,7 +55,6 @@ router
 router.route("/search/donors").post(DonorsSearchController.searchDonors);
 
 // filter options
-router.route("/filter-options").post(FilterOptionsController.filterOptions);
 router
   .route("/dynamic-filter-options")
   .post(FilterOptionsController.dynamicFilterOptions);
@@ -77,6 +76,9 @@ router.route("/donors").post(DonorsTableController.donorsTable);
 router.route("/sectors").post(SectorsTableController.sectorsTable);
 router.route("/countries").post(CountriesTableController.countriesTable);
 router.route("/activities").post(ActivitiesTableController.activitiesTable);
+router
+  .route("/activities-new")
+  .post(ActivitiesTableController.activitiesTableNew);
 router.route("/publishers").post(PublishersTableController.publishersTable);
 router
   .route("/organisations")
