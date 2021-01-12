@@ -136,3 +136,31 @@ export function formatActivituStatusOptions(rawData: any, codelistData: any) {
 
   return orderBy(result, "name", "asc");
 }
+
+export function formatOrgOptions(rawData: any, codelistData: any) {
+  const result: OptionModel[] = [];
+
+  rawData.forEach((item: any) => {
+    const fOption = find(
+      codelistData,
+      (org: any) => org.code.toLowerCase() === item.val.toLowerCase()
+    );
+    if (fOption) {
+      result.push({
+        name: fOption.name,
+        code: fOption.code
+      });
+    } else if (
+      item.val.length > 1 &&
+      item.val[0] !== "(" &&
+      item.val[0] !== "&"
+    ) {
+      result.push({
+        name: item.val,
+        code: item.val
+      });
+    }
+  });
+
+  return orderBy(result, "name", "asc");
+}

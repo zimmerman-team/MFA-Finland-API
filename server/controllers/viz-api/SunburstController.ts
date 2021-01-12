@@ -35,11 +35,27 @@ function getSectorsWithData(sectorData: any) {
 }
 
 export function basicSunburstChart(req: any, res: any) {
-  const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
+  const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
       q: getFormattedFilters(get(req.body, "filters", {})),
       "json.facet": JSON.stringify({
-        items: { type: "terms", field: "sector_code", limit: -1 }
+        items: {
+          type: "terms",
+          field: "activity_sector_code",
+          limit: -1,
+          facet: {
+            disbursed: {
+              type: "query",
+              q: "transaction_type:3",
+              facet: { value: "sum(transaction_value)" }
+            },
+            committed: {
+              type: "query",
+              q: "transaction_type:2",
+              facet: { value: "sum(transaction_value)" }
+            }
+          }
+        }
       }),
       rows: 0
     },
@@ -66,7 +82,9 @@ export function basicSunburstChart(req: any, res: any) {
           } else {
             const fItem = find(actualData, { val: arr[i].code });
             if (fItem) {
-              arr[i].size = fItem.count;
+              arr[i].size = fItem.disbursed.value || 0;
+              arr[i].committed = fItem.committed.value || 0;
+              arr[i].percentage = (arr[i].size / arr[i].committed) * 100;
             } else {
               arr[i].size = 0;
             }
@@ -83,6 +101,8 @@ export function basicSunburstChart(req: any, res: any) {
             !arr[i].hasOwnProperty("size")
           ) {
             arr[i].size = sumBy(arr[i].children, "size");
+            arr[i].committed = sumBy(arr[i].children, "committed");
+            arr[i].percentage = (arr[i].size / arr[i].committed) * 100;
             calcParentSize(arr[i].children);
           }
         }
@@ -125,7 +145,10 @@ export function basicSunburstChart(req: any, res: any) {
       );
 
       res.json({
-        count: get(call1Response, "data.facets.count", 0),
+        count: sumBy(
+          get(call1Response, "data.facets.items.buckets", []),
+          "disbursed.value"
+        ),
         vizData: result
       });
     })

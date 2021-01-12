@@ -83,7 +83,7 @@ export function basicTreemapChart(req: any, res: any) {
 }
 
 export function donorsTreemapChart(req: any, res: any) {
-  const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
+  const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
       q: getFormattedFilters(get(req.body, "filters", {})),
       "json.facet": JSON.stringify({
@@ -96,7 +96,8 @@ export function donorsTreemapChart(req: any, res: any) {
               type: "terms",
               field: "transaction_provider_org_narrative",
               limit: 1
-            }
+            },
+            sum: "sum(transaction_value)"
           }
         }
       }),
@@ -121,7 +122,62 @@ export function donorsTreemapChart(req: any, res: any) {
               "sub.buckets[0].val",
               ""
             )} | ${item.val.toUpperCase()}`,
-            value: item.count,
+            value: item.sum,
+            ref: item.val.toUpperCase(),
+            orgs: []
+          };
+        })
+      );
+      res.json({
+        count: get(call1Response, "data.facets.count"),
+        vizData: result
+      });
+    })
+    .catch(error => {
+      genericError(error, res);
+    });
+}
+
+export function projectsTreemapChart(req: any, res: any) {
+  const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
+    {
+      q: getFormattedFilters(get(req.body, "filters", {})),
+      "json.facet": JSON.stringify({
+        items: {
+          type: "terms",
+          field: "iati_identifier",
+          limit: -1,
+          facet: {
+            name: {
+              type: "terms",
+              field: "title_narrative"
+            },
+            disbursed: {
+              type: "query",
+              q: "transaction_type:3",
+              facet: { value: "sum(transaction_value)" }
+            }
+          }
+        }
+      }),
+      rows: 0
+    },
+    "&",
+    "=",
+    {
+      encodeURIComponent: (str: string) => str
+    }
+  )}`;
+
+  axios
+    .get(url)
+    .then(call1Response => {
+      const actualData = get(call1Response, "data.facets.items.buckets", []);
+      let result = getColorsBasedOnValues(
+        actualData.map((item: any) => {
+          return {
+            name: `${get(item, "name.buckets[0].val", "")}`,
+            value: item.disbursed.value || 0,
             ref: item.val.toUpperCase(),
             orgs: []
           };
