@@ -1,7 +1,9 @@
 import get from "lodash/get";
 import find from "lodash/find";
+import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
 import { countries } from "../../../static/countries";
+import { orgDacChannel } from "../../../static/orgDacChannel";
 
 interface OptionModel {
   name: string;
@@ -89,20 +91,28 @@ export function formatSectorOptions(rawData: any) {
 //   return orderBy(result, "name", "asc");
 // }
 
-export function formatOrganisationsOptions(rawData: any, codelistData: any) {
-  const result: OptionModel[] = [];
+export function formatOrganisationsOptions(rawData: any) {
+  const result: any[] = [];
 
-  rawData.forEach((item: any) => {
-    const fOrg = find(
-      codelistData,
-      (org: any) => org.code.toLowerCase() === item.val.toLowerCase()
-    );
-    if (fOrg) {
-      result.push({
-        name: fOrg.name,
-        code: fOrg.code.toUpperCase()
-      });
-    }
+  const categories = filter(
+    orgDacChannel,
+    (item: any) => item.channel_id === item.channel_category
+  );
+
+  categories.forEach((category: any) => {
+    const children = filter(orgDacChannel, {
+      channel_category: category.channel_id
+    });
+    result.push({
+      name: category.name,
+      code: category.channel_id.toString(),
+      children: filter(children, (item: any) =>
+        find(rawData, { val: item.channel_id.toString() })
+      ).map((item: any) => ({
+        name: item.name,
+        code: item.channel_id.toString()
+      }))
+    });
   });
 
   return orderBy(result, "name", "asc");

@@ -77,13 +77,15 @@ export function basicSunburstChart(req: any, res: any) {
       // loop through sectorMapping array and fill in the size of each sector
       function loopChildren(arr: any[]) {
         for (let i = 0; i < arr.length; i++) {
+          const fItem = find(actualData, { val: arr[i].code });
           if (arr[i].hasOwnProperty("children")) {
+            arr[i].size = get(fItem, "disbursed.value", 0);
+            arr[i].committed = get(fItem, "committed.value", 0);
             loopChildren(arr[i].children);
           } else {
-            const fItem = find(actualData, { val: arr[i].code });
             if (fItem) {
-              arr[i].size = fItem.disbursed.value || 0;
-              arr[i].committed = fItem.committed.value || 0;
+              arr[i].size = get(fItem, "disbursed.value", 0);
+              arr[i].committed = get(fItem, "committed.value", 0);
               arr[i].percentage = (arr[i].size / arr[i].committed) * 100;
             } else {
               arr[i].size = 0;
@@ -94,27 +96,30 @@ export function basicSunburstChart(req: any, res: any) {
       loopChildren(result.children);
 
       // calculate parent sectors size based on children
-      function calcParentSize(arr: any[]) {
+      function calcParentSize(arr: any[], recursive: boolean) {
         for (let i = 0; i < arr.length; i++) {
-          if (
-            arr[i].hasOwnProperty("children") &&
-            !arr[i].hasOwnProperty("size")
-          ) {
-            arr[i].size = sumBy(arr[i].children, "size");
-            arr[i].committed = sumBy(arr[i].children, "committed");
+          if (arr[i].hasOwnProperty("children")) {
+            arr[i].size =
+              sumBy(arr[i].children, "size") + get(arr[i], "size", 0);
+            arr[i].committed =
+              sumBy(arr[i].children, "committed") + get(arr[i], "committed", 0);
             arr[i].percentage = (arr[i].size / arr[i].committed) * 100;
-            calcParentSize(arr[i].children);
+            if (recursive) {
+              calcParentSize(arr[i].children, true);
+            }
           }
         }
       }
-      calcParentSize(result.children);
+      calcParentSize(result.children, true);
+
+      calcParentSize(result.children, false);
 
       // sort children sectors based on size
       function sortChildren(arr: any[]) {
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].hasOwnProperty("children")) {
             arr[i].children = orderBy(arr[i].children, "size", "desc");
-            loopChildren(arr[i].children);
+            sortChildren(arr[i].children);
           }
         }
       }
@@ -153,6 +158,7 @@ export function basicSunburstChart(req: any, res: any) {
       });
     })
     .catch(error => {
+      // console.log(error);
       genericError(error, res);
     });
 }

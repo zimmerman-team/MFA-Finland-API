@@ -39,7 +39,7 @@ export function getDonorsOptions(filterString = "*:*") {
               "data.facets.items.buckets",
               []
             );
-            resolve(formatOrganisationsOptions(actualData, orgsCodelistData));
+            resolve(formatOrganisationsOptions(actualData));
           })
           .catch(error => {
             const _error = error.response ? error.response.data : error;

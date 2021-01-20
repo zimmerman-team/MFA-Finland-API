@@ -1,7 +1,6 @@
 import axios from "axios";
 import get from "lodash/get";
 import find from "lodash/find";
-import uniq from "lodash/uniq";
 import sumBy from "lodash/sumBy";
 import querystring from "querystring";
 import { countries } from "../../static/countries";
@@ -9,7 +8,7 @@ import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
 
-export function activitiesGeoChart(req: any, res: any) {
+export function geoChart(req: any, res: any) {
   const values = {
     q: `${getFormattedFilters(
       get(req.body, "filters", {})
