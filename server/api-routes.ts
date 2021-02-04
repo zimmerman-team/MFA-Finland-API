@@ -12,9 +12,9 @@ const FilterOptionsController = require("./controllers/filter-api");
 // viz
 const BarController = require("./controllers/viz-api/BarController");
 const GeoController = require("./controllers/viz-api/GeoController");
-// const LineController = require("./controllers/viz-api/LineController");
 const TreemapController = require("./controllers/viz-api/TreemapController");
 const SunburstController = require("./controllers/viz-api/SunburstController");
+const ThematicAreaController = require("./controllers/viz-api/ThematicAreaController");
 
 // table
 // const DonorsTableController = require("./controllers/table-api/DonorsController");
@@ -65,7 +65,7 @@ router.route("/geo").post(GeoController.geoChart);
 // Sectors sunburst/donut
 router.route("/sunburst").post(SunburstController.basicSunburstChart);
 
-// router.route("/line").post(LineController.basicLineChart);
+router.route("/oda").post(BarController.ODAbarChart);
 
 // Activities treemap
 router
@@ -84,6 +84,9 @@ router
 
 // Budget line bar chart
 router.route("/budget-line-bar-chart").post(BarController.budgetLineBarChart);
+
+// Thematic Areas circular viz
+router.route("/thematic-areas").post(ThematicAreaController.thematicAreasChart);
 
 /* TABLE */
 
