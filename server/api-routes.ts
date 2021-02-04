@@ -11,6 +11,7 @@ const FilterOptionsController = require("./controllers/filter-api");
 
 // viz
 const BarController = require("./controllers/viz-api/BarController");
+const SDGController = require("./controllers/viz-api/SDGController");
 const GeoController = require("./controllers/viz-api/GeoController");
 const TreemapController = require("./controllers/viz-api/TreemapController");
 const SunburstController = require("./controllers/viz-api/SunburstController");
@@ -37,7 +38,8 @@ router.get("/redirectToHome", (req: any, res: any) => {
   res.redirect(`${process.env.PROJECT_URL}/`);
 });
 
-// SEARCH
+/* FILTER OPTIONS */
+
 router
   .route("/search/activities")
   .post(ActivitiesSearchController.searchActivities);
@@ -50,12 +52,10 @@ router
 router.route("/search/donors").post(DonorsSearchController.searchDonors);
 
 /* FILTER OPTIONS */
+
 router
   .route("/filter-group-options")
   .post(FilterOptionsController.getFilterGroupOptions);
-// router
-//   .route("/dynamic-filter-options")
-//   .post(FilterOptionsController.dynamicFilterOptions);
 
 /* VIZ */
 
@@ -87,6 +87,9 @@ router.route("/budget-line-bar-chart").post(BarController.budgetLineBarChart);
 
 // Thematic Areas circular viz
 router.route("/thematic-areas").post(ThematicAreaController.thematicAreasChart);
+
+// SDGs viz
+router.route("/sdgs").post(SDGController.SDGViz);
 
 /* TABLE */
 

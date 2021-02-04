@@ -45,51 +45,19 @@ export function formatRegionOptions(rawData: any) {
 }
 
 export function formatSectorOptions(rawData: any) {
-  const result: SectorOptionsModel = {
-    dac3: [],
-    dac5: []
-  };
-
-  rawData.forEach((item: any) => {
-    if (item.code.length === 3) {
-      result.dac3.push(item);
-    } else if (item.code.length === 5) {
-      result.dac5.push(item);
-    }
-    // item.children.forEach((child: any) => {
-    //   result.dac3.push({
-    //     name: child.title,
-    //     code: child.code
-    //   });
-    //   if (child.children) {
-    //     child.children.forEach((gchild: any) => {
-    //       result.dac5.push({
-    //         name: gchild.title,
-    //         code: gchild.code
-    //       });
-    //     });
-    //   }
-    // });
-  });
-
-  result.dac3 = orderBy(result.dac3, "name", "asc");
-  result.dac5 = orderBy(result.dac5, "name", "asc");
-
-  return result;
+  return rawData.map((item: any) => ({
+    name: item.title,
+    code: item.code,
+    children: get(item, "children", []).map((child: any) => ({
+      name: child.title,
+      code: child.code,
+      children: get(child, "children", []).map((gchild: any) => ({
+        name: gchild.title,
+        code: gchild.code
+      }))
+    }))
+  }));
 }
-
-// export function formatDonorOptions(rawData: any) {
-//   const result: OptionModel[] = [];
-
-//   rawData.forEach((item: any) => {
-//     result.push({
-//       name: get(item, "sub.buckets[0].val", item.val.toUpperCase()),
-//       code: item.val.toUpperCase(),
-//     });
-//   });
-
-//   return orderBy(result, "name", "asc");
-// }
 
 export function formatOrganisationsOptions(rawData: any) {
   const result: any[] = [];
