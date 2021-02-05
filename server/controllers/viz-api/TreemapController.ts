@@ -4,150 +4,22 @@ import find from "lodash/find";
 import uniq from "lodash/uniq";
 import sumBy from "lodash/sumBy";
 import filter from "lodash/filter";
-import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
-import { getFormattedFilters } from "../../utils/filters";
 import { countries as COUNTRIES } from "../../static/countries";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
 import { calculateRegions, getColorsBasedOnValues } from "../../utils/treemap";
-
-export function basicTreemapChart(req: any, res: any) {
-  const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
-    {
-      q: getFormattedFilters(get(req.body, "filters", {})),
-      "json.facet": JSON.stringify({
-        items: {
-          type: "terms",
-          field: "reporting_org_type_name",
-          limit: -1,
-          facet: {
-            orgs: {
-              type: "terms",
-              field: "reporting_org_narrative",
-              limit: -1
-            },
-            refs: {
-              type: "terms",
-              field: "reporting_org_ref",
-              limit: -1
-            }
-          }
-        }
-      }),
-      rows: 0
-    },
-    "&",
-    "=",
-    {
-      encodeURIComponent: (str: string) => str
-    }
-  )}`;
-
-  axios
-    .get(url)
-    .then(call1Response => {
-      const actualData = get(call1Response, "data.facets.items.buckets", []);
-
-      let result = getColorsBasedOnValues(
-        actualData.map((item: any) => {
-          const organisationBucket = get(item, "orgs.buckets", []);
-          const refBucket = get(item, "refs.buckets", []);
-
-          function getOrgs() {
-            const orgs: any = [];
-
-            Object.values(organisationBucket).forEach((org, index) => {
-              orgs.push({
-                title: organisationBucket[index].val,
-                size: organisationBucket[index].count,
-                ref: get(refBucket[index], "val", null)
-              });
-            });
-
-            return orgs;
-          }
-
-          const orgList = getOrgs();
-
-          return {
-            name: item.val,
-            orgs: orderBy(orgList, "size", "desc"),
-            value: item.count
-          };
-        })
-      );
-
-      res.json({
-        count: get(call1Response, "data.facets.count"),
-        vizData: result
-      });
-    })
-    .catch(error => {
-      genericError(error, res);
-    });
-}
-
-export function donorsTreemapChart(req: any, res: any) {
-  const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
-    {
-      q: getFormattedFilters(get(req.body, "filters", {})),
-      "json.facet": JSON.stringify({
-        items: {
-          type: "terms",
-          field: "transaction_receiver_org_ref",
-          limit: -1,
-          facet: {
-            sub: {
-              type: "terms",
-              field: "transaction_receiver_org_narrative",
-              limit: 1
-            },
-            sum: "sum(transaction_value)"
-          }
-        }
-      }),
-      rows: 0
-    },
-    "&",
-    "=",
-    {
-      encodeURIComponent: (str: string) => str
-    }
-  )}`;
-
-  axios
-    .get(url)
-    .then(call1Response => {
-      const actualData = get(call1Response, "data.facets.items.buckets", []);
-      let result = getColorsBasedOnValues(
-        actualData.map((item: any) => {
-          return {
-            name: `${get(
-              item,
-              "sub.buckets[0].val",
-              ""
-            )} | ${item.val.toUpperCase()}`,
-            value: item.sum,
-            ref: item.val.toUpperCase(),
-            orgs: []
-          };
-        })
-      );
-      res.json({
-        count: get(call1Response, "data.facets.count"),
-        vizData: result
-      });
-    })
-    .catch(error => {
-      genericError(error, res);
-    });
-}
+import {
+  getFormattedFilters,
+  normalizeActivity2TransactionFilters
+} from "../../utils/filters";
 
 export function projectsTreemapChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
-      q: getFormattedFilters(get(req.body, "filters", {})),
+      q: normalizeActivity2TransactionFilters(
+        getFormattedFilters(get(req.body, "filters", {}))
+      ),
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
@@ -202,7 +74,9 @@ export function projectsTreemapChart(req: any, res: any) {
 export function locationsTreemapChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
-      q: getFormattedFilters(get(req.body, "filters", {})),
+      q: normalizeActivity2TransactionFilters(
+        getFormattedFilters(get(req.body, "filters", {}))
+      ),
       "json.facet": JSON.stringify({
         countries: {
           type: "terms",
@@ -290,7 +164,11 @@ export function locationsTreemapChart(req: any, res: any) {
       let result = calculateRegions([...countries, ...regions]);
       res.json({
         count: get(call1Response, "data.facets.count"),
-        vizData: result
+        vizData: {
+          name: "",
+          color: "",
+          children: result
+        }
       });
     })
     .catch(error => {
@@ -373,12 +251,16 @@ export function organisationsTreemapChart(req: any, res: any) {
           committed: sumBy(data, "committed"),
           percentage:
             (sumBy(data, "disbursed") / sumBy(data, "committed")) * 100,
-          orgs: getColorsBasedOnValues(orgs)
+          orgs
         };
       });
       res.json({
         count: orgTypesData.length,
-        vizData: getColorsBasedOnValues(orgTypesData)
+        vizData: {
+          name: "",
+          color: "",
+          children: getColorsBasedOnValues(orgTypesData)
+        }
       });
     })
     .catch(error => {

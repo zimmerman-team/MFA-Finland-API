@@ -103,3 +103,9 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
 
   return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${query})`;
 }
+
+export function normalizeActivity2TransactionFilters(filterstring: string) {
+  return filterstring
+    .replace(/recipient_country_code/g, "activity_recipient_country_code")
+    .replace(/recipient_region_code/g, "activity_recipient_region_code");
+}

@@ -7,7 +7,10 @@ import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
-import { getFormattedFilters } from "../../utils/filters";
+import {
+  getFormattedFilters,
+  normalizeActivity2TransactionFilters
+} from "../../utils/filters";
 import { sectorMapping } from "../../static/sectorMapping";
 
 // exclude sectors that don't have data
@@ -37,7 +40,9 @@ function getSectorsWithData(sectorData: any) {
 export function basicSunburstChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
-      q: getFormattedFilters(get(req.body, "filters", {})),
+      q: normalizeActivity2TransactionFilters(
+        getFormattedFilters(get(req.body, "filters", {}))
+      ),
       "json.facet": JSON.stringify({
         items: {
           type: "terms",

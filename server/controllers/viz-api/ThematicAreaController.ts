@@ -181,7 +181,9 @@ export function thematicAreasChart(req: any, res: any) {
           "Secondary priority"
         ]
       }));
-      res.json(result);
+      res.json({
+        vizData: result
+      });
     })
     .catch(error => {
       genericError(error, res);

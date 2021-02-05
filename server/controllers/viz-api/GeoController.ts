@@ -46,7 +46,7 @@ export function geoChart(req: any, res: any) {
       });
 
       res.json({
-        data: result,
+        vizData: result,
         label: "activities",
         count: sumBy(result, "value")
       });

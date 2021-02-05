@@ -66,7 +66,9 @@ export function SDGViz(req: any, res: any) {
         };
       });
 
-      res.json(goals);
+      res.json({
+        vizData: goals
+      });
     })
     .catch(error => {
       genericError(error, res);

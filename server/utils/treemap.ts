@@ -71,14 +71,16 @@ export function calculateRegions(data: any) {
     );
     const value = sumBy(regionCountries, "value");
     const committed = sumBy(regionCountries, "committed");
-    result.push({
-      name: region,
-      value,
-      committed,
-      percentage: (value / committed) * 100,
-      ref: region,
-      orgs: getColorsBasedOnValues(regionCountries)
-    });
+    if (value > 0) {
+      result.push({
+        name: region,
+        value,
+        committed,
+        percentage: (value / committed) * 100,
+        ref: region,
+        orgs: getColorsBasedOnValues(regionCountries)
+      });
+    }
   });
 
   return getColorsBasedOnValues(result);
