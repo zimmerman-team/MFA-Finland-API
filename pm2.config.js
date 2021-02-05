@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "mfa-api",
       script: "ts-node",
-      args: "--project nodetsconfig.json ./server/server.ts",
+      args: "--project nodetsconfig.json ./server/index.ts",
 
       instances: 1,
       max_memory_restart: "1G",
