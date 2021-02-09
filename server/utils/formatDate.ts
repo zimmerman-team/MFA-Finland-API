@@ -13,9 +13,15 @@ const shortMonthNames = [
   "Dec"
 ];
 
-export function formatDate(strDate: string | null | undefined) {
+export function formatDate(
+  strDate: string | null | undefined,
+  returnType?: string
+) {
   if (strDate) {
     const tempDate = new Date(strDate);
+    if (returnType === "year") {
+      return tempDate.getFullYear();
+    }
     return `${tempDate.getDate()} ${
       shortMonthNames[tempDate.getMonth()]
     } ${tempDate.getFullYear()}`;

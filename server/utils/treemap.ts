@@ -41,7 +41,7 @@ export function getColorsBasedOnValues(data: any) {
     return {
       ...d,
       color,
-      orgs: d.orgs.map((child: any) => {
+      orgs: orderBy(d.orgs, "value", "desc").map((child: any) => {
         let childColor = "";
         if (inRange(child.value, childrenHiGroup[0], childrenHiGroup[1])) {
           childColor = TreemapVizColors[1];

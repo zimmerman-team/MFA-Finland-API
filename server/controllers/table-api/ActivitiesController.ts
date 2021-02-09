@@ -153,3 +153,75 @@ export function activitiesTable(req: any, res: any) {
       genericError(error, res);
     });
 }
+
+export function simpleActivitiesTable(req: any, res: any) {
+  const rows = get(req.body, "rows", 10);
+  const start = get(req.body, "page", 0) * rows;
+  const sort: string = get(
+    sortKeys,
+    `[${get(req.body, "sort", "Start date desc")}]`,
+    ""
+  );
+  const filters: any = get(req.body, "filters", {});
+  const search: string = get(req.body, "search", "");
+
+  const values = {
+    q: getQuery(filters, search, activitySearchFields),
+    fl: `iati_identifier,title_narrative_text,transaction_type,transaction_value,activity_date_start_planned,activity_date_start_actual`,
+    start,
+    rows,
+    sort
+  };
+
+  axios
+    .get(
+      `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
+        values,
+        "&",
+        "=",
+        {
+          encodeURIComponent: (str: string) => str
+        }
+      )}`
+    )
+    .then(response => {
+      const count = get(response, "data.response.numFound", 0);
+      const actualData = get(response, "data.response.docs", []);
+
+      const result = actualData.map((activity: any) => {
+        const startDate =
+          activity.activity_date_start_planned ||
+          activity.activity_date_start_actual ||
+          "";
+        const code = get(activity, "iati_identifier", "");
+        const title = get(activity, "title_narrative_text[0]", "-");
+        let disbursed = 0;
+        let committed = 0;
+        if (activity.transaction_type && activity.transaction_value) {
+          activity.transaction_type.forEach((type: string, index: number) => {
+            if (type === "3") {
+              disbursed += get(activity, `transaction_value[${index}]`, 0);
+            } else if (type === "2") {
+              committed += get(activity, `transaction_value[${index}]`, 0);
+            }
+          });
+        }
+        return {
+          title: {
+            code,
+            value: title
+          },
+          disbursed,
+          committed,
+          year: formatDate(startDate, "year")
+        };
+      });
+      res.json({
+        count,
+        data: result
+      });
+    })
+    .catch(error => {
+      genericError(error, res);
+    });
+}

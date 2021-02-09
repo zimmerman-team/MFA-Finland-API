@@ -96,6 +96,10 @@ router.route("/sdgs").post(SDGController.SDGViz);
 // Activities table
 router.route("/activities").post(ActivitiesTableController.activitiesTable);
 
+router
+  .route("/activities-simple-table")
+  .post(ActivitiesTableController.simpleActivitiesTable);
+
 // router.route("/donors").post(DonorsTableController.donorsTable);
 // router.route("/sectors").post(SectorsTableController.sectorsTable);
 // router.route("/countries").post(CountriesTableController.countriesTable);
