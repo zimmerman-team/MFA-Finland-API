@@ -28,7 +28,7 @@ const ActivitiesTableController = require("./controllers/table-api/ActivitiesCon
 // const CountryDetailController = require("./controllers/detail-api/country");
 // const DonorDetailController = require("./controllers/detail-api/donor");
 // const OrganisationDetailController = require("./controllers/detail-api/organisation");
-// const ActivityDetailController = require("./controllers/detail-api/activity");
+const ActivityDetailController = require("./controllers/detail-api/activity");
 
 router.get("/", (req: any, res: any) => {
   res.json({ status: 200, message: "api working" });
@@ -113,7 +113,7 @@ router
 // router
 //   .route("/organisation-detail")
 //   .post(OrganisationDetailController.organisationDetail);
-// router.route("/activity-detail").post(ActivityDetailController.activityDetail);
+router.route("/activity-detail").post(ActivityDetailController.activityDetail);
 
 module.exports = router;
 
