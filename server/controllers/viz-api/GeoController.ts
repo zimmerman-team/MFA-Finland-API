@@ -23,9 +23,26 @@ export function geoChart(req: any, res: any) {
     }),
     rows: 0
   };
+  const unallocableValues = {
+    q: `${getFormattedFilters(get(req.body, "filters", {}))}`,
+    "json.facet": JSON.stringify({
+      unallocable: {
+        type: "query",
+        query:
+          "transaction_type:3 AND (activity_recipient_country_code:998 OR transaction_recipient_country_code:998 OR activity_recipient_region_code:998 OR transaction_recipient_region_code:998)",
+        facet: { sum: "sum(transaction_value)" }
+      },
+      total: {
+        type: "query",
+        query: "transaction_type:3",
+        facet: { sum: "sum(transaction_value)" }
+      }
+    }),
+    rows: 0
+  };
 
-  axios
-    .get(
+  const calls = [
+    axios.get(
       `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
         values,
         "&",
@@ -34,23 +51,64 @@ export function geoChart(req: any, res: any) {
           encodeURIComponent: (str: string) => str
         }
       )}`
+    ),
+    axios.get(
+      `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
+        unallocableValues,
+        "&",
+        "=",
+        {
+          encodeURIComponent: (str: string) => str
+        }
+      )}`
     )
-    .then(call1Response => {
-      const actualData = get(call1Response, "data.facets.items.buckets", []);
-      const result = actualData.map((item: any) => {
-        return {
-          id: getCountryISO3(item.val),
-          value: item.sum,
-          name: get(find(countries, { code: item.val }), "name", item.val)
-        };
-      });
+  ];
 
-      res.json({
-        vizData: result,
-        label: "activities",
-        count: sumBy(result, "value")
-      });
-    })
+  console.log(
+    `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
+      unallocableValues,
+      "&",
+      "=",
+      {
+        encodeURIComponent: (str: string) => str
+      }
+    )}`
+  );
+
+  axios.get(
+    `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
+      values,
+      "&",
+      "=",
+      {
+        encodeURIComponent: (str: string) => str
+      }
+    )}`
+  );
+  axios
+    .all(calls)
+    .then(
+      axios.spread((...responses) => {
+        const actualData = get(responses[0], "data.facets.items.buckets", []);
+        const unallocable = get(responses[1], "data.facets.unallocable.sum", 0);
+        const total = get(responses[1], "data.facets.total.sum", 0);
+
+        const result = actualData.map((item: any) => {
+          return {
+            id: getCountryISO3(item.val),
+            value: item.sum,
+            name: get(find(countries, { code: item.val }), "name", item.val)
+          };
+        });
+
+        res.json({
+          vizData: result,
+          label: "activities",
+          count: sumBy(result, "value"),
+          unallocablePercentage: ((unallocable * 100) / total).toFixed(2)
+        });
+      })
+    )
     .catch(error => {
       genericError(error, res);
     });
