@@ -1,5 +1,8 @@
 import get from "lodash/get";
 import find from "lodash/find";
+import sumBy from "lodash/sumBy";
+import filter from "lodash/filter";
+import groupBy from "lodash/groupBy";
 import { countries as countriesCodelist } from "../../../static/countries";
 import {
   activityStatusCodelist,
@@ -7,16 +10,24 @@ import {
   collaborationTypeCodelist,
   defaultFlowTypeCodelist,
   defaultFinanceTypeCodelist,
-  defaultTiedStatusCodelist,
-  transactionTypesCodelist
+  defaultTiedStatusCodelist
 } from "../../../static/codelists";
 
 export function getDates(data: any) {
   const parsedData = data.map((item: any) => JSON.parse(item));
-  const start = find(parsedData, (item: any) => item.type.code === "2");
-  const end = find(parsedData, (item: any) => item.type.code === "4");
+  const start = find(
+    parsedData,
+    (item: any) => item.type.code === "2" || item.type.code === "1"
+  );
+  const end = find(
+    parsedData,
+    (item: any) => item.type.code === "4" || item.type.code === "3"
+  );
 
-  const dates = [start ? start.iso_date : "", end ? end.iso_date : ""];
+  const dates = [
+    start ? new Date(start.iso_date).toLocaleDateString("fi-FI") : "",
+    end ? new Date(end.iso_date).toLocaleDateString("fi-FI") : ""
+  ];
 
   return dates;
 }
@@ -77,7 +88,6 @@ export function getSummary(data: any) {
     "name",
     "no data"
   );
-  const capital_spend = get(data, "capital_spend_perentage", "no data");
   const dates = data.activity_date.map((item: any) => JSON.parse(item));
   const planned_start = get(
     find(dates, (item: any) => item.type.code === "1"),
@@ -106,7 +116,6 @@ export function getSummary(data: any) {
     default_flow_type,
     default_finance_type,
     default_tied_status,
-    capital_spend,
     planned_start,
     actual_start,
     planned_end,
@@ -435,23 +444,28 @@ export function getConditions(types: any, texts: any) {
 }
 
 export function getTransactions(data: any) {
-  return data.map((item: any) => [
-    item.transaction_date_iso_date,
-    item.transaction_provider_org_narrative,
-    get(item, "transaction_receiver_org_narrative[0]", ""),
-    get(
-      find(transactionTypesCodelist, { code: item.transaction_type }),
-      "name",
-      ""
-    ),
-    item.transaction_value
-      ? item.transaction_value_currency
-        ? item.transaction_value.toLocaleString("en-US", {
-            style: "currency",
-            currency: item.transaction_value_currency
-          })
-        : item.transaction_value.toLocaleString("en-US")
-      : "no data",
-    item.iati_identifier
-  ]);
+  const transactions = data.map((item: any) => ({
+    date: item.transaction_date_iso_date.slice(0, 4),
+    type: item.transaction_type,
+    value: item.transaction_value
+  }));
+
+  const groupedYears = groupBy(transactions, "date");
+
+  const result: any[] = [];
+
+  Object.keys(groupedYears).forEach((year: string) => {
+    const disbursed = sumBy(filter(groupedYears[year], { type: "3" }), "value");
+    const commitment = sumBy(
+      filter(groupedYears[year], { type: "2" }),
+      "value"
+    );
+    result.push({
+      year,
+      disbursed,
+      commitment
+    });
+  });
+
+  return result;
 }

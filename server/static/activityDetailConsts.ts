@@ -1,7 +1,7 @@
 export const activityMetadataFl = `default_currency,activity_status_code,collaboration_type_code,
 capital_spend_percentage,default_flow_type_code,hierarchy,
 iati_identifier,default_finance_type_code,default_tied_status_code,
-default_lang,reporting_org:[json],title_narrative_text,description_narrative_text,
+default_lang,reporting_org:[json],title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,
 participating_org:[json],activity_date:[json],contact_info:[json],
 recipient_country:[json],sector:[json],
 policy_marker:[json],default_aid_type:[json],recipient_region:[json],
@@ -13,4 +13,4 @@ country_budget_items_vocabulary,country_budget_items_budget_item_code,country_bu
 legacy_data_name,legacy_data_value,legacy_data_iati_equivalent,conditions_condition_type,conditions_condition_narrative_text,activity_scope_code,transaction_recipient_country_code,transaction_sector_code`;
 
 export const activityTransactionsFl =
-  "iati_identifier,transaction_date_iso_date,transaction_provider_org_narrative,transaction_receiver_org_narrative,transaction_value,transaction_value_currency,transaction_type,transaction_provider_org_provider_activity_id,transaction_receiver_org_receiver_activity_id";
+  "iati_identifier,transaction_date_iso_date,transaction_value,transaction_value_currency,transaction_type";
