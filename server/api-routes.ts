@@ -29,6 +29,7 @@ const ActivitiesTableController = require("./controllers/table-api/ActivitiesCon
 // const DonorDetailController = require("./controllers/detail-api/donor");
 // const OrganisationDetailController = require("./controllers/detail-api/organisation");
 const ActivityDetailController = require("./controllers/detail-api/activity");
+const DetailCommonController = require("./controllers/detail-api/common");
 
 router.get("/", (req: any, res: any) => {
   res.json({ status: 200, message: "api working" });
@@ -56,6 +57,8 @@ router.route("/search/donors").post(DonorsSearchController.searchDonors);
 router
   .route("/filter-group-options")
   .post(FilterOptionsController.getFilterGroupOptions);
+
+router.route("/detail-page-name").post(DetailCommonController.detailPageName);
 
 /* VIZ */
 

@@ -5,13 +5,16 @@ import sumBy from "lodash/sumBy";
 import querystring from "querystring";
 import { countries } from "../../static/countries";
 import { genericError } from "../../utils/general";
-import { getFormattedFilters } from "../../utils/filters";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
+import {
+  getFormattedFilters,
+  normalizeActivity2TransactionFilters
+} from "../../utils/filters";
 
 export function geoChart(req: any, res: any) {
   const values = {
-    q: `${getFormattedFilters(
-      get(req.body, "filters", {})
+    q: `${normalizeActivity2TransactionFilters(
+      getFormattedFilters(get(req.body, "filters", {}), true)
     )} AND transaction_type:3`,
     "json.facet": JSON.stringify({
       items: {
@@ -24,7 +27,9 @@ export function geoChart(req: any, res: any) {
     rows: 0
   };
   const unallocableValues = {
-    q: `${getFormattedFilters(get(req.body, "filters", {}))}`,
+    q: `${normalizeActivity2TransactionFilters(
+      getFormattedFilters(get(req.body, "filters", {}), true)
+    )}`,
     "json.facet": JSON.stringify({
       unallocable: {
         type: "query",
@@ -63,17 +68,6 @@ export function geoChart(req: any, res: any) {
       )}`
     )
   ];
-
-  console.log(
-    `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
-      unallocableValues,
-      "&",
-      "=",
-      {
-        encodeURIComponent: (str: string) => str
-      }
-    )}`
-  );
 
   axios.get(
     `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(

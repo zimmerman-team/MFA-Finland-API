@@ -7,7 +7,10 @@ export function getFormattedSearchParam(q: string) {
   return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${qstring})`;
 }
 
-export function getFormattedFilters(filters: any): string {
+export function getFormattedFilters(
+  filters: any,
+  isTransaction?: boolean
+): string {
   if (typeof filters === "string") {
     return getFormattedSearchParam(filters);
   }
@@ -33,6 +36,14 @@ export function getFormattedFilters(filters: any): string {
       } TO ${filters[filterKey][0].endDate}]${
         index === filterKeys.length - 1 ? "" : " AND "
       }\`;`;
+    } else if (filterKey === "tag_code") {
+      result += `${filterKey}:(${filters[filterKey]
+        .map((value: string) => `"${value}"`)
+        .join(" ")})`;
+    } else if (filterKey === "participating_org_type" && isTransaction) {
+      result += `participating_org_ref:(${filters[filterKey]
+        .map((value: string) => `${value}*`)
+        .join(" ")})`;
     } else if (filterKey !== "year_period") {
       result += `${filterKey}:(${filters[filterKey].join(" ")})${
         index === filterKeys.length - 1 ? "" : " AND "
@@ -107,5 +118,6 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
 export function normalizeActivity2TransactionFilters(filterstring: string) {
   return filterstring
     .replace(/recipient_country_code/g, "activity_recipient_country_code")
-    .replace(/recipient_region_code/g, "activity_recipient_region_code");
+    .replace(/recipient_region_code/g, "activity_recipient_region_code")
+    .replace(/sector_code/g, "activity_sector_code");
 }

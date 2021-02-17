@@ -63,7 +63,7 @@ export function thematicAreasChart(req: any, res: any) {
       const result: any = orderBy(
         [
           {
-            // name: "Priority area 1, primary",
+            ref: "Priority area 1, primary",
             name: "Thematic area A (Main priority)",
             color: "#AE4764",
             area: "Strengthening of the rights and status of women and girls",
@@ -89,7 +89,7 @@ export function thematicAreasChart(req: any, res: any) {
             }
           },
           {
-            // name: "Priority area 2, primary",
+            ref: "Priority area 2, primary",
             name: "Thematic area B (Main priority)",
             color: "#DA8E68",
             area:
@@ -117,7 +117,7 @@ export function thematicAreasChart(req: any, res: any) {
             }
           },
           {
-            // name: "Priority area 3, primary",
+            ref: "Priority area 3, primary",
             name: "Thematic area C (Main priority)",
             color: "#819DAB",
             area: "Improving democracy in societies",
@@ -143,7 +143,7 @@ export function thematicAreasChart(req: any, res: any) {
             }
           },
           {
-            // name: "Priority area 4, primary",
+            ref: "Priority area 4, primary",
             name: "Thematic area D (Main priority)",
             color: "#425346",
             area: "Improving food security, access to water and sustainability",

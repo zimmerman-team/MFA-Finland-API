@@ -41,7 +41,7 @@ export function basicSunburstChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
       q: normalizeActivity2TransactionFilters(
-        getFormattedFilters(get(req.body, "filters", {}))
+        getFormattedFilters(get(req.body, "filters", {}), true)
       ),
       "json.facet": JSON.stringify({
         items: {

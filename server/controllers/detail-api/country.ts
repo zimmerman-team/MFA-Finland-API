@@ -2,9 +2,9 @@ import axios from "axios";
 import get from "lodash/get";
 import find from "lodash/find";
 import querystring from "querystring";
+import { countries } from "../../static/countries";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
-import { countries } from "../../static/countries";
 
 export function countryDetail(req: any, res: any) {
   const activitiesValues = {
