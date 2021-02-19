@@ -26,16 +26,16 @@ export function getFormattedFilters(
       result += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
         index === filterKeys.length - 1 ? "" : " AND "
       }`;
-    } else if (filterKey === "period") {
-      result += `activity_date_start_actual_f: [${
-        filters[filterKey][0].startDate
-      } TO ${
-        filters[filterKey][0].endDate
-      }] OR activity_date_start_planned_f: [${
-        filters[filterKey][0].startDate
-      } TO ${filters[filterKey][0].endDate}]${
+    } else if (filterKey === "years") {
+      result += `activity_date_start_actual_f:[${
+        filters[filterKey][0]
+      }-01-01T00:00:00Z TO ${
+        filters[filterKey][1]
+      }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
+        filters[filterKey][0]
+      }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
         index === filterKeys.length - 1 ? "" : " AND "
-      }\`;`;
+      }`;
     } else if (filterKey === "tag_code") {
       result += `${filterKey}:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
