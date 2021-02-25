@@ -69,16 +69,6 @@ export function geoChart(req: any, res: any) {
     )
   ];
 
-  axios.get(
-    `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
-      values,
-      "&",
-      "=",
-      {
-        encodeURIComponent: (str: string) => str
-      }
-    )}`
-  );
   axios
     .all(calls)
     .then(

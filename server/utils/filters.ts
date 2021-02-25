@@ -40,6 +40,14 @@ export function getFormattedFilters(
       result += `${filterKey}:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
         .join(" ")})`;
+    } else if (filterKey === "budget_line") {
+      result += `tag_code:(${filters[filterKey]
+        .map((value: string) => `"${value}"`)
+        .join(" ")})`;
+    } else if (filterKey === "human_rights_approach") {
+      result += `tag_narrative:(${filters[filterKey]
+        .map((value: string) => `"${value}"`)
+        .join(" ")})`;
     } else if (filterKey === "participating_org_type" && isTransaction) {
       result += `participating_org_ref:(${filters[filterKey]
         .map((value: string) => `${value}*`)
@@ -119,5 +127,6 @@ export function normalizeActivity2TransactionFilters(filterstring: string) {
   return filterstring
     .replace(/recipient_country_code/g, "activity_recipient_country_code")
     .replace(/recipient_region_code/g, "activity_recipient_region_code")
-    .replace(/sector_code/g, "activity_sector_code");
+    .replace(/sector_code/g, "activity_sector_code")
+    .replace(/tag_narrative/g, "tag_code");
 }
