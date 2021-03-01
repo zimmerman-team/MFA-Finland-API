@@ -1,12 +1,16 @@
 import axios from "axios";
 import get from "lodash/get";
 import find from "lodash/find";
+import findIndex from "lodash/findIndex";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
+import { dac3sectors } from "../../static/dac3sectors";
+import { dac5sectors } from "../../static/dac5sectors";
+import { formatLocale } from "../../utils/formatLocale";
 import { getFormattedFilters } from "../../utils/filters";
-import { findIndex } from "lodash";
-import { thematicAreaNames } from "../../static/thematicAreaConsts";
+import { getCountryISO3 } from "../../utils/countryISOMapping";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
+import { thematicAreaNames } from "../../static/thematicAreaConsts";
 
 export function detailPageName(req: any, res: any) {
   const values = {
@@ -29,28 +33,92 @@ export function detailPageName(req: any, res: any) {
     .then(response => {
       const data = get(response.data, "response.docs[0]", null);
       let result = "";
-      if (req.body.filters && data) {
-        if (req.body.filters.participating_org_ref) {
+      if (req.body.detail_type && data) {
+        if (req.body.detail_type === "recipient_country_code") {
+          const iso3 = getCountryISO3(
+            req.body.filters.recipient_country_code[0]
+          );
+          if (iso3) {
+            axios
+              .get(
+                `${process.env.HDRO_API}/country_code=${iso3}/indicator_id=69206,69706,103006,195706,146206/structure=ciy`
+              )
+              .then((hdroresp: any) => {
+                const indicatorsData = hdroresp.data.indicator_value[iso3];
+                const indicators = Object.keys(indicatorsData).map(
+                  (indicator: string) => {
+                    let value = 0;
+                    const length = Object.keys(indicatorsData[indicator])
+                      .length;
+                    Object.keys(indicatorsData[indicator]).forEach(
+                      (year: string, index: number) => {
+                        if (index === length - 1) {
+                          value = indicatorsData[indicator][year];
+                        }
+                      }
+                    );
+                    switch (indicator) {
+                      case "69206":
+                        return `Life expectancy at birth: ${value}`;
+                      case "69706":
+                        return `Expected years of schooling: ${value}`;
+                      case "103006":
+                        return `Mean years of schooling: ${value}`;
+                      case "195706":
+                        return `Gross national income (GNI) per capita: ${formatLocale(
+                          value
+                        ).replace("€", "$")}`;
+                      case "146206":
+                        return `HDI rank: ${value}`;
+                      default:
+                        return "";
+                    }
+                  }
+                );
+                res.json({
+                  data: indicators
+                });
+              })
+              .catch((error: any) => {
+                genericError(error, res);
+              });
+          }
+        }
+        if (req.body.detail_type === "participating_org_ref") {
           const refIndex = findIndex(
             data.participating_org_ref,
             (ref: string) => ref === req.body.filters.participating_org_ref[0]
           );
           result = get(data, `participating_org_narrative[${refIndex}]`, "");
         }
-        if (req.body.filters.recipient_region_code) {
+        if (req.body.detail_type === "recipient_region_code") {
           const refIndex = findIndex(
             data.recipient_region_code,
             (ref: string) => ref === req.body.filters.recipient_region_code[0]
           );
           result = get(data, `recipient_region_name[${refIndex}]`, "");
         }
-        if (req.body.filters.sector_code) {
-          result = data.sector_code;
+        if (req.body.detail_type === "sector_code") {
+          const fsector = find([...dac3sectors, ...dac5sectors], {
+            code: data.sector_code[0]
+          });
+          if (fsector) {
+            res.json({
+              data: [
+                get(fsector, "name", data.sector_code[0]),
+                get(fsector, "description", "")
+              ]
+            });
+          } else {
+            res.json({
+              data: ["", ""]
+            });
+          }
         }
-        if (req.body.filters.tag_code) {
+        if (req.body.detail_type === "tag_code") {
           result = get(thematicAreaNames, req.body.filters.tag_code[0], "");
         }
-        if (req.body.filters.participating_org_type) {
+        if (req.body.detail_type === "participating_org_type") {
           result = get(
             find(orgTypesCodelist, {
               code: req.body.filters.participating_org_type[0]
@@ -60,9 +128,14 @@ export function detailPageName(req: any, res: any) {
           );
         }
       }
-      res.json({
-        data: [result]
-      });
+      if (
+        req.body.detail_type !== "recipient_country_code" &&
+        req.body.detail_type !== "sector_code"
+      ) {
+        res.json({
+          data: [result]
+        });
+      }
     })
     .catch(errors => {
       genericError(errors, res);
