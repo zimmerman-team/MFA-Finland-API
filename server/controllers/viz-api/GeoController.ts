@@ -89,7 +89,9 @@ export function geoChart(req: any, res: any) {
           vizData: result,
           label: "activities",
           count: sumBy(result, "value"),
-          unallocablePercentage: ((unallocable * 100) / total).toFixed(2)
+          unallocablePercentage: ((unallocable * 100) / total).toFixed(2),
+          totalDisbursement: total,
+          projectCount: get(responses[1], "data.response.numFound", 0)
         });
       })
     )
