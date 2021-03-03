@@ -45,6 +45,10 @@ export function geoChart(req: any, res: any) {
     }),
     rows: 0
   };
+  const projectCountValues = {
+    q: getFormattedFilters(get(req.body, "filters", {})),
+    rows: 0
+  };
 
   const calls = [
     axios.get(
@@ -60,6 +64,16 @@ export function geoChart(req: any, res: any) {
     axios.get(
       `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
         unallocableValues,
+        "&",
+        "=",
+        {
+          encodeURIComponent: (str: string) => str
+        }
+      )}`
+    ),
+    axios.get(
+      `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
+        projectCountValues,
         "&",
         "=",
         {
@@ -91,7 +105,7 @@ export function geoChart(req: any, res: any) {
           count: sumBy(result, "value"),
           unallocablePercentage: ((unallocable * 100) / total).toFixed(2),
           totalDisbursement: total,
-          projectCount: get(responses[1], "data.response.numFound", 0)
+          projectCount: get(responses[2], "data.response.numFound", 0)
         });
       })
     )
