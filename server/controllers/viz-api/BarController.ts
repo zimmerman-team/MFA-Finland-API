@@ -439,6 +439,7 @@ export function budgetLineBarChart(req: any, res: any) {
                 yearObj = {
                   ...yearObj,
                   [tagname]: item.value,
+                  [`${tagname}Code`]: tag,
                   [`${tagname}Color`]: get(budgetLineCodes2Color, tag, "")
                 };
               }
@@ -452,11 +453,15 @@ export function budgetLineBarChart(req: any, res: any) {
         if (result.length === 1) {
           result = filter(
             Object.keys(result[0]),
-            (key: string) => key !== "year" && key.indexOf("Color") === -1
+            (key: string) =>
+              key !== "year" &&
+              key.indexOf("Color") === -1 &&
+              key.indexOf("Code") === -1
           ).map((tag: string) => {
             return {
               line: tag,
               value: result[0][tag],
+              code: result[0][`${tag}Code`],
               valueColor: result[0][`${tag}Color`]
             };
           });

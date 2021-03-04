@@ -15,7 +15,7 @@ export function searchDonors(req: any, res: any) {
   const limit = get(req.body, "rows", 10);
   const offset = get(req.body, "page", 0) * limit;
   const values = {
-    q: `transaction_provider_org_narrative:"${req.body.q}"`,
+    q: `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND transaction_provider_org_narrative:"${req.body.q}"`,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",

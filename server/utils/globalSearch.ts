@@ -1,6 +1,8 @@
 import get from "lodash/get";
 import find from "lodash/find";
 import { countries } from "../static/countries";
+import { dac3sectors } from "../static/dac3sectors";
+import { dac5sectors } from "../static/dac5sectors";
 
 interface ResultModel {
   name: string;
@@ -10,7 +12,7 @@ interface ResultModel {
 export function getActivities(rawData: any) {
   return rawData.map((item: any) => ({
     name: get(item, "title_narrative_text[0]", ""),
-    link: `/activity/${encodeURIComponent(get(item, "iati_identifier", ""))}`
+    link: `/project/${encodeURIComponent(get(item, "iati_identifier", ""))}`
   }));
 }
 
@@ -22,7 +24,7 @@ export function getCountries(rawData: any) {
     if (fCountry) {
       result.push({
         name: fCountry.name,
-        link: `/country/${fCountry.name}/overview`
+        link: `/countries/${fCountry.code}`
       });
     }
   });
@@ -40,21 +42,24 @@ export function getOrganisations(rawData: any, codelistData: any) {
     );
     result.push({
       name: get(fOrg, "name", item.val.toUpperCase()),
-      link: `/organisation/${item.val}/overview`
+      link: `/organisations/${item.val}`
     });
   });
 
   return result;
 }
 
-export function getPublishers(rawData: any) {
+export function getSectors(rawData: any) {
   const result: ResultModel[] = [];
 
   rawData.forEach((item: any) => {
-    result.push({
-      name: get(item, "sub.buckets[0].val", item.val.toUpperCase()),
-      link: `/publisher/${item.val}/overview`
-    });
+    const fSector = find([...dac3sectors, ...dac5sectors], { code: item.val });
+    if (fSector) {
+      result.push({
+        name: fSector.name,
+        link: `/sectors/${item.val}`
+      });
+    }
   });
 
   return result;

@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 // global search
 const DonorsSearchController = require("./controllers/search-api/donors");
+const SectorsSearchController = require("./controllers/search-api/sectors");
 const CountriesSearchController = require("./controllers/search-api/countries");
 const ActivitiesSearchController = require("./controllers/search-api/activities");
 const OrganisationsSearchController = require("./controllers/search-api/organisations");
@@ -51,6 +52,7 @@ router
   .route("/search/organisations")
   .post(OrganisationsSearchController.searchOrganisations);
 router.route("/search/donors").post(DonorsSearchController.searchDonors);
+router.route("/search/sectors").post(SectorsSearchController.searchSectors);
 
 /* FILTER OPTIONS */
 

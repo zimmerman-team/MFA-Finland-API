@@ -78,6 +78,28 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
         query += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
           index === filterKeys.length - 1 ? "" : " AND "
         }`;
+      } else if (filterKey === "years") {
+        query += `activity_date_start_actual_f:[${
+          filters[filterKey][0]
+        }-01-01T00:00:00Z TO ${
+          filters[filterKey][1]
+        }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
+          filters[filterKey][0]
+        }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
+          index === filterKeys.length - 1 ? "" : " AND "
+        }`;
+      } else if (filterKey === "tag_code") {
+        query += `${filterKey}:(${filters[filterKey]
+          .map((value: string) => `"${value}"`)
+          .join(" ")})`;
+      } else if (filterKey === "budget_line") {
+        query += `tag_code:(${filters[filterKey]
+          .map((value: string) => `"${value}"`)
+          .join(" ")})`;
+      } else if (filterKey === "human_rights_approach") {
+        query += `tag_narrative:(${filters[filterKey]
+          .map((value: string) => `"${value}"`)
+          .join(" ")})`;
       } else if (filterKey === "period") {
         query += `(activity_date_start_actual_f: [${
           filters[filterKey][0].startDate
