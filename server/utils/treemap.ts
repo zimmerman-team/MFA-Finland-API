@@ -9,7 +9,7 @@ import orderBy from "lodash/orderBy";
 import inRange from "lodash/inRange";
 import { locationsMapping } from "../static/locationsMapping";
 
-export const TreemapVizColors = [
+export const TreemapVizColorsRegions = [
   "#E5F0F0",
   "#DCECEC",
   "#D0E5E5",
@@ -18,7 +18,16 @@ export const TreemapVizColors = [
   "#8DB7B5"
 ];
 
-export function getColorsBasedOnValues(data: any) {
+export const TreemapVizColorsOrganisations = [
+  "#BDCCEB",
+  "#BDCCEB",
+  "#BDCCEB",
+  "#A8BBE4",
+  "#BDCCEB",
+  "#8AA4DB"
+];
+
+export function getColorsBasedOnValues(data: any, isOrg: boolean) {
   const maxValue = get(maxBy(data, "value"), "value", 0) + 1;
   const minValue = get(minBy(data, "value"), "value", 0);
   const rangeValue = (maxValue - minValue) / 3;
@@ -27,11 +36,17 @@ export function getColorsBasedOnValues(data: any) {
   const result = orderBy(data, "value", "desc").map(d => {
     let color = "";
     if (inRange(d.value, hiGroup[0], hiGroup[1])) {
-      color = TreemapVizColors[1];
+      color = isOrg
+        ? TreemapVizColorsOrganisations[1]
+        : TreemapVizColorsRegions[1];
     } else if (inRange(d.value, midGroup[0], midGroup[1])) {
-      color = TreemapVizColors[3];
+      color = isOrg
+        ? TreemapVizColorsOrganisations[3]
+        : TreemapVizColorsRegions[3];
     } else {
-      color = TreemapVizColors[5];
+      color = isOrg
+        ? TreemapVizColorsOrganisations[5]
+        : TreemapVizColorsRegions[5];
     }
     const childrenMaxValue = get(maxBy(d.orgs, "value"), "value", 0) + 1;
     const childrenMinValue = get(minBy(d.orgs, "value"), "value", 0);
@@ -44,13 +59,19 @@ export function getColorsBasedOnValues(data: any) {
       orgs: orderBy(d.orgs, "value", "desc").map((child: any) => {
         let childColor = "";
         if (inRange(child.value, childrenHiGroup[0], childrenHiGroup[1])) {
-          childColor = TreemapVizColors[1];
+          childColor = isOrg
+            ? TreemapVizColorsOrganisations[1]
+            : TreemapVizColorsRegions[1];
         } else if (
           inRange(child.value, childrenMidGroup[0], childrenMidGroup[1])
         ) {
-          childColor = TreemapVizColors[3];
+          childColor = isOrg
+            ? TreemapVizColorsOrganisations[3]
+            : TreemapVizColorsRegions[3];
         } else {
-          childColor = TreemapVizColors[5];
+          childColor = isOrg
+            ? TreemapVizColorsOrganisations[5]
+            : TreemapVizColorsRegions[5];
         }
         return {
           ...child,
@@ -78,7 +99,7 @@ export function calculateRegions(data: any) {
         committed,
         percentage: (value / committed) * 100,
         ref: region,
-        orgs: getColorsBasedOnValues(regionCountries)
+        orgs: getColorsBasedOnValues(regionCountries, false)
       });
     }
   });

@@ -59,7 +59,8 @@ export function projectsTreemapChart(req: any, res: any) {
             ref: item.val.toUpperCase(),
             orgs: []
           };
-        })
+        }),
+        false
       );
       res.json({
         count: get(call1Response, "data.facets.count"),
@@ -259,7 +260,7 @@ export function organisationsTreemapChart(req: any, res: any) {
         vizData: {
           name: "",
           color: "",
-          children: getColorsBasedOnValues(orgTypesData)
+          children: getColorsBasedOnValues(orgTypesData, true)
         }
       });
     })
