@@ -46,7 +46,7 @@ export function searchThematicareas(req: any, res: any) {
           if (fArea) {
             data.push({
               name: fArea,
-              link: `thematic-area/${fArea}`
+              link: encodeURIComponent(`thematic-area/${tag.val}`)
             });
           }
         }
