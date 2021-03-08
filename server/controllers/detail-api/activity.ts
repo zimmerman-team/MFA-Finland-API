@@ -47,12 +47,12 @@ export function activityDetail(req: any, res: any) {
     fl: activityMetadataFl
   };
   const disbursements = {
-    q: `iati_identifier:${decodedId} AND (transaction_type:3)`,
+    q: `iati_identifier:"${decodedId}" AND (transaction_type:3)`,
     fl: activityTransactionsFl,
     rows: 1000
   };
   const commitments = {
-    q: `iati_identifier:${decodedId} AND (transaction_type:2)`,
+    q: `iati_identifier:"${decodedId}" AND (transaction_type:2)`,
     fl: activityTransactionsFl,
     rows: 1000
   };

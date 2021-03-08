@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios from "axios";
 import get from "lodash/get";
 import find from "lodash/find";
@@ -10,6 +11,8 @@ import { formatLocale } from "../../utils/formatLocale";
 import { getFormattedFilters } from "../../utils/filters";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
+import { locationsMapping } from "../../static/locationsMapping";
+import { partnerCountries } from "../../static/partnerCountries";
 import { thematicAreaNames } from "../../static/thematicAreaConsts";
 
 export function detailPageName(req: any, res: any) {
@@ -38,6 +41,23 @@ export function detailPageName(req: any, res: any) {
           const iso3 = getCountryISO3(
             req.body.filters.recipient_country_code[0]
           );
+          let isPartner = false;
+          let region = "";
+          isPartner =
+            find(
+              partnerCountries,
+              (p: string) => p === req.body.filters.recipient_country_code[0]
+            ) !== undefined;
+          Object.keys(locationsMapping).forEach((key: string) => {
+            const fRegion = find(
+              locationsMapping[key],
+              (c: string) =>
+                c === get(req.body, "filters.recipient_country_code[0]", "")
+            );
+            if (fRegion) {
+              region = key;
+            }
+          });
           if (iso3) {
             axios
               .get(
@@ -76,7 +96,11 @@ export function detailPageName(req: any, res: any) {
                   }
                 );
                 res.json({
-                  data: indicators
+                  data: {
+                    region,
+                    isPartner,
+                    indicators
+                  }
                 });
               })
               .catch((error: any) => {
