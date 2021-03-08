@@ -47,13 +47,14 @@ export function getBudget(data: any) {
 }
 
 export function getParticipatingOrgs(data: any) {
+  console.log(data);
   const parsedData = data.map((item: any) => JSON.parse(item));
   return parsedData.map((item: any) => ({
     name: get(item, "narrative[0].text", ""),
     reference: item.ref,
     type: get(item, "type.name", "no data"),
     role: get(item, "role.name", "no data"),
-    url: `/organisation/${encodeURIComponent(item.ref)}/overview`
+    url: `/organisations/${encodeURIComponent(item.ref)}`
   }));
 }
 
@@ -140,7 +141,7 @@ export function getCountries(
     name: item.country.name,
     code: item.country.code,
     percentage: item.country.percentage || "no data",
-    url: `/country/${encodeURIComponent(item.country.name)}/overview`
+    url: `/countries/${encodeURIComponent(item.country.code)}`
   }));
 }
 
@@ -221,10 +222,8 @@ export function getSectors(
   return parsedData.map((item: any) => ({
     name: item.sector.name,
     code: item.sector.code,
-    percentage: item.sector.percentage || "no data",
-    url: `/organisation/${encodeURIComponent(
-      reporting_org
-    )}/sectors?sector_code=${item.sector.code}`
+    url: `/sectors/${item.sector.code}`,
+    percentage: item.sector.percentage || "no data"
   }));
 }
 
@@ -402,7 +401,7 @@ export function getRelatedActivities(refs: any, types: any) {
       ref: get(refs, `[${index}]`, "no data"),
       type: get(types, `[${index}]`, "no data"),
       url: get(refs, `[${index}]`, null)
-        ? `/activity/${encodeURIComponent(refs[index])}`
+        ? `/projects/${encodeURIComponent(refs[index])}`
         : null
     });
   });
