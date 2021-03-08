@@ -6,6 +6,7 @@ const SectorsSearchController = require("./controllers/search-api/sectors");
 const CountriesSearchController = require("./controllers/search-api/countries");
 const ActivitiesSearchController = require("./controllers/search-api/activities");
 const OrganisationsSearchController = require("./controllers/search-api/organisations");
+const ThematicAreasSearchController = require("./controllers/search-api/thematicareas");
 
 // filter options
 const FilterOptionsController = require("./controllers/filter-api");
@@ -53,6 +54,9 @@ router
   .post(OrganisationsSearchController.searchOrganisations);
 router.route("/search/donors").post(DonorsSearchController.searchDonors);
 router.route("/search/sectors").post(SectorsSearchController.searchSectors);
+router
+  .route("/search/thematic-areas")
+  .post(ThematicAreasSearchController.searchThematicareas);
 
 /* FILTER OPTIONS */
 
