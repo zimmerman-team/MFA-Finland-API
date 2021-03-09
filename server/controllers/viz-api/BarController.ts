@@ -12,10 +12,7 @@ import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
-import {
-  budgetLineCodes2Color,
-  budgetLineCodes2Values
-} from "../../static/budgetLineConsts";
+import { budgetLineCodes2Values, colors } from "../../static/budgetLineConsts";
 
 export function budgetLineBarChart1(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
@@ -259,11 +256,7 @@ export function budgetLineBarChart2(req: any, res: any) {
                   item = {
                     ...item,
                     [linename]: tag.value,
-                    [`${linename}Color`]: get(
-                      budgetLineCodes2Color,
-                      tag.val,
-                      ""
-                    )
+                    [`${linename}Color`]: get(colors, tag.val, "")
                   };
                 }
               });
@@ -440,7 +433,7 @@ export function budgetLineBarChart(req: any, res: any) {
                   ...yearObj,
                   [tagname]: item.value,
                   [`${tagname}Code`]: tag,
-                  [`${tagname}Color`]: get(budgetLineCodes2Color, tag, "")
+                  [`${tagname}Color`]: get(colors, tag, "")
                 };
               }
             }
