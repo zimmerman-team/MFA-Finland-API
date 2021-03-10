@@ -1,9 +1,11 @@
+// @ts-nocheck
 import get from "lodash/get";
 import find from "lodash/find";
 import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
 import { countries } from "../../../static/countries";
 import { orgDacChannel } from "../../../static/orgDacChannel";
+import { locationsMapping } from "../../../static/locationsMapping";
 
 interface OptionModel {
   name: string;
@@ -42,6 +44,23 @@ export function formatRegionOptions(rawData: any) {
   });
 
   return orderBy(result, "name", "asc");
+}
+
+export function formatLocationOptions(rawData: any) {
+  const result: any = [];
+
+  Object.keys(locationsMapping).forEach((region: string) => {
+    const regionCountries = filter(rawData, (d: any) =>
+      find(locationsMapping[region], (m: string) => m === d.code)
+    );
+    result.push({
+      name: region,
+      code: "",
+      children: regionCountries
+    });
+  });
+
+  return result;
 }
 
 export function formatSectorOptions(rawData: any) {

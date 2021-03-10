@@ -6,6 +6,7 @@ import { getSDGOptions } from "../../controllers/filter-api/utils/sdgs";
 import { getSectorsOptions } from "../../controllers/filter-api/utils/sectors";
 import { getRegionsOptions } from "../../controllers/filter-api/utils/regions";
 import { getCountriesOptions } from "../../controllers/filter-api/utils/countries";
+import { getLocationsOptions } from "../../controllers/filter-api/utils/locations";
 import { getBudgetLinesOptions } from "../../controllers/filter-api/utils/budgetlines";
 import { getPolicyMarkerOptions } from "../../controllers/filter-api/utils/policymarker";
 import { getThematicAreaOptions } from "../../controllers/filter-api/utils/thematicareas";
@@ -21,6 +22,9 @@ export async function getFilterGroupOptions(req: any, res: any) {
   let getter = getCountriesOptions;
 
   switch (req.body.filter_type) {
+    case "locations":
+      getter = getLocationsOptions;
+      break;
     case "regions":
       getter = getRegionsOptions;
       break;

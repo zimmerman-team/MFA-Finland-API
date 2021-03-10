@@ -33,7 +33,7 @@ export function getSDGOptions(filterString = "*:*") {
                 const fItemIndex = findIndex(goals, {
                   code: activity.tag_code[index]
                 });
-                if (fItemIndex === -1) {
+                if (fItemIndex === -1 && activity.tag_code[index] !== "0") {
                   goals.push({
                     name: get(
                       find(GOALS, { code: activity.tag_code[index] }),

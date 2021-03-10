@@ -21,8 +21,16 @@ export function getFormattedFilters(
   }
 
   let result = "";
+  const locations = {
+    countries: [],
+    regions: []
+  };
   filterKeys.forEach((filterKey: string, index: number) => {
-    if (filterKey === "budget_value") {
+    if (filterKey === "recipient_country_code") {
+      locations.countries = filters[filterKey];
+    } else if (filterKey === "recipient_region_code") {
+      locations.regions = filters[filterKey];
+    } else if (filterKey === "budget_value") {
       result += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
         index === filterKeys.length - 1 ? "" : " AND "
       }`;
@@ -39,15 +47,15 @@ export function getFormattedFilters(
     } else if (filterKey === "tag_code") {
       result += `${filterKey}:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
-        .join(" ")})`;
+        .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
     } else if (filterKey === "budget_line") {
       result += `tag_code:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
-        .join(" ")})`;
+        .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
     } else if (filterKey === "human_rights_approach") {
       result += `tag_narrative:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
-        .join(" ")})`;
+        .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
     } else if (filterKey === "participating_org_type" && isTransaction) {
       result += `participating_org_ref:(${filters[filterKey]
         .map((value: string) => `${value}*`)
@@ -58,6 +66,18 @@ export function getFormattedFilters(
       }`;
     }
   });
+
+  if (locations.countries.length > 0 || locations.regions.length > 0) {
+    result += `(${
+      locations.countries.length > 0
+        ? `recipient_country_code:(${locations.countries.join(" ")})`
+        : ""
+    }${
+      locations.regions.length > 0
+        ? `OR recipient_region_code:(${locations.regions.join(" ")})`
+        : ""
+    })`;
+  }
 
   return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${result})`;
 }
