@@ -355,6 +355,17 @@ export function ODAbarChart(req: any, res: any) {
         const result = years.map((year: string) => {
           const total = sumBy(get(groupedTotal, year, []), "value");
           const exclusive = sumBy(get(groupedExclusive, year, []), "value");
+          if (parseInt(year, 10) < 2015) {
+            return {
+              year: parseInt(year, 10),
+              exclusive: 0,
+              exclusiveColor: "#ACD1D1",
+              other: 0,
+              otherColor: "#7491CE",
+              gni: 0,
+              gniColor: "#AE4764"
+            };
+          }
           return {
             year: parseInt(year, 10),
             exclusive,
@@ -421,24 +432,29 @@ export function budgetLineBarChart(req: any, res: any) {
         let yearObj = {
           year: parseInt(year, 10)
         };
-        const yearInstances = get(groupedExclusive, year, []);
-        yearInstances.forEach((item: any) => {
-          item.tags.forEach((tag: string) => {
-            const tagname = get(budgetLineCodes2Values, tag, "");
-            if (tagname) {
-              if (yearObj[tagname]) {
-                yearObj[tagname] += item.value;
-              } else {
-                yearObj = {
-                  ...yearObj,
-                  [tagname]: item.value,
-                  [`${tagname}Code`]: tag,
-                  [`${tagname}Color`]: get(colors, tag, "")
-                };
+        if (
+          get(req.body, "extra_param", "") === "simple-budgetlines-bar" ||
+          yearObj.year > 2014
+        ) {
+          const yearInstances = get(groupedExclusive, year, []);
+          yearInstances.forEach((item: any) => {
+            item.tags.forEach((tag: string) => {
+              const tagname = get(budgetLineCodes2Values, tag, "");
+              if (tagname) {
+                if (yearObj[tagname]) {
+                  yearObj[tagname] += item.value;
+                } else {
+                  yearObj = {
+                    ...yearObj,
+                    [tagname]: item.value,
+                    [`${tagname}Code`]: tag,
+                    [`${tagname}Color`]: get(colors, tag, "")
+                  };
+                }
               }
-            }
+            });
           });
-        });
+        }
         return yearObj;
       });
 
