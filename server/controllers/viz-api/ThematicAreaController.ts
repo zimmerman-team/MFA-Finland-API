@@ -5,22 +5,17 @@ import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { genericError } from "../../utils/general";
-import { formatLocale } from "../../utils/formatLocale";
 import { getFormattedFilters } from "../../utils/filters";
 import { thematicAreaNames } from "../../static/thematicAreaConsts";
 
-const sizes = [200, 180, 140, 100];
+const sizes = [120, 100, 80, 60];
 
 export function thematicAreasChart(req: any, res: any) {
-  const filters = {
-    ...get(req.body, "filters", {}),
-    tag_vocabulary: ["99"]
-  };
   const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
     {
       q: `${getFormattedFilters(
-        filters
-      )} AND tag_code:Priority* AND transaction_type:3`,
+        get(req.body, "filters", {})
+      )} AND tag_code:Priority* AND transaction_type:3 AND tag_vocabulary:99`,
       fl: "tag_code,transaction_type,transaction_value",
       rows: 20000
     },
@@ -63,18 +58,39 @@ export function thematicAreasChart(req: any, res: any) {
       const result: any = orderBy(
         [
           {
-            ref: "Priority area 1, primary",
-            name: "Thematic area A (Main priority)",
+            ref: "Priority area 1",
+            name: "Thematic area A",
             color: "#AE4764",
             area: "Strengthening of the rights and status of women and girls",
-            value: get(
-              find(
-                items,
-                (item: any) => item.name === "Priority area 1, primary"
+            value:
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 1, primary"
+                ),
+                "value",
+                0
+              ) +
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 1, secondary"
+                ),
+                "value",
+                0
               ),
-              "value",
-              0
-            ),
+            primary: {
+              name: "Priority area 1, primary",
+              area: "Strengthening of the rights and status of women and girls",
+              value: get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 1, primary"
+                ),
+                "value",
+                0
+              )
+            },
             secondary: {
               name: "Priority area 1, secondary",
               area: "Strengthening of the rights and status of women and girls",
@@ -89,19 +105,41 @@ export function thematicAreasChart(req: any, res: any) {
             }
           },
           {
-            ref: "Priority area 2, primary",
-            name: "Thematic area B (Main priority)",
+            ref: "Priority area 2",
+            name: "Thematic area B",
             color: "#DA8E68",
             area:
               "Generating jobs, livelihood opportunities and well-being in a developing country",
-            value: get(
-              find(
-                items,
-                (item: any) => item.name === "Priority area 2, primary"
+            value:
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 2, primary"
+                ),
+                "value",
+                0
+              ) +
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 2, secondary"
+                ),
+                "value",
+                0
               ),
-              "value",
-              0
-            ),
+            primary: {
+              name: "Priority area 2, primary",
+              area:
+                "Generating jobs, livelihood opportunities and well-being in a developing country",
+              value: get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 2, primary"
+                ),
+                "value",
+                0
+              )
+            },
             secondary: {
               name: "Priority area 2, secondary",
               area:
@@ -117,18 +155,39 @@ export function thematicAreasChart(req: any, res: any) {
             }
           },
           {
-            ref: "Priority area 3, primary",
-            name: "Thematic area C (Main priority)",
+            ref: "Priority area 3",
+            name: "Thematic area C",
             color: "#819DAB",
             area: "Improving democracy in societies",
-            value: get(
-              find(
-                items,
-                (item: any) => item.name === "Priority area 3, primary"
+            value:
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 3, primary"
+                ),
+                "value",
+                0
+              ) +
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 3, secondary"
+                ),
+                "value",
+                0
               ),
-              "value",
-              0
-            ),
+            primary: {
+              name: "Priority area 3, primary",
+              area: "Improving democracy in societies",
+              value: get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 3, primary"
+                ),
+                "value",
+                0
+              )
+            },
             secondary: {
               name: "Priority area 3, secondary",
               area: "Improving democracy in societies",
@@ -143,18 +202,40 @@ export function thematicAreasChart(req: any, res: any) {
             }
           },
           {
-            ref: "Priority area 4, primary",
-            name: "Thematic area D (Main priority)",
+            ref: "Priority area 4",
+            name: "Thematic area D",
             color: "#425346",
             area: "Improving food security, access to water and sustainability",
-            value: get(
-              find(
-                items,
-                (item: any) => item.name === "Priority area 4, primary"
+            value:
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 4, primary"
+                ),
+                "value",
+                0
+              ) +
+              get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 4, secondary"
+                ),
+                "value",
+                0
               ),
-              "value",
-              0
-            ),
+            primary: {
+              name: "Priority area 4, primary",
+              area:
+                "Improving food security, access to water and sustainability",
+              value: get(
+                find(
+                  items,
+                  (item: any) => item.name === "Priority area 4, primary"
+                ),
+                "value",
+                0
+              )
+            },
             secondary: {
               name: "Priority area 4, secondary",
               area:
@@ -174,12 +255,7 @@ export function thematicAreasChart(req: any, res: any) {
         "desc"
       ).map((parea: any, index: number) => ({
         ...parea,
-        size: sizes[index],
-        values: [
-          "Main priority",
-          formatLocale(parea.value),
-          "Secondary priority"
-        ]
+        size: sizes[index]
       }));
       res.json({
         vizData: result
