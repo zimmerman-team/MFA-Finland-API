@@ -1,5 +1,6 @@
 import axios from "axios";
 import get from "lodash/get";
+import uniqBy from "lodash/uniqBy";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { getFormattedSearchParam } from "../../utils/filters";
@@ -39,7 +40,7 @@ export function searchThematicareas(req: any, res: any) {
     )
     .then(call1Response => {
       const actualData = get(call1Response, "data.facets.items.buckets", []);
-      const data: any = [];
+      let data: any = [];
       actualData.forEach((tag: any) => {
         if (tag.val.indexOf("Priority") > -1) {
           const fArea = get(thematicAreaNames, tag.val, "");
@@ -51,6 +52,17 @@ export function searchThematicareas(req: any, res: any) {
           }
         }
       });
+      data = data.map((item: any) => ({
+        name: item.name
+          .replace(" is the main priority area in this activity", "")
+          .replace(" is the secondary priority area in this activity", ""),
+        link: encodeURIComponent(
+          decodeURIComponent(item.link)
+            .replace(", primary", "")
+            .replace(", secondary", "")
+        )
+      }));
+      data = uniqBy(data, "name");
       res.json({
         count: data.length,
         data

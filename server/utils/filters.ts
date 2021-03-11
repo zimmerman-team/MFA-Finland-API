@@ -44,9 +44,9 @@ export function getFormattedFilters(
       }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
         index === filterKeys.length - 1 ? "" : " AND "
       }`;
-    } else if (filterKey === "tag_code") {
+    } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
       result += `${filterKey}:(${filters[filterKey]
-        .map((value: string) => `"${value}"`)
+        .map((value: string) => `"${value.replace("|", ",")}"`)
         .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
     } else if (filterKey === "budget_line") {
       result += `tag_code:(${filters[filterKey]

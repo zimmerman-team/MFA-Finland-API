@@ -1,5 +1,6 @@
 import axios from "axios";
 import get from "lodash/get";
+import uniqBy from "lodash/uniqBy";
 import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
@@ -23,7 +24,7 @@ export function getThematicAreaOptions(filterString = "*:*") {
       .get(url)
       .then(callResponse => {
         const actualData = get(callResponse, "data.response.docs", []);
-        const items: any = [];
+        let items: any = [];
         actualData.forEach((activity: any) => {
           activity.tag_code.forEach((tc: string) => {
             if (tc.indexOf("Priority") > -1) {
@@ -37,6 +38,27 @@ export function getThematicAreaOptions(filterString = "*:*") {
             }
           });
         });
+        items = items.map((item: any) => ({
+          name: item.name
+            .replace(" is the main priority area in this activity", "")
+            .replace(" is the secondary priority area in this activity", ""),
+          code: item.code.replace(", primary", "").replace(", secondary", "")
+        }));
+        items = uniqBy(items, "name");
+        items = items.map((item: any) => ({
+          ...item,
+          code: "",
+          children: [
+            {
+              name: `Main priority`,
+              code: `${item.code}| primary`
+            },
+            {
+              name: `Secondary priority`,
+              code: `${item.code}| secondary`
+            }
+          ]
+        }));
         resolve(orderBy(items, "name", "asc"));
       })
       .catch(error => {
