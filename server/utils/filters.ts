@@ -76,7 +76,9 @@ export function getFormattedFilters(
         : ""
     }${
       locations.regions.length > 0
-        ? `OR recipient_region_code:(${locations.regions.join(" ")})`
+        ? `${
+            locations.countries.length > 0 ? "OR " : ""
+          }recipient_region_code:(${locations.regions.join(" ")})`
         : ""
     })`;
   }
