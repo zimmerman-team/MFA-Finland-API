@@ -287,7 +287,7 @@ export function ODAbarChart(req: any, res: any) {
         get(req.body, "filters", {})
       )} AND (transaction_flow_type_code:10 OR default_flow_type_code:10) AND transaction_type:3`,
       fl: "transaction_type,transaction_value,activity_date_start_actual",
-      rows: 15000
+      rows: 20000
     },
     "&",
     "=",
@@ -304,7 +304,7 @@ export function ODAbarChart(req: any, res: any) {
         get(req.body, "filters", {})
       )} AND tag_vocabulary:99 AND tag_code:243066* AND transaction_type:3`,
       fl: "transaction_type,transaction_value,activity_date_start_actual",
-      rows: 15000
+      rows: 20000
     },
     "&",
     "=",
@@ -397,7 +397,7 @@ export function budgetLineBarChart(req: any, res: any) {
       )} AND tag_vocabulary:99 AND tag_code:243066* AND transaction_type:3`,
       fl:
         "transaction_type,transaction_value,activity_date_start_actual,tag_code",
-      rows: 15000
+      rows: 20000
     },
     "&",
     "=",

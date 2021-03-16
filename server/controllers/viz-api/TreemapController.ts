@@ -185,7 +185,7 @@ export function organisationsTreemapChart(req: any, res: any) {
       )} AND participating_org_ref:* AND (transaction_type:3 OR transaction_type:2)`,
       fl:
         "transaction_value,transaction_type,participating_org_ref,participating_org_type,participating_org_narrative",
-      rows: 15000
+      rows: 20000
     },
     "&",
     "=",

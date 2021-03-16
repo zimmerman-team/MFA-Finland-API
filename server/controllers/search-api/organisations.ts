@@ -17,7 +17,7 @@ export function searchOrganisations(req: any, res: any) {
     {
       q: `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND participating_org_narrative:"${req.body.q}"`,
       fl: "participating_org_ref,participating_org_narrative",
-      rows: 15000
+      rows: 20000
     },
     "&",
     "=",

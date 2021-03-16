@@ -47,7 +47,6 @@ export function getBudget(data: any) {
 }
 
 export function getParticipatingOrgs(data: any) {
-  console.log(data);
   const parsedData = data.map((item: any) => JSON.parse(item));
   return parsedData.map((item: any) => ({
     name: get(item, "narrative[0].text", ""),
