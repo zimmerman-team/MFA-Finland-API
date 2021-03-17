@@ -222,22 +222,24 @@ export function organisationsTreemapChart(req: any, res: any) {
         let orgs: any[] = [];
         data.forEach((doc: any) => {
           doc.participating_org_ref.forEach((orgRef: string, index: number) => {
-            const fOrg = find(orgs, { ref: orgRef });
-            if (fOrg) {
-              fOrg.value += doc.disbursed;
-              fOrg.committed += doc.committed;
-            } else {
-              orgs.push({
-                ref: orgRef,
-                name: get(
-                  doc.participating_org_narrative,
-                  `[${index}]`,
-                  orgRef
-                ),
-                value: doc.disbursed,
-                committed: doc.committed,
-                orgs: []
-              });
+            if (orgRef !== "FI-3") {
+              const fOrg = find(orgs, { ref: orgRef });
+              if (fOrg) {
+                fOrg.value += doc.disbursed;
+                fOrg.committed += doc.committed;
+              } else {
+                orgs.push({
+                  ref: orgRef,
+                  name: get(
+                    doc.participating_org_narrative,
+                    `[${index}]`,
+                    orgRef
+                  ),
+                  value: doc.disbursed,
+                  committed: doc.committed,
+                  orgs: []
+                });
+              }
             }
           });
         });
