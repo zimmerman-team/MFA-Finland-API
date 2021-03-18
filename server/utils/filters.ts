@@ -89,8 +89,6 @@ export function getFormattedFilters(
     })`;
   }
 
-  console.log(result);
-
   return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${result})`;
 }
 

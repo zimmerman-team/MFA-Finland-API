@@ -595,9 +595,10 @@ export function budgetLineBarChart(req: any, res: any) {
           });
 
           if (extra_param === "simple-budgetlines-bar") {
-            if (result.length === 1) {
+            const fYear = find(result, { year: parseInt(yearFilter[0], 10) });
+            if (fYear) {
               result = filter(
-                Object.keys(result[0]),
+                Object.keys(fYear),
                 (key: string) =>
                   key !== "year" &&
                   key.indexOf("Color") === -1 &&
@@ -605,9 +606,9 @@ export function budgetLineBarChart(req: any, res: any) {
               ).map((tag: string) => {
                 return {
                   line: tag,
-                  value: result[0][tag],
-                  code: result[0][`${tag}Code`],
-                  valueColor: result[0][`${tag}Color`]
+                  value: fYear[tag],
+                  code: fYear[`${tag}Code`],
+                  valueColor: fYear[`${tag}Color`]
                 };
               });
             }
