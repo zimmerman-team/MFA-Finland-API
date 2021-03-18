@@ -1,5 +1,7 @@
 import { globalSearchFields } from "../static/globalSearchFields";
 
+const stickyPeriodFilter = `activity_date_start_actual_f:[2015-01-01T00:00:00Z TO *] OR activity_date_start_planned_f:[2015-01-01T00:00:00Z TO *]`;
+
 export function getFormattedSearchParam(q: string) {
   const qstring = globalSearchFields
     .map((field: string) => `${field}:"${q}"`)
@@ -17,7 +19,7 @@ export function getFormattedFilters(
 
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0) {
-    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF}`;
+    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${stickyPeriodFilter})`;
   }
 
   let result = "";
@@ -69,8 +71,12 @@ export function getFormattedFilters(
     }
   });
 
+  if (filterKeys.indexOf("years") === -1) {
+    result += ` AND (${stickyPeriodFilter})`;
+  }
+
   if (locations.countries.length > 0 || locations.regions.length > 0) {
-    result += `(${
+    result += `${result.length > 0 ? "AND " : ""}(${
       locations.countries.length > 0
         ? `recipient_country_code:(${locations.countries.join(" ")})`
         : ""
@@ -82,6 +88,8 @@ export function getFormattedFilters(
         : ""
     })`;
   }
+
+  console.log(result);
 
   return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${result})`;
 }
@@ -171,8 +179,10 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
 
 export function normalizeActivity2TransactionFilters(filterstring: string) {
   return filterstring
-    .replace(/recipient_country_code/g, "activity_recipient_country_code")
-    .replace(/recipient_region_code/g, "activity_recipient_region_code")
+    .replace(/tag_narrative/g, "tag_code")
     .replace(/sector_code/g, "activity_sector_code")
-    .replace(/tag_narrative/g, "tag_code");
+    .replace(/recipient_region_code/g, "activity_recipient_region_code")
+    .replace(/recipient_country_code/g, "activity_recipient_country_code")
+    .replace(/activity_date_start_planned_f/g, "activity_date_iso_date_f")
+    .replace(/activity_date_start_actual_f/g, "transaction_date_iso_date_f");
 }
