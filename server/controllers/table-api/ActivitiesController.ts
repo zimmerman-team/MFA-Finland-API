@@ -13,8 +13,10 @@ import { activityStatusCodelist } from "../../static/activityStatusCodelist";
 import { activitySearchFields } from "../../static/globalSearchFields";
 import { dac3sectors } from "../../static/dac3sectors";
 import { dac5sectors } from "../../static/dac5sectors";
+import { getFieldValueLang } from "../../utils/getFieldValueLang";
 
 export function activitiesTable(req: any, res: any) {
+  const lang = req.body.lang || "en";
   const rows = get(req.body, "rows", 10);
   const start = get(req.body, "page", 0) * rows;
   const sort: string = get(
@@ -56,8 +58,16 @@ export function activitiesTable(req: any, res: any) {
           activity.activity_status_code
         ]);
         const code = get(activity, "iati_identifier", "");
-        const title = get(activity, "title_narrative_text[0]", "-");
-        const description = get(activity, "description_narrative_text[0]", "-");
+        const title = getFieldValueLang(
+          lang,
+          get(activity, "title_narrative_text", [""]),
+          get(activity, "title_narrative_lang", [""])
+        );
+        const description = getFieldValueLang(
+          lang,
+          get(activity, "description_narrative_text", [""]),
+          get(activity, "description_lang", [""])
+        );
         const countriesData = uniq([
           ...get(activity, "recipient_country_code", []),
           ...get(activity, "transaction_recipient_country_code", [])

@@ -34,7 +34,7 @@ import {
 import { getFieldValueLang } from "../../utils/getFieldValueLang";
 
 export function activityDetail(req: any, res: any) {
-  const lang = "en";
+  const lang = req.body.lang || "en";
   if (!req.body.activityId || req.body.activityId.length === 0) {
     res.json({
       error: "'id' parameter is required"

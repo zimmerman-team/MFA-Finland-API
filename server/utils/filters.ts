@@ -72,11 +72,11 @@ export function getFormattedFilters(
   });
 
   if (filterKeys.indexOf("years") === -1) {
-    result += ` AND (${stickyPeriodFilter})`;
+    result += `${result.length > 0 ? " AND " : ""}(${stickyPeriodFilter})`;
   }
 
   if (locations.countries.length > 0 || locations.regions.length > 0) {
-    result += `${result.length > 0 ? "AND " : ""}(${
+    result += `${result.length > 0 ? " AND " : ""}(${
       locations.countries.length > 0
         ? `recipient_country_code:(${locations.countries.join(" ")})`
         : ""
