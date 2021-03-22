@@ -52,6 +52,10 @@ export function getFormattedFilters(
         .join(" ")}) OR tag_narrative:(${filters[filterKey]
         .map((value: string) => `"${value.replace("|", ",")}"`)
         .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
+    } else if (filterKey === "sector_code") {
+      result += `sector_code:(${filters[filterKey]
+        .map((value: string) => `${value}${value.length === 3 ? "*" : ""}`)
+        .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
     } else if (filterKey === "budget_line") {
       result += `tag_code:(${filters[filterKey]
         .map((value: string) => `"${value}"`)

@@ -36,6 +36,23 @@ export function detailPageName(req: any, res: any) {
     .then(response => {
       const data = get(response.data, "response.docs[0]", null);
       let result = "";
+      if (req.body.detail_type === "sector_code") {
+        const fsector = find([...dac3sectors, ...dac5sectors], {
+          code: req.body.filters.sector_code[0]
+        });
+        if (fsector) {
+          res.json({
+            data: [
+              get(fsector, "name", req.body.filters.sector_code[0]),
+              get(fsector, "description", "")
+            ]
+          });
+        } else {
+          res.json({
+            data: ["", ""]
+          });
+        }
+      }
       if (req.body.detail_type && data) {
         if (req.body.detail_type === "recipient_country_code") {
           const iso3 = getCountryISO3(
@@ -122,25 +139,12 @@ export function detailPageName(req: any, res: any) {
           );
           result = get(data, `recipient_region_name[${refIndex}]`, "");
         }
-        if (req.body.detail_type === "sector_code") {
-          const fsector = find([...dac3sectors, ...dac5sectors], {
-            code: data.sector_code[0]
-          });
-          if (fsector) {
-            res.json({
-              data: [
-                get(fsector, "name", data.sector_code[0]),
-                get(fsector, "description", "")
-              ]
-            });
-          } else {
-            res.json({
-              data: ["", ""]
-            });
-          }
-        }
         if (req.body.detail_type === "tag_code") {
-          result = get(thematicAreaNames, req.body.filters.tag_code[0], "");
+          result = get(
+            thematicAreaNames,
+            req.body.filters.tag_code[0],
+            ""
+          ).replace(" is the main priority area in this activity", "");
         }
         if (req.body.detail_type === "participating_org_type") {
           result = get(
@@ -162,6 +166,7 @@ export function detailPageName(req: any, res: any) {
       }
     })
     .catch(errors => {
+      console.log(errors);
       genericError(errors, res);
     });
 }
