@@ -102,7 +102,7 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   }
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0 && search.length === 0) {
-    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF}`;
+    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${stickyPeriodFilter})`;
   }
 
   let query = "";
@@ -174,6 +174,10 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
     query += searchFields
       .map((field: string) => `${field}:(${search})`)
       .join(" OR ");
+  }
+
+  if (filterKeys.indexOf("years") === -1) {
+    query += `${query.length > 0 ? " AND " : ""}(${stickyPeriodFilter})`;
   }
 
   return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${query})`;
