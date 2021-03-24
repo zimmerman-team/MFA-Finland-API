@@ -139,10 +139,10 @@ export function detailPageName(req: any, res: any) {
           );
           result = get(data, `recipient_region_name[${refIndex}]`, "");
         }
-        if (req.body.detail_type === "tag_code") {
+        if (req.body.detail_type === "tag_narrative") {
           result = get(
             thematicAreaNames,
-            req.body.filters.tag_code[0],
+            req.body.filters.tag_narrative[0].replace("|", ","),
             ""
           ).replace(" is the main priority area in this activity", "");
         }
