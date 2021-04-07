@@ -9,26 +9,14 @@ import {
 } from "../../static/activityDetailConsts";
 import { parseJsonSolrField } from "../../utils/parseJsonSolrField";
 import {
-  getBudget,
-  getConditions,
-  getContactInfo,
   getCountries,
-  getCountryBudgetItems,
   getDates,
   getDefaultAidTypes,
-  getDocumentLinks,
-  getHumanitarianScopes,
-  getLegacyData,
-  getLocations,
-  getOtherIdentifiers,
   getParticipatingOrgs,
-  getPlannedDisbursements,
   getPolicyMarkers,
   getRegions,
-  getRelatedActivities,
   getSectors,
   getSummary,
-  getTags,
   getTransactions
 } from "./utils/activity";
 import { getFieldValueLang } from "../../utils/getFieldValueLang";

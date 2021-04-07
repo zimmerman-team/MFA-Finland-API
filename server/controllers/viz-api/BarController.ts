@@ -351,6 +351,13 @@ export function ODAbarChart(req: any, res: any) {
                 (line: any) => line.ref.indexOf("24.30.66.") > -1
               ).map((line: any) => line.value),
               "value"
+            ),
+            gni: sumBy(
+              filter(
+                parseditem.expense_line,
+                (line: any) => line.ref.indexOf("ODA/GNI") > -1
+              ).map((line: any) => line.value),
+              "value"
             )
           };
         });
@@ -389,8 +396,8 @@ export function ODAbarChart(req: any, res: any) {
                 exclusiveColor: "#ACD1D1",
                 other: orgtotal - exclusive,
                 otherColor: "#7491CE",
-                gni: 0,
-                gniColor: "#AE4764"
+                gni: get(groupedOrgTotal, `${year}[0].gni`, 0),
+                gniColor: "#D495A7"
               };
             } else {
               return {
@@ -400,7 +407,7 @@ export function ODAbarChart(req: any, res: any) {
                 other: 0,
                 otherColor: "#7491CE",
                 gni: 0,
-                gniColor: "#AE4764"
+                gniColor: "#D495A7"
               };
             }
           }
@@ -411,8 +418,8 @@ export function ODAbarChart(req: any, res: any) {
             exclusiveColor: "#ACD1D1",
             other: total - exclusive,
             otherColor: "#7491CE",
-            gni: 0,
-            gniColor: "#AE4764"
+            gni: get(groupedOrgTotal, `${year}[0].gni`, 0),
+            gniColor: "#D495A7"
           };
         });
 
