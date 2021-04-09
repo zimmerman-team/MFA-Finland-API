@@ -6,7 +6,7 @@ export function getFormattedSearchParam(q: string) {
   const qstring = globalSearchFields
     .map((field: string) => `${field}:"${q}"`)
     .join(" OR ");
-  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${qstring})`;
+  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${qstring}) AND (${stickyPeriodFilter})`;
 }
 
 export function getFormattedFilters(
@@ -171,9 +171,11 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   }
 
   if (search.length > 0 && filterKeys.length <= 0) {
+    query += "(";
     query += searchFields
       .map((field: string) => `${field}:(${search})`)
       .join(" OR ");
+    query += ")";
   }
 
   if (filterKeys.indexOf("years") === -1) {

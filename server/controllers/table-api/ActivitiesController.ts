@@ -4,16 +4,19 @@ import find from "lodash/find";
 import uniq from "lodash/uniq";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
+import { getQuery } from "../../utils/filters";
 import { sortKeys } from "../../static/sortKeys";
 import { countries } from "../../static/countries";
 import { genericError } from "../../utils/general";
 import { formatDate } from "../../utils/formatDate";
-import { getQuery } from "../../utils/filters";
-import { activityStatusCodelist } from "../../static/activityStatusCodelist";
-import { activitySearchFields } from "../../static/globalSearchFields";
 import { dac3sectors } from "../../static/dac3sectors";
 import { dac5sectors } from "../../static/dac5sectors";
 import { getFieldValueLang } from "../../utils/getFieldValueLang";
+import { activityStatusCodelist } from "../../static/activityStatusCodelist";
+import {
+  globalSearchFields,
+  activitySearchFields
+} from "../../static/globalSearchFields";
 
 export function activitiesTable(req: any, res: any) {
   const lang = req.body.lang || "en";
@@ -28,7 +31,7 @@ export function activitiesTable(req: any, res: any) {
   const search: string = get(req.body, "search", "");
 
   const values = {
-    q: getQuery(filters, search, activitySearchFields),
+    q: getQuery(filters, search, globalSearchFields),
     fl: `iati_identifier,activity_status_code,title_narrative_text,description_narrative_text,recipient_country_code,transaction_recipient_country_code,recipient_region_name,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
     start,
     rows,
