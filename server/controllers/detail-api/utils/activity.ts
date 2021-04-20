@@ -237,10 +237,15 @@ export function getDefaultAidTypes(data: any) {
 
 export function getPolicyMarkers(data: any) {
   const parsedData = data.map((item: any) => JSON.parse(item));
-  return parsedData.map((item: any) => ({
+  return filter(
+    parsedData,
+    (item: any) =>
+      item.significance &&
+      item.significance.name.toLowerCase() !== "not targeted"
+  ).map((item: any) => ({
     name: item.policy_marker.name,
     code: item.policy_marker.code,
-    significance: item.significance ? item.significance.name : "no data",
+    significance: item.significance.name,
     vocabulary_uri: item.vocabulary_uri || "no data",
     vocabulary: item.vocabulary.name
   }));
