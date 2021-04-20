@@ -11,7 +11,8 @@ export function getFormattedSearchParam(q: string) {
 
 export function getFormattedFilters(
   filters: any,
-  isTransaction?: boolean
+  isTransaction?: boolean,
+  isODA?: boolean
 ): string {
   if (typeof filters === "string") {
     return getFormattedSearchParam(filters);
@@ -37,15 +38,19 @@ export function getFormattedFilters(
         index === filterKeys.length - 1 ? "" : " AND "
       }`;
     } else if (filterKey === "years") {
-      result += `activity_date_start_actual_f:[${
-        filters[filterKey][0]
-      }-01-01T00:00:00Z TO ${
-        filters[filterKey][1]
-      }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
-        filters[filterKey][0]
-      }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
-        index === filterKeys.length - 1 ? "" : " AND "
-      }`;
+      if (isODA) {
+        result += `transaction_value_date:[${filters[filterKey][0]}-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]`;
+      } else {
+        result += `activity_date_start_actual_f:[${
+          filters[filterKey][0]
+        }-01-01T00:00:00Z TO ${
+          filters[filterKey][1]
+        }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
+          filters[filterKey][0]
+        }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
+          index === filterKeys.length - 1 ? "" : " AND "
+        }`;
+      }
     } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
       result += `(tag_code:(${filters[filterKey]
         .map((value: string) => `"${value.replace("|", ",")}"`)

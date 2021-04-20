@@ -285,9 +285,11 @@ export function ODAbarChart(req: any, res: any) {
   }/activity/?${querystring.stringify(
     {
       q: `${getFormattedFilters(
-        get(req.body, "filters", {})
+        get(req.body, "filters", {}),
+        false,
+        true
       )} AND (transaction_flow_type_code:10 OR default_flow_type_code:10) AND transaction_type:3`,
-      fl: "transaction_type,transaction_value,activity_date_start_actual",
+      fl: "transaction_type,transaction_value,transaction_value_date",
       rows: 20000
     },
     "&",
@@ -304,9 +306,11 @@ export function ODAbarChart(req: any, res: any) {
   }/activity/?${querystring.stringify(
     {
       q: `${getFormattedFilters(
-        get(req.body, "filters", {})
+        get(req.body, "filters", {}),
+        false,
+        true
       )} tag_code:243066* AND transaction_type:3`,
-      fl: "transaction_type,transaction_value,activity_date_start_actual",
+      fl: "transaction_type,transaction_value,transaction_value_date",
       rows: 20000
     },
     "&",
@@ -336,7 +340,10 @@ export function ODAbarChart(req: any, res: any) {
           const value = get(item, `transaction_value[${valueIndex}]`, 0);
           return {
             value,
-            year: item.activity_date_start_actual.slice(0, 4)
+            year: get(item, `transaction_value_date[${valueIndex}]`, "").slice(
+              0,
+              4
+            )
           };
         });
 
@@ -370,7 +377,10 @@ export function ODAbarChart(req: any, res: any) {
           const value = get(item, `transaction_value[${valueIndex}]`, 0);
           return {
             value,
-            year: item.activity_date_start_actual.slice(0, 4)
+            year: get(item, `transaction_value_date[${valueIndex}]`, "").slice(
+              0,
+              4
+            )
           };
         });
 
@@ -490,10 +500,12 @@ export function budgetLineBarChart(req: any, res: any) {
     }/activity/?${querystring.stringify(
       {
         q: `${getFormattedFilters(
-          get(req.body, "filters", {})
+          get(req.body, "filters", {}),
+          false,
+          true
         )} tag_code:243066* AND transaction_type:3`,
         fl:
-          "transaction_type,transaction_value,activity_date_start_actual,tag_code",
+          "transaction_type,transaction_value,transaction_value_date,tag_code",
         rows: 20000
       },
       "&",
@@ -535,7 +547,11 @@ export function budgetLineBarChart(req: any, res: any) {
             return {
               value,
               tags: get(item, "tag_code", []),
-              year: item.activity_date_start_actual.slice(0, 4)
+              year: get(
+                item,
+                `transaction_value_date[${valueIndex}]`,
+                ""
+              ).slice(0, 4)
             };
           });
 
@@ -546,6 +562,8 @@ export function budgetLineBarChart(req: any, res: any) {
             ...Object.keys(groupedTotalOrg),
             ...Object.keys(groupedExclusive)
           ]);
+
+          console.log(years);
 
           let result = years.map((year: string) => {
             let yearObj = {
