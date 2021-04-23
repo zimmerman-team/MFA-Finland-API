@@ -4,9 +4,9 @@ module.exports = {
       name: "mfa-api",
       script: "ts-node",
       args: "--project nodetsconfig.json ./server/index.ts",
-
-      instances: 1,
-      max_memory_restart: "1G",
+      instances: "max",
+      exec_mode: "cluster",
+      max_memory_restart: "2G",
       autorestart: true,
       restart_delay: 100,
       error_file: "/home/zz/app-logs/mfa-api/error.log",
