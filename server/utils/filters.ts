@@ -1,6 +1,7 @@
 import { globalSearchFields } from "../static/globalSearchFields";
 
 const stickyPeriodFilter = `activity_date_start_actual_f:[2015-01-01T00:00:00Z TO *] OR activity_date_start_planned_f:[2015-01-01T00:00:00Z TO *]`;
+const ODAstickyPeriodFilter = `transaction_value_date:[2015-01-01T00:00:00Z TO *]`;
 
 export function getFormattedSearchParam(q: string) {
   const qstring = globalSearchFields
@@ -20,7 +21,9 @@ export function getFormattedFilters(
 
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0) {
-    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${stickyPeriodFilter})`;
+    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${
+      isODA ? ODAstickyPeriodFilter : stickyPeriodFilter
+    })`;
   }
 
   let result = "";
@@ -81,7 +84,9 @@ export function getFormattedFilters(
   });
 
   if (filterKeys.indexOf("years") === -1) {
-    result += `${result.length > 0 ? " AND " : ""}(${stickyPeriodFilter})`;
+    result += `${result.length > 0 ? " AND " : ""}(${
+      isODA ? ODAstickyPeriodFilter : stickyPeriodFilter
+    })`;
   }
 
   if (locations.countries.length > 0 || locations.regions.length > 0) {

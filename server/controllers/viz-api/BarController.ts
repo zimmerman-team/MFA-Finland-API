@@ -563,8 +563,6 @@ export function budgetLineBarChart(req: any, res: any) {
             ...Object.keys(groupedExclusive)
           ]);
 
-          console.log(years);
-
           let result = years.map((year: string) => {
             let yearObj = {
               year: parseInt(year, 10)
