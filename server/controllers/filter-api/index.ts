@@ -17,7 +17,7 @@ import { getCollaborationTypeOptions } from "../../controllers/filter-api/utils/
 
 export async function getFilterGroupOptions(req: any, res: any) {
   const filters: any = get(req.body, "filters", {});
-  const filterString = getFormattedFilters(filters);
+  const filterString = getFormattedFilters(filters, false, false, true);
 
   let getter = getCountriesOptions;
 

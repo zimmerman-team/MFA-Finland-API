@@ -13,16 +13,24 @@ export function getFormattedSearchParam(q: string) {
 export function getFormattedFilters(
   filters: any,
   isTransaction?: boolean,
-  isODA?: boolean
+  isODA?: boolean,
+  isFilterOption?: boolean
 ): string {
   if (typeof filters === "string") {
     return getFormattedSearchParam(filters);
   }
 
+  let localStickyPeriodFilter = stickyPeriodFilter;
+
+  if (isFilterOption) {
+    localStickyPeriodFilter +=
+      " OR activity_date_iso_date:[2015-01-01T00:00:00Z TO *] OR transaction_date_iso_date:[2015-01-01T00:00:00Z TO *]";
+  }
+
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0) {
     return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${
-      isODA ? ODAstickyPeriodFilter : stickyPeriodFilter
+      isODA ? ODAstickyPeriodFilter : localStickyPeriodFilter
     })`;
   }
 
@@ -85,7 +93,7 @@ export function getFormattedFilters(
 
   if (filterKeys.indexOf("years") === -1) {
     result += `${result.length > 0 ? " AND " : ""}(${
-      isODA ? ODAstickyPeriodFilter : stickyPeriodFilter
+      isODA ? ODAstickyPeriodFilter : localStickyPeriodFilter
     })`;
   }
 
