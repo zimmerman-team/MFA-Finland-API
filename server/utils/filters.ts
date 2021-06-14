@@ -70,7 +70,7 @@ export function getFormattedFilters(
         .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
     } else if (filterKey === "sector_code") {
       result += `sector_code:(${filters[filterKey]
-        .map((value: string) => `${value}${value.length === 3 ? "*" : ""}`)
+        .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)
         .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
     } else if (filterKey === "budget_line") {
       result += `tag_code:(${filters[filterKey]
@@ -84,6 +84,12 @@ export function getFormattedFilters(
       result += `participating_org_ref:(${filters[filterKey]
         .map((value: string) => `${value}*`)
         .join(" ")})`;
+    } else if (filterKey === "policy_marker_code") {
+      result += `${filterKey}:(${filters[filterKey].join(
+        " "
+      )}) AND policy_marker_significance:(1 2 3 4)${
+        index === filterKeys.length - 1 ? "" : " AND "
+      }`;
     } else if (filterKey !== "year_period") {
       result += `${filterKey}:(${filters[filterKey].join(" ")})${
         index === filterKeys.length - 1 ? "" : " AND "
@@ -144,6 +150,10 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
         query += `${filterKey}:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
           .join(" ")})`;
+      } else if (filterKey === "sector_code") {
+        query += `sector_code:(${filters[filterKey]
+          .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)
+          .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
       } else if (filterKey === "budget_line") {
         query += `tag_code:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
@@ -162,6 +172,12 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
         }] OR activity_date_end_planned_f: [* TO ${
           filters[filterKey][0].endDate
         }])${index === filterKeys.length - 1 ? "" : " AND "}\`;`;
+      } else if (filterKey === "policy_marker_code") {
+        query += `${filterKey}:(${filters[filterKey].join(
+          " "
+        )}) AND policy_marker_significance:(1 2 3 4)${
+          index === filterKeys.length - 1 ? "" : " AND "
+        }`;
       } else if (filterKey === "year_period") {
         query += `(activity_date_start_actual_f:[${
           filters[filterKey]

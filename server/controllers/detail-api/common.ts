@@ -14,6 +14,7 @@ import { orgTypesCodelist } from "../../static/orgTypesCodelist";
 import { locationsMapping } from "../../static/locationsMapping";
 import { partnerCountries } from "../../static/partnerCountries";
 import { thematicAreaNames } from "../../static/thematicAreaConsts";
+import { sectorMapping } from "../../static/sectorMapping";
 
 export function detailPageName(req: any, res: any) {
   const values = {
@@ -37,9 +38,19 @@ export function detailPageName(req: any, res: any) {
       const data = get(response.data, "response.docs[0]", null);
       let result = "";
       if (req.body.detail_type === "sector_code") {
-        const fsector = find([...dac3sectors, ...dac5sectors], {
-          code: req.body.filters.sector_code[0]
-        });
+        const fsector = find(
+          [
+            ...dac3sectors,
+            ...dac5sectors,
+            ...sectorMapping.children.map((item: any) => ({
+              ...item,
+              name: item.title
+            }))
+          ],
+          {
+            code: req.body.filters.sector_code[0]
+          }
+        );
         if (fsector) {
           res.json({
             data: [

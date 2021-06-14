@@ -184,7 +184,7 @@ export function organisationsTreemapChart(req: any, res: any) {
         get(req.body, "filters", {})
       )} AND participating_org_ref:* AND (transaction_type:3 OR transaction_type:2)`,
       fl:
-        "transaction_value,transaction_type,participating_org_ref,participating_org_type,participating_org_narrative",
+        "transaction_value,transaction_type,participating_org_ref,participating_org_type,participating_org_narrative,participating_org_role",
       rows: 20000
     },
     "&",
@@ -222,7 +222,8 @@ export function organisationsTreemapChart(req: any, res: any) {
         let orgs: any[] = [];
         data.forEach((doc: any) => {
           doc.participating_org_ref.forEach((orgRef: string, index: number) => {
-            if (orgRef !== "FI-3") {
+            const orgRole = get(doc.participating_org_role, `[${index}]`, "");
+            if (orgRole !== "1") {
               const fOrg = find(orgs, { ref: orgRef });
               if (fOrg) {
                 fOrg.value += doc.disbursed;
