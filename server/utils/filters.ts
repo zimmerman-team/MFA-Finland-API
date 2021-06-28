@@ -1,3 +1,4 @@
+import get from "lodash/get";
 import { globalSearchFields } from "../static/globalSearchFields";
 
 const stickyPeriodFilter = `activity_date_start_actual_f:[2015-01-01T00:00:00Z TO *] OR activity_date_start_planned_f:[2015-01-01T00:00:00Z TO *]`;
@@ -40,26 +41,34 @@ export function getFormattedFilters(
     regions: []
   };
   filterKeys.forEach((filterKey: string, index: number) => {
+    const addTrailingAND =
+      filterKeys.length - 1 !== index &&
+      get(filterKeys, `[${index + 1}]`, "") !== "recipient_country_code" &&
+      get(filterKeys, `[${index + 1}]`, "") !== "recipient_region_code";
     if (filterKey === "recipient_country_code") {
       locations.countries = filters[filterKey];
     } else if (filterKey === "recipient_region_code") {
       locations.regions = filters[filterKey];
     } else if (filterKey === "budget_value") {
       result += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
-        index === filterKeys.length - 1 ? "" : " AND "
+        addTrailingAND ? " AND " : ""
       }`;
     } else if (filterKey === "years") {
       if (isODA) {
-        result += `transaction_value_date:[${filters[filterKey][0]}-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]`;
+        result += `transaction_value_date:[${
+          filters[filterKey][0]
+        }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
+          addTrailingAND ? " AND " : ""
+        }`;
       } else {
-        result += `activity_date_start_actual_f:[${
+        result += `(activity_date_start_actual_f:[${
           filters[filterKey][0]
         }-01-01T00:00:00Z TO ${
           filters[filterKey][1]
         }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
           filters[filterKey][0]
-        }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
-          index === filterKeys.length - 1 ? "" : " AND "
+        }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z])${
+          addTrailingAND ? " AND " : ""
         }`;
       }
     } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
@@ -67,19 +76,19 @@ export function getFormattedFilters(
         .map((value: string) => `"${value.replace("|", ",")}"`)
         .join(" ")}) OR tag_narrative:(${filters[filterKey]
         .map((value: string) => `"${value.replace("|", ",")}"`)
-        .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
+        .join(" ")}))${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey === "sector_code") {
       result += `sector_code:(${filters[filterKey]
         .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)
-        .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
+        .join(" ")})${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey === "budget_line") {
       result += `tag_code:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
-        .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
+        .join(" ")})${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey === "human_rights_approach") {
       result += `tag_narrative:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
-        .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
+        .join(" ")})${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey === "participating_org_type" && isTransaction) {
       result += `participating_org_ref:(${filters[filterKey]
         .map((value: string) => `${value}*`)
@@ -88,11 +97,11 @@ export function getFormattedFilters(
       result += `${filterKey}:(${filters[filterKey].join(
         " "
       )}) AND policy_marker_significance:(1 2 3 4)${
-        index === filterKeys.length - 1 ? "" : " AND "
+        addTrailingAND ? " AND " : ""
       }`;
     } else if (filterKey !== "year_period") {
       result += `${filterKey}:(${filters[filterKey].join(" ")})${
-        index === filterKeys.length - 1 ? "" : " AND "
+        addTrailingAND ? " AND " : ""
       }`;
     }
   });
@@ -146,10 +155,12 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
         }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
           index === filterKeys.length - 1 ? "" : " AND "
         }`;
-      } else if (filterKey === "tag_code") {
-        query += `${filterKey}:(${filters[filterKey]
-          .map((value: string) => `"${value}"`)
-          .join(" ")})`;
+      } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
+        query += `(tag_code:(${filters[filterKey]
+          .map((value: string) => `"${value.replace("|", ",")}"`)
+          .join(" ")}) OR tag_narrative:(${filters[filterKey]
+          .map((value: string) => `"${value.replace("|", ",")}"`)
+          .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
       } else if (filterKey === "sector_code") {
         query += `sector_code:(${filters[filterKey]
           .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)

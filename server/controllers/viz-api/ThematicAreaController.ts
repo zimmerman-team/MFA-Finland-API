@@ -13,7 +13,7 @@ import { thematicAreaNames } from "../../static/thematicAreaConsts";
 
 const sizes = [120, 100, 80, 60];
 
-export function thematicAreasChart2(req: any, res: any) {
+export function thematicAreasChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
     {
       q: `${getFormattedFilters(
@@ -269,7 +269,7 @@ export function thematicAreasChart2(req: any, res: any) {
     });
 }
 
-export function thematicAreasChart(req: any, res: any) {
+export function thematicAreasChart2(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
       q: `${normalizeActivity2TransactionFilters(
