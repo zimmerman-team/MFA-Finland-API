@@ -153,11 +153,12 @@ export function detailPageName(req: any, res: any) {
           result = get(data, `recipient_region_name[${refIndex}]`, "");
         }
         if (req.body.detail_type === "tag_narrative") {
-          result = get(
-            thematicAreaNames,
-            req.body.filters.tag_narrative[0].replace("|", ","),
-            ""
-          ).replace(" is the main priority area in this activity", "");
+          result = req.body.filters.tag_narrative[0];
+          // get(
+          //   thematicAreaNames,
+          //   req.body.filters.tag_narrative[0].replace("|", ","),
+          //   ""
+          // ).replace(" is the main priority area in this activity", "");
         }
         if (req.body.detail_type === "participating_org_type") {
           result = get(

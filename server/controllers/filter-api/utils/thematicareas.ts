@@ -59,7 +59,7 @@ export function getThematicAreaOptions(filterString = "*:*") {
             }
           ]
         }));
-        resolve(orderBy(items, "name", "asc"));
+        resolve(orderBy(items, "name", "desc"));
       })
       .catch(error => {
         const _error = error.response ? error.response.data : error;

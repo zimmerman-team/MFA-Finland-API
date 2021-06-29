@@ -64,7 +64,7 @@ export function thematicAreasChart(req: any, res: any) {
             ref: "Priority area 1",
             name: "Thematic area A",
             color: "#AE4764",
-            area: "Strengthening of the rights and status of women and girls",
+            area: "Strengthening the status and rights of women and girls",
             value:
               get(
                 find(
@@ -84,7 +84,7 @@ export function thematicAreasChart(req: any, res: any) {
               ),
             primary: {
               name: "Priority area 1, primary",
-              area: "Strengthening of the rights and status of women and girls",
+              area: "Strengthening the status and rights of women and girls",
               value: get(
                 find(
                   items,
@@ -96,7 +96,7 @@ export function thematicAreasChart(req: any, res: any) {
             },
             secondary: {
               name: "Priority area 1, secondary",
-              area: "Strengthening of the rights and status of women and girls",
+              area: "Strengthening the status and rights of women and girls",
               value: get(
                 find(
                   items,
@@ -112,7 +112,7 @@ export function thematicAreasChart(req: any, res: any) {
             name: "Thematic area B",
             color: "#DA8E68",
             area:
-              "Generating jobs, livelihood opportunities and well-being in a developing country",
+              "Strengthening the economic base of developing countries and creating jobs",
             value:
               get(
                 find(
@@ -133,7 +133,7 @@ export function thematicAreasChart(req: any, res: any) {
             primary: {
               name: "Priority area 2, primary",
               area:
-                "Generating jobs, livelihood opportunities and well-being in a developing country",
+                "Strengthening the economic base of developing countries and creating jobs",
               value: get(
                 find(
                   items,
@@ -146,7 +146,7 @@ export function thematicAreasChart(req: any, res: any) {
             secondary: {
               name: "Priority area 2, secondary",
               area:
-                "Generating jobs, livelihood opportunities and well-being in a developing country",
+                "Strengthening the economic base of developing countries and creating jobs",
               value: get(
                 find(
                   items,
@@ -161,7 +161,7 @@ export function thematicAreasChart(req: any, res: any) {
             ref: "Priority area 3",
             name: "Thematic area C",
             color: "#819DAB",
-            area: "Improving democracy in societies",
+            area: "Education, well-functioning societies and democracy",
             value:
               get(
                 find(
@@ -181,7 +181,7 @@ export function thematicAreasChart(req: any, res: any) {
               ),
             primary: {
               name: "Priority area 3, primary",
-              area: "Improving democracy in societies",
+              area: "Education, well-functioning societies and democracy",
               value: get(
                 find(
                   items,
@@ -193,7 +193,7 @@ export function thematicAreasChart(req: any, res: any) {
             },
             secondary: {
               name: "Priority area 3, secondary",
-              area: "Improving democracy in societies",
+              area: "Education, well-functioning societies and democracy",
               value: get(
                 find(
                   items,
@@ -208,7 +208,7 @@ export function thematicAreasChart(req: any, res: any) {
             ref: "Priority area 4",
             name: "Thematic area D",
             color: "#425346",
-            area: "Improving food security, access to water and sustainability",
+            area: "Climate change and natural resources",
             value:
               get(
                 find(
@@ -228,8 +228,7 @@ export function thematicAreasChart(req: any, res: any) {
               ),
             primary: {
               name: "Priority area 4, primary",
-              area:
-                "Improving food security, access to water and sustainability",
+              area: "Climate change and natural resources",
               value: get(
                 find(
                   items,
@@ -241,8 +240,7 @@ export function thematicAreasChart(req: any, res: any) {
             },
             secondary: {
               name: "Priority area 4, secondary",
-              area:
-                "Improving food security, access to water and sustainability",
+              area: "Climate change and natural resources",
               value: get(
                 find(
                   items,
@@ -316,7 +314,7 @@ export function thematicAreasChart2(req: any, res: any) {
             ref: "Priority area 1",
             name: "Thematic area A",
             color: "#AE4764",
-            area: "Strengthening of the rights and status of women and girls",
+            area: "Strengthening the status and rights of women and girls",
             value:
               get(
                 find(
@@ -336,7 +334,7 @@ export function thematicAreasChart2(req: any, res: any) {
               ),
             primary: {
               name: "Priority area 1, primary",
-              area: "Strengthening of the rights and status of women and girls",
+              area: "Strengthening the status and rights of women and girls",
               value: get(
                 find(
                   items,
@@ -348,7 +346,7 @@ export function thematicAreasChart2(req: any, res: any) {
             },
             secondary: {
               name: "Priority area 1, secondary",
-              area: "Strengthening of the rights and status of women and girls",
+              area: "Strengthening the status and rights of women and girls",
               value: get(
                 find(
                   items,
@@ -364,7 +362,7 @@ export function thematicAreasChart2(req: any, res: any) {
             name: "Thematic area B",
             color: "#DA8E68",
             area:
-              "Generating jobs, livelihood opportunities and well-being in a developing country",
+              "Strengthening the economic base of developing countries and creating jobs",
             value:
               get(
                 find(
@@ -385,7 +383,7 @@ export function thematicAreasChart2(req: any, res: any) {
             primary: {
               name: "Priority area 2, primary",
               area:
-                "Generating jobs, livelihood opportunities and well-being in a developing country",
+                "Strengthening the economic base of developing countries and creating jobs",
               value: get(
                 find(
                   items,
@@ -398,7 +396,7 @@ export function thematicAreasChart2(req: any, res: any) {
             secondary: {
               name: "Priority area 2, secondary",
               area:
-                "Generating jobs, livelihood opportunities and well-being in a developing country",
+                "Strengthening the economic base of developing countries and creating jobs",
               value: get(
                 find(
                   items,
@@ -413,7 +411,7 @@ export function thematicAreasChart2(req: any, res: any) {
             ref: "Priority area 3",
             name: "Thematic area C",
             color: "#819DAB",
-            area: "Improving democracy in societies",
+            area: "Education, well-functioning societies and democracy",
             value:
               get(
                 find(
@@ -433,7 +431,7 @@ export function thematicAreasChart2(req: any, res: any) {
               ),
             primary: {
               name: "Priority area 3, primary",
-              area: "Improving democracy in societies",
+              area: "Education, well-functioning societies and democracy",
               value: get(
                 find(
                   items,
@@ -445,7 +443,7 @@ export function thematicAreasChart2(req: any, res: any) {
             },
             secondary: {
               name: "Priority area 3, secondary",
-              area: "Improving democracy in societies",
+              area: "Education, well-functioning societies and democracy",
               value: get(
                 find(
                   items,
@@ -460,7 +458,7 @@ export function thematicAreasChart2(req: any, res: any) {
             ref: "Priority area 4",
             name: "Thematic area D",
             color: "#425346",
-            area: "Improving food security, access to water and sustainability",
+            area: "Climate change and natural resources",
             value:
               get(
                 find(
@@ -480,8 +478,7 @@ export function thematicAreasChart2(req: any, res: any) {
               ),
             primary: {
               name: "Priority area 4, primary",
-              area:
-                "Improving food security, access to water and sustainability",
+              area: "Climate change and natural resources",
               value: get(
                 find(
                   items,
@@ -493,8 +490,7 @@ export function thematicAreasChart2(req: any, res: any) {
             },
             secondary: {
               name: "Priority area 4, secondary",
-              area:
-                "Improving food security, access to water and sustainability",
+              area: "Climate change and natural resources",
               value: get(
                 find(
                   items,
