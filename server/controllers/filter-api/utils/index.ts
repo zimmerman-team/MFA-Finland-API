@@ -78,31 +78,47 @@ export function formatSectorOptions(rawData: any) {
   }));
 }
 
-export function formatOrganisationsOptions(rawData: any) {
+export function formatOrganisationsOptions(rawData: any, codelistData?: any) {
   const result: any[] = [];
 
-  const categories = filter(
-    orgDacChannel,
-    (item: any) => item.channel_id === item.channel_category
-  );
+  const codelist = codelistData ?? orgDacChannel;
+
+  const categories = filter(codelist, (item: any) => !item.category);
 
   categories.forEach((category: any) => {
-    const children = filter(orgDacChannel, {
-      channel_category: category.channel_id
-    });
+    const children = filter(
+      codelist,
+      (item: any) =>
+        item.category === category.code || item.code === category.code
+    );
     result.push({
       name: category.name,
-      code: category.channel_id.toString(),
-      children: filter(children, (item: any) =>
-        find(rawData, { val: item.channel_id.toString() })
-      ).map((item: any) => ({
-        name: item.name,
-        code: item.channel_id.toString()
-      }))
+      code: category.code.toString(),
+      children: filter(rawData, (item: any) =>
+        find(children, { code: item.val.split("-")[0] })
+      ).map((item: any) => {
+        let name = "";
+        const names = get(item, "names.buckets", []);
+        if (names.length > 0) {
+          if (names[0].val !== "Ministry for Foreign Affairs of Finland") {
+            name = names[0].val;
+          } else if (names.length > 1) {
+            name = names[1].val;
+          }
+        }
+        return {
+          name,
+          code: item.val
+        };
+      })
     });
   });
 
-  return orderBy(result, "name", "asc");
+  return orderBy(
+    filter(result, (item: any) => item.children.length > 0),
+    "name",
+    "asc"
+  );
 }
 
 export function formatPublishersOptions(rawData: any) {
