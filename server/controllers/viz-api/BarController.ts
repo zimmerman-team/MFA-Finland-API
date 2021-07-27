@@ -503,7 +503,7 @@ export function budgetLineBarChart(req: any, res: any) {
           get(req.body, "filters", {}),
           false,
           true
-        )} tag_code:243066* AND transaction_type:3`,
+        )} AND tag_code:243066* AND transaction_type:3`,
         fl:
           "transaction_type,transaction_value,transaction_value_date,tag_code",
         rows: 20000

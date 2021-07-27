@@ -89,11 +89,13 @@ export function getFormattedFilters(
       result += `tag_narrative:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
         .join(" ")})${addTrailingAND ? " AND " : ""}`;
-    } else if (filterKey === "participating_org_type" && isTransaction) {
-      result += `participating_org_ref:(${filters[filterKey]
-        .map((value: string) => `${value}*`)
-        .join(" ")})`;
-    } else if (filterKey === "policy_marker_code") {
+    }
+    // else if (filterKey === "participating_org_type" && isTransaction) {
+    //   result += `participating_org_ref:(${filters[filterKey]
+    //     .map((value: string) => `${value}*`)
+    //     .join(" ")})${addTrailingAND ? " AND " : ""}`;
+    // }
+    else if (filterKey === "policy_marker_code") {
       result += `${filterKey}:(${filters[filterKey].join(
         " "
       )}) AND policy_marker_significance:(1 2 3 4)${

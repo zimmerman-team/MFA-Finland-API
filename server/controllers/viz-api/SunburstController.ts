@@ -155,10 +155,7 @@ export function basicSunburstChart(req: any, res: any) {
       );
 
       res.json({
-        count: sumBy(
-          get(call1Response, "data.facets.items.buckets", []),
-          "disbursed.value"
-        ),
+        count: sumBy(result.children, "size"),
         vizData: result
       });
     })
