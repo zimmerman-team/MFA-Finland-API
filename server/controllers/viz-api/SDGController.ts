@@ -60,15 +60,15 @@ export function SDGViz(req: any, res: any) {
           committed,
           disbursed,
           name: goal.name,
-          name_fi: getTranslatedSDGS("fi", goal.code),
-          name_se: getTranslatedSDGS("se", goal.code),
-          icon: `/sdgs/${goal.code}.png`,
-          icon_fi: `/sdgs/${goal.code}.png`,
-          icon_se: `/sdgs/${goal.code}.png`,
+          name_fi: getTranslatedSDGS("fi", parseInt(goal.code, 10)),
+          name_se: getTranslatedSDGS("se", parseInt(goal.code, 10)),
+          // icon: `/sdgs/${goal.code}.png`,
+          // icon_fi: `/sdgs/${goal.code}.png`,
+          // icon_se: `/sdgs/${goal.code}.png`,
           /* enable this when actual png files are added to the app public/sdgs dir */
-          // icon: `/sdgs/en/${goal.code}.png`,
-          // icon_fi: `/sdgs/fi/${goal.code}.png`,
-          // icon_se: `/sdgs/se/${goal.code}.png`,
+          icon: `/sdgs/en/${goal.code}.png`,
+          icon_fi: `/sdgs/fi/${goal.code}.png`,
+          icon_se: `/sdgs/se/${goal.code}.png`,
           number: parseInt(goal.code, 10),
           disabled: disbursed === 0 || committed === 0
         };
@@ -83,7 +83,7 @@ export function SDGViz(req: any, res: any) {
     });
 }
 
-export function getTranslatedSDGS(currentLanguage: string, code: number) {
+function getTranslatedSDGS(currentLanguage: string, code: number) {
   switch (code) {
     case 1:
       if (currentLanguage === "fi")
