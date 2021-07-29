@@ -147,7 +147,13 @@ export function formatActivituStatusOptions(rawData: any, codelistData: any) {
     }
   });
 
-  return orderBy(result, "name", "asc");
+  return orderBy(
+    result,
+    function(o) {
+      return new Number(o.code);
+    },
+    ["asc"]
+  );
 }
 
 export function formatOrgOptions(rawData: any, codelistData: any) {
