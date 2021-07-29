@@ -114,11 +114,7 @@ export function formatOrganisationsOptions(rawData: any, codelistData?: any) {
     });
   });
 
-  return orderBy(
-    filter(result, (item: any) => item.children.length > 0),
-    "name",
-    "asc"
-  );
+  return filter(result, (item: any) => item.children.length > 0);
 }
 
 export function formatPublishersOptions(rawData: any) {
