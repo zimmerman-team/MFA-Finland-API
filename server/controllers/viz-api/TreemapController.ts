@@ -1,11 +1,13 @@
 import axios from "axios";
 import get from "lodash/get";
 import find from "lodash/find";
+import some from "lodash/some";
 import uniq from "lodash/uniq";
 import sumBy from "lodash/sumBy";
 import filter from "lodash/filter";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
+import { orgMapping } from "../../static/orgMapping";
 import { countries as COUNTRIES } from "../../static/countries";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
 import { calculateRegions, getColorsBasedOnValues } from "../../utils/treemap";
@@ -177,7 +179,7 @@ export function locationsTreemapChart(req: any, res: any) {
     });
 }
 
-export function organisationsTreemapChart(req: any, res: any) {
+export function organisationsTreemapChart2(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
     {
       q: `${getFormattedFilters(
@@ -264,6 +266,172 @@ export function organisationsTreemapChart(req: any, res: any) {
           name: "",
           color: "",
           children: getColorsBasedOnValues(orgTypesData, true)
+        }
+      });
+    })
+    .catch(error => {
+      genericError(error, res);
+    });
+}
+
+export function organisationsTreemapChart(req: any, res: any) {
+  const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
+    {
+      q: `${normalizeActivity2TransactionFilters(
+        getFormattedFilters(get(req.body, "filters", {}))
+      )} AND participating_org_ref:* AND (transaction_type:3 OR transaction_type:2)`,
+      "json.facet": JSON.stringify({
+        items: {
+          type: "terms",
+          field: "participating_org_ref",
+          limit: -1,
+          facet: {
+            names: {
+              type: "terms",
+              field: "participating_org_narrative",
+              limit: 2
+            },
+            disbursed: {
+              type: "query",
+              q: "transaction_type:3",
+              facet: { value: "sum(transaction_value)" }
+            },
+            committed: {
+              type: "query",
+              q: "transaction_type:2",
+              facet: { value: "sum(transaction_value)" }
+            }
+          }
+        }
+      }),
+      rows: 0
+    },
+    "&",
+    "=",
+    {
+      encodeURIComponent: (str: string) => str
+    }
+  )}`;
+
+  axios
+    .get(url)
+    .then(call1Response => {
+      const rawData = get(call1Response, "data.facets.items.buckets", []);
+      const orgs: any[] = [];
+      const codelist = orgMapping;
+
+      const lvl4Orgs = filter(
+        codelist,
+        (item: any) =>
+          item.info.level === 4 &&
+          some(
+            rawData,
+            (dataItem: any) =>
+              parseInt(dataItem.val.split("-")[0], 10) === item.code
+          )
+      );
+      const lvl1Orgs = filter(
+        codelist,
+        (item: any) =>
+          item.info.level === 1 &&
+          some(lvl4Orgs, (lvl4Item: any) => lvl4Item.info.lvl_1 === item.code)
+      );
+      const lvl0Orgs = filter(
+        codelist,
+        (item: any) =>
+          item.info.level === 0 &&
+          some(lvl1Orgs, (lvl1Item: any) => lvl1Item.info.lvl_0 === item.code)
+      );
+
+      lvl0Orgs.forEach((lvl0Item: any) => {
+        orgs.push({
+          name: lvl0Item.info.name,
+          ref: lvl0Item.code.toString(),
+          orgs: filter(
+            lvl1Orgs,
+            (lvl1Item: any) => lvl1Item.info.lvl_0 === lvl0Item.code
+          ).map((lvl1Item: any) => ({
+            name: lvl1Item.info.name,
+            ref: lvl1Item.code.toString(),
+            orgs: filter(
+              lvl4Orgs,
+              (lvl4Item: any) => lvl4Item.info.lvl_1 === lvl1Item.code
+            ).map((lvl4Item: any) => ({
+              name: lvl4Item.info.name,
+              ref: lvl4Item.code.toString(),
+              orgs: filter(
+                rawData,
+                (dataItem: any) =>
+                  parseInt(dataItem.val.split("-")[0], 10) === lvl4Item.code
+              ).map((dataItem: any) => {
+                let name = "";
+                const names = get(dataItem, "names.buckets", []);
+                if (names.length > 0) {
+                  if (
+                    names[0].val !== "Ministry for Foreign Affairs of Finland"
+                  ) {
+                    name = names[0].val;
+                  } else if (names.length > 1) {
+                    name = names[1].val;
+                  }
+                }
+
+                const disbursed = get(dataItem, "disbursed.value", 0);
+                const committed = get(dataItem, "committed.value", 0);
+
+                return {
+                  name,
+                  ref: dataItem.val,
+                  value: disbursed,
+                  committed: committed,
+                  percentage: (disbursed / committed) * 100,
+                  orgs: []
+                };
+              })
+            }))
+          }))
+        });
+      });
+
+      orgs.forEach((org: any, index: number) => {
+        let disbursed = 0;
+        let committed = 0;
+        org.orgs.forEach((org1: any, index1: number) => {
+          org1.orgs.forEach((org2: any, index2: number) => {
+            disbursed = sumBy(org2.orgs, "value");
+            committed = sumBy(org2.orgs, "committed");
+            orgs[index].orgs[index1].orgs[index2].value = disbursed;
+            orgs[index].orgs[index1].orgs[index2].committed = committed;
+            orgs[index].orgs[index1].orgs[index2].percentage =
+              (disbursed / committed) * 100;
+            orgs[index].orgs[index1].orgs[index2].orgs = getColorsBasedOnValues(
+              orgs[index].orgs[index1].orgs[index2].orgs,
+              true
+            );
+          });
+          disbursed = sumBy(org1.orgs, "value");
+          committed = sumBy(org1.orgs, "committed");
+          orgs[index].orgs[index1].value = disbursed;
+          orgs[index].orgs[index1].committed = committed;
+          orgs[index].orgs[index1].percentage = (disbursed / committed) * 100;
+          orgs[index].orgs[index1].orgs = getColorsBasedOnValues(
+            orgs[index].orgs[index1].orgs,
+            true
+          );
+        });
+        disbursed = sumBy(org.orgs, "value");
+        committed = sumBy(org.orgs, "committed");
+        orgs[index].value = disbursed;
+        orgs[index].committed = committed;
+        orgs[index].percentage = (disbursed / committed) * 100;
+      });
+
+      res.json({
+        count: orgs.length,
+        vizData: {
+          name: "",
+          color: "",
+          children: getColorsBasedOnValues(orgs, true)
         }
       });
     })

@@ -1,9 +1,11 @@
 // @ts-nocheck
 import get from "lodash/get";
 import find from "lodash/find";
+import some from "lodash/some";
 import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
 import { countries } from "../../../static/countries";
+import { orgMapping } from "../../../static/orgMapping";
 import { orgDacChannel } from "../../../static/orgDacChannel";
 import { locationsMapping } from "../../../static/locationsMapping";
 
@@ -111,6 +113,76 @@ export function formatOrganisationsOptions(rawData: any, codelistData?: any) {
           code: item.val
         };
       })
+    });
+  });
+
+  return filter(result, (item: any) => item.children.length > 0);
+}
+
+export function formatOrganisationsOptions2(rawData: any) {
+  const result: any[] = [];
+  const codelist = orgMapping;
+
+  const lvl4Orgs = filter(
+    codelist,
+    (item: any) =>
+      item.info.level === 4 &&
+      some(
+        rawData,
+        (dataItem: any) =>
+          parseInt(dataItem.val.split("-")[0], 10) === item.code
+      )
+  );
+  const lvl1Orgs = filter(
+    codelist,
+    (item: any) =>
+      item.info.level === 1 &&
+      some(lvl4Orgs, (lvl4Item: any) => lvl4Item.info.lvl_1 === item.code)
+  );
+  const lvl0Orgs = filter(
+    codelist,
+    (item: any) =>
+      item.info.level === 0 &&
+      some(lvl1Orgs, (lvl1Item: any) => lvl1Item.info.lvl_0 === item.code)
+  );
+
+  lvl0Orgs.forEach((lvl0Item: any) => {
+    result.push({
+      name: lvl0Item.info.name,
+      code: lvl0Item.code.toString(),
+      children: filter(
+        lvl1Orgs,
+        (lvl1Item: any) => lvl1Item.info.lvl_0 === lvl0Item.code
+      ).map((lvl1Item: any) => ({
+        name: lvl1Item.info.name,
+        code: lvl1Item.code.toString(),
+        children: filter(
+          lvl4Orgs,
+          (lvl4Item: any) => lvl4Item.info.lvl_1 === lvl1Item.code
+        ).map((lvl4Item: any) => ({
+          name: lvl4Item.info.name,
+          code: lvl4Item.code.toString(),
+          children: filter(
+            rawData,
+            (dataItem: any) =>
+              parseInt(dataItem.val.split("-")[0], 10) === lvl4Item.code
+          ).map((dataItem: any) => {
+            let name = "";
+            const names = get(dataItem, "names.buckets", []);
+            if (names.length > 0) {
+              if (names[0].val !== "Ministry for Foreign Affairs of Finland") {
+                name = names[0].val;
+              } else if (names.length > 1) {
+                name = names[1].val;
+              }
+            }
+            return {
+              name,
+              code: dataItem.val
+            };
+          })
+        }))
+      }))
     });
   });
 
