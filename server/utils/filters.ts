@@ -1,8 +1,7 @@
 import get from "lodash/get";
 import { globalSearchFields } from "../static/globalSearchFields";
 
-const stickyPeriodFilter = `activity_date_start_actual_f:[2015-01-01T00:00:00Z TO *] OR activity_date_start_planned_f:[2015-01-01T00:00:00Z TO *]`;
-const ODAstickyPeriodFilter = `transaction_value_date:[2015-01-01T00:00:00Z TO *]`;
+const stickyPeriodFilter = `transaction_value_date:[2015-01-01T00:00:00Z TO *]`;
 
 export function getFormattedSearchParam(q: string) {
   const qstring = globalSearchFields
@@ -25,14 +24,12 @@ export function getFormattedFilters(
 
   if (isFilterOption) {
     localStickyPeriodFilter +=
-      " OR activity_date_iso_date:[2015-01-01T00:00:00Z TO *] OR transaction_date_iso_date:[2015-01-01T00:00:00Z TO *]";
+      " OR transaction_value_date:[2015-01-01T00:00:00Z TO *]";
   }
 
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0) {
-    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${
-      isODA ? ODAstickyPeriodFilter : localStickyPeriodFilter
-    })`;
+    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${localStickyPeriodFilter})`;
   }
 
   let result = "";
@@ -54,23 +51,11 @@ export function getFormattedFilters(
         addTrailingAND ? " AND " : ""
       }`;
     } else if (filterKey === "years") {
-      if (isODA) {
-        result += `transaction_value_date:[${
-          filters[filterKey][0]
-        }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
-          addTrailingAND ? " AND " : ""
-        }`;
-      } else {
-        result += `(activity_date_start_actual_f:[${
-          filters[filterKey][0]
-        }-01-01T00:00:00Z TO ${
-          filters[filterKey][1]
-        }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
-          filters[filterKey][0]
-        }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z])${
-          addTrailingAND ? " AND " : ""
-        }`;
-      }
+      result += `transaction_value_date:[${
+        filters[filterKey][0]
+      }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
+        addTrailingAND ? " AND " : ""
+      }`;
     } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
       result += `(tag_code:(${filters[filterKey]
         .map((value: string) => `"${value.replace("|", ",")}"`)
@@ -109,9 +94,7 @@ export function getFormattedFilters(
   });
 
   if (filterKeys.indexOf("years") === -1) {
-    result += `${result.length > 0 ? " AND " : ""}(${
-      isODA ? ODAstickyPeriodFilter : localStickyPeriodFilter
-    })`;
+    result += `${result.length > 0 ? " AND " : ""}(${localStickyPeriodFilter})`;
   }
 
   if (locations.countries.length > 0 || locations.regions.length > 0) {
@@ -148,11 +131,7 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
           index === filterKeys.length - 1 ? "" : " AND "
         }`;
       } else if (filterKey === "years") {
-        query += `activity_date_start_actual_f:[${
-          filters[filterKey][0]
-        }-01-01T00:00:00Z TO ${
-          filters[filterKey][1]
-        }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
+        query += `transaction_value_date:[${
           filters[filterKey][0]
         }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
           index === filterKeys.length - 1 ? "" : " AND "
@@ -176,15 +155,11 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
           .map((value: string) => `"${value}"`)
           .join(" ")})`;
       } else if (filterKey === "period") {
-        query += `(activity_date_start_actual_f: [${
+        query += `transaction_value_date:[${
           filters[filterKey][0].startDate
-        } TO *] OR activity_date_start_planned_f: [${
-          filters[filterKey][0].startDate
-        } TO *]) AND (activity_date_end_actual_f: [* TO ${
+        } TO *] AND transaction_value_date:[* TO ${
           filters[filterKey][0].endDate
-        }] OR activity_date_end_planned_f: [* TO ${
-          filters[filterKey][0].endDate
-        }])${index === filterKeys.length - 1 ? "" : " AND "}\`;`;
+        }]${index === filterKeys.length - 1 ? "" : " AND "}\`;`;
       } else if (filterKey === "policy_marker_code") {
         query += `${filterKey}:(${filters[filterKey].join(
           " "
@@ -192,13 +167,9 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
           index === filterKeys.length - 1 ? "" : " AND "
         }`;
       } else if (filterKey === "year_period") {
-        query += `(activity_date_start_actual_f:[${
+        query += `transaction_value_date:[${
           filters[filterKey]
-        }-01-01T00:00:00Z TO ${
-          filters[filterKey]
-        }-12-31T23:59:59Z] OR activity_date_start_planned_f:[${
-          filters[filterKey]
-        }-01-01T00:00:00Z TO ${filters[filterKey]}-12-31T23:59:59Z])${
+        }-01-01T00:00:00Z TO ${filters[filterKey]}-12-31T23:59:59Z]${
           index === filterKeys.length - 1 ? "" : " AND "
         }`;
       } else {
@@ -237,7 +208,5 @@ export function normalizeActivity2TransactionFilters(filterstring: string) {
     .replace(/tag_narrative/g, "tag_code")
     .replace(/sector_code/g, "activity_sector_code")
     .replace(/recipient_region_code/g, "activity_recipient_region_code")
-    .replace(/recipient_country_code/g, "activity_recipient_country_code")
-    .replace(/activity_date_start_planned_f/g, "activity_date_iso_date_f")
-    .replace(/activity_date_start_actual_f/g, "transaction_date_iso_date_f");
+    .replace(/recipient_country_code/g, "activity_recipient_country_code");
 }
