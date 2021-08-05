@@ -147,19 +147,19 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
           .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)
           .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
       } else if (filterKey === "budget_line") {
-        query += `tag_code:(${filters[filterKey]
+        query += `(tag_code:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
-          .join(" ")})`;
+          .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
       } else if (filterKey === "human_rights_approach") {
         query += `tag_narrative:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
-          .join(" ")})`;
+          .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
       } else if (filterKey === "period") {
         query += `transaction_value_date:[${
           filters[filterKey][0].startDate
         } TO *] AND transaction_value_date:[* TO ${
           filters[filterKey][0].endDate
-        }]${index === filterKeys.length - 1 ? "" : " AND "}\`;`;
+        }]${index === filterKeys.length - 1 ? "" : " AND "}`;
       } else if (filterKey === "policy_marker_code") {
         query += `${filterKey}:(${filters[filterKey].join(
           " "
