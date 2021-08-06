@@ -80,55 +80,173 @@ export function basicSunburstChart(req: any, res: any) {
       };
 
       // loop through sectorMapping array and fill in the size of each sector
-      function loopChildren(arr: any[]) {
-        for (let i = 0; i < arr.length; i++) {
-          const fItem = find(actualData, { val: arr[i].code });
-          if (arr[i].hasOwnProperty("children")) {
-            arr[i].size = get(fItem, "disbursed.value", 0);
-            arr[i].committed = get(fItem, "committed.value", 0);
-            loopChildren(arr[i].children);
-          } else {
-            if (fItem) {
-              arr[i].size = get(fItem, "disbursed.value", 0);
-              arr[i].committed = get(fItem, "committed.value", 0);
-              arr[i].percentage = (arr[i].size / arr[i].committed) * 100;
-            } else {
-              arr[i].size = 0;
+      result.children.forEach((sector0: any, index0: number) => {
+        const fItem0 = find(actualData, { val: sector0.code });
+        if (sector0.hasOwnProperty("children")) {
+          result.children[index0].size = get(fItem0, "disbursed.value", 0);
+          result.children[index0].committed = get(fItem0, "committed.value", 0);
+          result.children[index0].children.forEach(
+            (sector1: any, index1: number) => {
+              const fItem1 = find(actualData, { val: sector1.code });
+              if (sector1.hasOwnProperty("children")) {
+                result.children[index0].children[index1].size = get(
+                  fItem1,
+                  "disbursed.value",
+                  0
+                );
+                result.children[index0].children[index1].committed = get(
+                  fItem1,
+                  "committed.value",
+                  0
+                );
+                result.children[index0].children[index1].children.forEach(
+                  (sector2: any, index2: number) => {
+                    const fItem2 = find(actualData, { val: sector2.code });
+                    if (sector2.hasOwnProperty("children")) {
+                      result.children[index0].children[index1].children[
+                        index2
+                      ].size = get(fItem2, "disbursed.value", 0);
+                      result.children[index0].children[index1].children[
+                        index2
+                      ].committed = get(fItem2, "committed.value", 0);
+                    } else {
+                      if (fItem2) {
+                        result.children[index0].children[index1].children[
+                          index2
+                        ].size = get(fItem2, "disbursed.value", 0);
+                        result.children[index0].children[index1].children[
+                          index2
+                        ].committed = get(fItem2, "committed.value", 0);
+                        result.children[index0].children[index1].children[
+                          index2
+                        ].percentage =
+                          (result.children[index0].children[index1].children[
+                            index2
+                          ].size /
+                            result.children[index0].children[index1].children[
+                              index2
+                            ].committed) *
+                          100;
+                      } else {
+                        result.children[index0].children[index1].children[
+                          index2
+                        ].size = 0;
+                      }
+                    }
+                  }
+                );
+              } else {
+                if (fItem1) {
+                  result.children[index0].children[index1].size = get(
+                    fItem1,
+                    "disbursed.value",
+                    0
+                  );
+                  result.children[index0].children[index1].committed = get(
+                    fItem1,
+                    "committed.value",
+                    0
+                  );
+                  result.children[index0].children[index1].percentage =
+                    (result.children[index0].children[index1].size /
+                      result.children[index0].children[index1].committed) *
+                    100;
+                } else {
+                  result.children[index0].children[index1].size = 0;
+                }
+              }
             }
+          );
+        } else {
+          if (fItem0) {
+            result.children[index0].size = get(fItem0, "disbursed.value", 0);
+            result.children[index0].committed = get(
+              fItem0,
+              "committed.value",
+              0
+            );
+            result.children[index0].percentage =
+              (result.children[index0].size /
+                result.children[index0].committed) *
+              100;
+          } else {
+            result.children[index0].size = 0;
           }
         }
-      }
-      loopChildren(result.children);
+      });
 
       // calculate parent sectors size based on children
-      function calcParentSize(arr: any[], recursive: boolean) {
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i].hasOwnProperty("children")) {
-            arr[i].size =
-              sumBy(arr[i].children, "size") + get(arr[i], "size", 0);
-            arr[i].committed =
-              sumBy(arr[i].children, "committed") + get(arr[i], "committed", 0);
-            arr[i].percentage = (arr[i].size / arr[i].committed) * 100;
-            if (recursive) {
-              calcParentSize(arr[i].children, true);
+      result.children.forEach((sector0: any, index0: number) => {
+        if (sector0.hasOwnProperty("children")) {
+          result.children[index0].children.forEach(
+            (sector1: any, index1: number) => {
+              if (sector1.hasOwnProperty("children")) {
+                result.children[index0].children[index1].size =
+                  sumBy(
+                    result.children[index0].children[index1].children,
+                    "size"
+                  ) + get(result.children[index0].children[index1], "size", 0);
+                result.children[index0].children[index1].committed =
+                  sumBy(
+                    result.children[index0].children[index1].children,
+                    "committed"
+                  ) +
+                  get(result.children[index0].children[index1], "committed", 0);
+                result.children[index0].children[index1].percentage =
+                  (result.children[index0].children[index1].size /
+                    result.children[index0].children[index1].committed) *
+                  100;
+              }
             }
-          }
+          );
+          result.children[index0].size =
+            sumBy(result.children[index0].children, "size") +
+            get(result.children[index0], "size", 0);
+          result.children[index0].committed =
+            sumBy(result.children[index0].children, "committed") +
+            get(result.children[index0], "committed", 0);
+          result.children[index0].percentage =
+            (result.children[index0].size / result.children[index0].committed) *
+            100;
         }
-      }
-      calcParentSize(result.children, true);
-
-      calcParentSize(result.children, false);
+      });
 
       // sort children sectors based on size
-      function sortChildren(arr: any[]) {
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i].hasOwnProperty("children")) {
-            arr[i].children = orderBy(arr[i].children, "size", "desc");
-            sortChildren(arr[i].children);
-          }
+      result.children.forEach((sector0: any, index0: number) => {
+        if (sector0.hasOwnProperty("children")) {
+          result.children[index0].children = orderBy(
+            result.children[index0].children,
+            "size",
+            "desc"
+          );
+          result.children[index0].children.forEach(
+            (sector1: any, index1: number) => {
+              if (sector1.hasOwnProperty("children")) {
+                result.children[index0].children[index1].children = orderBy(
+                  result.children[index0].children[index1].children,
+                  "size",
+                  "desc"
+                );
+                result.children[index0].children[index1].children.forEach(
+                  (sector2: any, index2: number) => {
+                    if (sector2.hasOwnProperty("children")) {
+                      result.children[index0].children[index1].children[
+                        index2
+                      ].children = orderBy(
+                        result.children[index0].children[index1].children[
+                          index2
+                        ].children,
+                        "size",
+                        "desc"
+                      );
+                    }
+                  }
+                );
+              }
+            }
+          );
         }
-      }
-      sortChildren(result.children);
+      });
 
       result.children.forEach((item: any, index: number) => {
         if (item.children) {
@@ -160,7 +278,7 @@ export function basicSunburstChart(req: any, res: any) {
       });
     })
     .catch(error => {
-      // console.log(error);
+      console.log(error);
       genericError(error, res);
     });
 }
