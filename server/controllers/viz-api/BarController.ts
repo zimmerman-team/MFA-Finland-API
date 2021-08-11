@@ -101,7 +101,7 @@ export function budgetLineBarChart1(req: any, res: any) {
 export function ODAbarChart1(req: any, res: any) {
   axios
     .get(
-      `${process.env.DS_SOLR_API}/activity/?q=reporting_org_ref:FI-3&facet=on&facet.pivot=activity_date_start_actual&fl=facet_counts&rows=0`
+      `${process.env.DS_SOLR_API}/activity/?q=reporting_org_ref:${process.env.MFA_PUBLISHER_REF}&facet=on&facet.pivot=activity_date_start_actual&fl=facet_counts&rows=0`
     )
     .then(call1Response => {
       const activityYears = uniq(
@@ -191,7 +191,7 @@ export function ODAbarChart1(req: any, res: any) {
 export function budgetLineBarChart2(req: any, res: any) {
   axios
     .get(
-      `${process.env.DS_SOLR_API}/activity/?q=reporting_org_ref:FI-3&facet=on&facet.pivot=activity_date_start_actual&fl=facet_counts&rows=0`
+      `${process.env.DS_SOLR_API}/activity/?q=reporting_org_ref:${process.env.MFA_PUBLISHER_REF}&facet=on&facet.pivot=activity_date_start_actual&fl=facet_counts&rows=0`
     )
     .then(call1Response => {
       const activityYears = uniq(
@@ -299,7 +299,7 @@ export function ODAbarChart(req: any, res: any) {
     }
   )}`;
 
-  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:FI-3&fl=organisation_total_expenditure`;
+  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:${process.env.MFA_PUBLISHER_REF}&fl=organisation_total_expenditure`;
 
   const exclusiveURL = `${
     process.env.DS_SOLR_API
@@ -450,7 +450,7 @@ export function ODAbarChart(req: any, res: any) {
 export function budgetLineBarChart(req: any, res: any) {
   const extra_param = get(req.body, "extra_param", "");
   const yearFilter = get(req.body, "filters.years", []);
-  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:FI-3&fl=organisation_total_expenditure`;
+  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:${process.env.MFA_PUBLISHER_REF}&fl=organisation_total_expenditure`;
 
   if (
     yearFilter.length > 0 &&
