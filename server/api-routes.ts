@@ -17,6 +17,7 @@ const SDGController = require("./controllers/viz-api/SDGController");
 const GeoController = require("./controllers/viz-api/GeoController");
 const TreemapController = require("./controllers/viz-api/TreemapController");
 const SunburstController = require("./controllers/viz-api/SunburstController");
+const SunburstControllerTest = require("./controllers/viz-api/SunburstControllerTest");
 const ThematicAreaController = require("./controllers/viz-api/ThematicAreaController");
 
 // table
@@ -75,7 +76,8 @@ router.route("/detail-page-name").post(DetailCommonController.detailPageName);
 router.route("/geo").post(GeoController.geoChart);
 
 // Sectors sunburst/donut
-router.route("/sunburst").post(SunburstController.basicSunburstChart);
+router.route("/sunburst-test").post(SunburstController.basicSunburstChart);
+router.route("/sunburst").post(SunburstControllerTest.basicSunburstChart);
 
 router.route("/oda").post(BarController.ODAbarChart);
 

@@ -6,6 +6,7 @@ import uniqBy from "lodash/uniqBy";
 import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
 import querystring from "querystring";
+import findIndex from "lodash/findIndex";
 import { genericError } from "../../utils/general";
 import {
   getFormattedFilters,
@@ -40,29 +41,12 @@ function getSectorsWithData(sectorData: any) {
 export function basicSunburstChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
     {
-      q: normalizeActivity2TransactionFilters(
+      q: `${normalizeActivity2TransactionFilters(
         getFormattedFilters(get(req.body, "filters", {}), true)
-      ),
-      "json.facet": JSON.stringify({
-        items: {
-          type: "terms",
-          field: "activity_sector_code",
-          limit: -1,
-          facet: {
-            disbursed: {
-              type: "query",
-              q: "transaction_type:3",
-              facet: { value: "sum(transaction_value)" }
-            },
-            committed: {
-              type: "query",
-              q: "transaction_type:2",
-              facet: { value: "sum(transaction_value)" }
-            }
-          }
-        }
-      }),
-      rows: 0
+      )} AND transaction_type:(2 3)`,
+      fl:
+        "activity_sector_code,activity_sector_percentage,transaction_type,transaction_value",
+      rows: 50000
     },
     "&",
     "=",
@@ -70,25 +54,62 @@ export function basicSunburstChart(req: any, res: any) {
       encodeURIComponent: (str: string) => str
     }
   )}`;
+
   axios
     .get(url)
     .then(call1Response => {
-      const actualData = get(call1Response, "data.facets.items.buckets", []);
+      const rawData = get(call1Response, "data.response.docs", []);
+      const rawSectors: any = [];
+
+      rawData.forEach((doc: any) => {
+        get(doc, "activity_sector_code", []).forEach(
+          (sector: string, index: number) => {
+            const fSectorIndex = findIndex(rawSectors, { val: sector });
+            const percentage = get(doc, `sector_percentage[${index}]`, 100);
+            const data = {
+              val: sector,
+              committed: { value: 0 },
+              disbursed: { value: 0 }
+            };
+            if (doc.transaction_type === "2") {
+              if (fSectorIndex > -1) {
+                rawSectors[fSectorIndex].committed.value +=
+                  (doc.transaction_value * percentage) / 100;
+              } else {
+                data.committed.value =
+                  (doc.transaction_value * percentage) / 100;
+              }
+            } else if (doc.transaction_type === "3") {
+              if (fSectorIndex > -1) {
+                rawSectors[fSectorIndex].disbursed.value +=
+                  (doc.transaction_value * percentage) / 100;
+              } else {
+                data.disbursed.value =
+                  (doc.transaction_value * percentage) / 100;
+              }
+            }
+            if (fSectorIndex === -1) {
+              rawSectors.push(data);
+            }
+          }
+        );
+      });
+
       let result = {
         title: "activities",
         color: "",
-        children: getSectorsWithData(actualData)
+        children: getSectorsWithData(rawSectors)
       };
 
       // loop through sectorMapping array and fill in the size of each sector
       result.children.forEach((sector0: any, index0: number) => {
-        const fItem0 = find(actualData, { val: sector0.code });
+        const fItem0 = find(rawSectors, { val: sector0.code });
         if (sector0.hasOwnProperty("children")) {
           result.children[index0].size = get(fItem0, "disbursed.value", 0);
           result.children[index0].committed = get(fItem0, "committed.value", 0);
           result.children[index0].children.forEach(
             (sector1: any, index1: number) => {
-              const fItem1 = find(actualData, { val: sector1.code });
+              const fItem1 = find(rawSectors, { val: sector1.code });
               if (sector1.hasOwnProperty("children")) {
                 result.children[index0].children[index1].size = get(
                   fItem1,
@@ -102,7 +123,7 @@ export function basicSunburstChart(req: any, res: any) {
                 );
                 result.children[index0].children[index1].children.forEach(
                   (sector2: any, index2: number) => {
-                    const fItem2 = find(actualData, { val: sector2.code });
+                    const fItem2 = find(rawSectors, { val: sector2.code });
                     if (sector2.hasOwnProperty("children")) {
                       result.children[index0].children[index1].children[
                         index2
