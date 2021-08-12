@@ -233,6 +233,86 @@ export const sectorMapping = {
           ]
         },
         {
+          code: "231",
+          color: SunburstChartColors[0],
+          title: "Energy Policy",
+          children: [
+            {
+              code: "23110",
+              color: SunburstChartColors[0],
+              title: "Energy policy and administrative management"
+            },
+            {
+              code: "23183",
+              color: SunburstChartColors[0],
+              title: "Energy conservation and demand-side efficiency"
+            }
+          ]
+        },
+        {
+          code: "232",
+          color: SunburstChartColors[0],
+          title: "Energy generation, renewable sources",
+          children: [
+            {
+              code: "23210",
+              color: SunburstChartColors[0],
+              title:
+                "Energy generation, renewable sources - multiple technologies"
+            },
+            {
+              code: "23220",
+              color: SunburstChartColors[0],
+              title: "Hydro-electric power plants"
+            },
+            {
+              code: "23230",
+              color: SunburstChartColors[0],
+              title: "Solar energy for centralised grids"
+            },
+            {
+              code: "23240",
+              color: SunburstChartColors[0],
+              title: "Wind energy"
+            },
+            {
+              code: "23250",
+              color: SunburstChartColors[0],
+              title: "Marine energy"
+            },
+            {
+              code: "23270",
+              color: SunburstChartColors[0],
+              title: "Biofuel-fired power plants"
+            }
+          ]
+        },
+        {
+          code: "233",
+          color: SunburstChartColors[0],
+          title: "Energy generation, non-renewable sources",
+          children: [
+            {
+              code: "23310",
+              color: SunburstChartColors[0],
+              title: "Energy generation, non-renewable sources, unspecified"
+            }
+          ]
+        },
+        {
+          code: "236",
+          color: SunburstChartColors[0],
+          title: "Energy distribution",
+          children: [
+            {
+              code: "23630",
+              color: SunburstChartColors[0],
+              title:
+                "Electric power transmission and distribution (centralised grids)"
+            }
+          ]
+        },
+        {
           code: "240",
           title: "Banking & Financial Services",
           color: SunburstChartColors[0],
@@ -448,7 +528,7 @@ export const sectorMapping = {
               title: "Fishing policy and administrative management"
             },
             {
-              code: "31310",
+              code: "31320",
               color: SunburstChartColors[1],
               title: "Fishery development"
             },
@@ -569,6 +649,35 @@ export const sectorMapping = {
               category: "321",
               color: SunburstChartColors[1],
               title: "Technological research and development"
+            }
+          ]
+        },
+        {
+          code: "322",
+          title: "Mineral Resources & Mining",
+          color: SunburstChartColors[1],
+          children: [
+            {
+              code: "32210",
+              color: SunburstChartColors[1],
+              title: "Mineral/mining policy and administrative management"
+            },
+            {
+              code: "32220",
+              color: SunburstChartColors[1],
+              title: "Mineral prospection and exploration"
+            }
+          ]
+        },
+        {
+          code: "323",
+          title: "Construction",
+          color: SunburstChartColors[1],
+          children: [
+            {
+              code: "32310",
+              color: SunburstChartColors[1],
+              title: "Construction policy and administrative management"
             }
           ]
         },
@@ -856,6 +965,11 @@ export const sectorMapping = {
               code: "53030",
               color: SunburstChartColors[4],
               title: "Import support (capital goods)"
+            },
+            {
+              code: "53040",
+              color: SunburstChartColors[4],
+              title: "Import support (commodities)"
             }
           ]
         },
@@ -1186,6 +1300,18 @@ export const sectorMapping = {
               code: "12281",
               color: SunburstChartColors[6],
               title: "Health personnel development"
+            }
+          ]
+        },
+        {
+          code: "123",
+          title: "Non-communicable diseases (NCDs)",
+          color: SunburstChartColors[6],
+          children: [
+            {
+              code: "12340",
+              color: SunburstChartColors[6],
+              title: "Promotion of mental health and well-being"
             }
           ]
         }
