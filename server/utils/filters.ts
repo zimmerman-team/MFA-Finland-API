@@ -37,6 +37,7 @@ export function getFormattedFilters(
     countries: [],
     regions: []
   };
+
   filterKeys.forEach((filterKey: string, index: number) => {
     const addTrailingAND =
       filterKeys.length - 1 !== index &&
@@ -124,9 +125,19 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   }
 
   let query = "";
+
+  const locations = {
+    countries: [],
+    regions: []
+  };
+
   if (filterKeys.length > 0) {
     filterKeys.forEach((filterKey: string, index: number) => {
-      if (filterKey === "budget_value") {
+      if (filterKey === "recipient_country_code") {
+        locations.countries = filters[filterKey];
+      } else if (filterKey === "recipient_region_code") {
+        locations.regions = filters[filterKey];
+      } else if (filterKey === "budget_value") {
         query += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
           index === filterKeys.length - 1 ? "" : " AND "
         }`;
@@ -178,6 +189,20 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
         }`;
       }
     });
+  }
+
+  if (locations.countries.length > 0 || locations.regions.length > 0) {
+    query += `${query.length > 0 ? " AND " : ""}(${
+      locations.countries.length > 0
+        ? `recipient_country_code:(${locations.countries.join(" ")})`
+        : ""
+    }${
+      locations.regions.length > 0
+        ? `${
+            locations.countries.length > 0 ? "OR " : ""
+          }recipient_region_code:(${locations.regions.join(" ")})`
+        : ""
+    })`;
   }
 
   if (search.length > 0 && filterKeys.length > 0) {
