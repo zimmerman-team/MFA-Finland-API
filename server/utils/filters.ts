@@ -124,57 +124,69 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   }
 
   let query = "";
+  const locations = {
+    countries: [],
+    regions: []
+  };
   if (filterKeys.length > 0) {
     filterKeys.forEach((filterKey: string, index: number) => {
-      if (filterKey === "budget_value") {
+      const addTrailingAND =
+        filterKeys.length - 1 !== index &&
+        get(filterKeys, `[${index + 1}]`, "") !== "recipient_country_code" &&
+        get(filterKeys, `[${index + 1}]`, "") !== "recipient_region_code";
+      if (filterKey === "recipient_country_code") {
+        locations.countries = filters[filterKey];
+      } else if (filterKey === "recipient_region_code") {
+        locations.regions = filters[filterKey];
+      } else if (filterKey === "budget_value") {
         query += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
-          index === filterKeys.length - 1 ? "" : " AND "
+          addTrailingAND ? " AND " : ""
         }`;
       } else if (filterKey === "years") {
         query += `transaction_value_date:[${
           filters[filterKey][0]
         }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
-          index === filterKeys.length - 1 ? "" : " AND "
+          addTrailingAND ? " AND " : ""
         }`;
       } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
         query += `(tag_code:(${filters[filterKey]
           .map((value: string) => `"${value.replace("|", ",")}"`)
           .join(" ")}) OR tag_narrative:(${filters[filterKey]
           .map((value: string) => `"${value.replace("|", ",")}"`)
-          .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
+          .join(" ")}))${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "sector_code") {
         query += `sector_code:(${filters[filterKey]
           .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)
-          .join(" ")})${index === filterKeys.length - 1 ? "" : " AND "}`;
+          .join(" ")})${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "budget_line") {
         query += `(tag_code:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
-          .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
+          .join(" ")}))${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "human_rights_approach") {
         query += `tag_narrative:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
-          .join(" ")}))${index === filterKeys.length - 1 ? "" : " AND "}`;
+          .join(" ")}))${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "period") {
         query += `transaction_value_date:[${
           filters[filterKey][0].startDate
         } TO *] AND transaction_value_date:[* TO ${
           filters[filterKey][0].endDate
-        }]${index === filterKeys.length - 1 ? "" : " AND "}`;
+        }]${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "policy_marker_code") {
         query += `${filterKey}:(${filters[filterKey].join(
           " "
         )}) AND policy_marker_significance:(1 2 3 4)${
-          index === filterKeys.length - 1 ? "" : " AND "
+          addTrailingAND ? " AND " : ""
         }`;
       } else if (filterKey === "year_period") {
         query += `transaction_value_date:[${
           filters[filterKey]
         }-01-01T00:00:00Z TO ${filters[filterKey]}-12-31T23:59:59Z]${
-          index === filterKeys.length - 1 ? "" : " AND "
+          addTrailingAND ? " AND " : ""
         }`;
       } else {
         query += `${filterKey}:(${filters[filterKey].join(" ")})${
-          index === filterKeys.length - 1 ? "" : " AND "
+          addTrailingAND ? " AND " : ""
         }`;
       }
     });
@@ -198,6 +210,20 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
 
   if (filterKeys.indexOf("years") === -1) {
     query += `${query.length > 0 ? " AND " : ""}(${stickyPeriodFilter})`;
+  }
+
+  if (locations.countries.length > 0 || locations.regions.length > 0) {
+    query += `${query.length > 0 ? " AND " : ""}(${
+      locations.countries.length > 0
+        ? `recipient_country_code:(${locations.countries.join(" ")})`
+        : ""
+    }${
+      locations.regions.length > 0
+        ? `${
+            locations.countries.length > 0 ? "OR " : ""
+          }recipient_region_code:(${locations.regions.join(" ")})`
+        : ""
+    })`;
   }
 
   return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${query})`;
