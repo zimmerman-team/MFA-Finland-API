@@ -96,10 +96,7 @@ export function activitiesTable(req: any, res: any) {
             }
           });
         }
-        let disbursementPercentage = 0;
-        if (disbursed > 0 && committed > 0) {
-          disbursementPercentage = (disbursed / committed) * 100;
-        }
+
         let budget = get(activity, "budget_value[0]", 0);
         if (activity.budget_value && activity.budget_value.length > 1) {
           const revisedBudgedIndex = findIndex(
@@ -125,7 +122,8 @@ export function activitiesTable(req: any, res: any) {
           startDate: formatDate(startDate),
           endDate: formatDate(endDate),
           status: statusName ? statusName.name : "-",
-          disbursementPercentage,
+          committed,
+          disbursed,
           budget,
           sectors: [
             ...get(activity, "sector_code", []).map((code: string) => {
