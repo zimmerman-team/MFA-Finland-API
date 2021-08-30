@@ -147,43 +147,75 @@ export function formatOrganisationsOptions2(rawData: any) {
   );
 
   lvl0Orgs.forEach((lvl0Item: any) => {
-    result.push({
+    const lvl0Org = {
       name: lvl0Item.info.name,
       code: lvl0Item.code.toString(),
-      children: filter(
-        lvl1Orgs,
-        (lvl1Item: any) => lvl1Item.info.lvl_0 === lvl0Item.code
-      ).map((lvl1Item: any) => ({
+      children: []
+    };
+
+    const lvl1OrgsResult: any[] = [];
+
+    filter(
+      lvl1Orgs,
+      (lvl1Item: any) => lvl1Item.info.lvl_0 === lvl0Item.code
+    ).forEach((lvl1Item: any) => {
+      const codelistOrgs = filter(
+        lvl4Orgs,
+        (lvl4Item: any) => lvl4Item.info.lvl_1 === lvl1Item.code
+      ).map((lvl4Item: any) => ({
+        name: lvl4Item.info.name,
+        code: lvl4Item.code.toString(),
+        children: filter(
+          rawData,
+          (dataItem: any) =>
+            parseInt(dataItem.val.split("-")[0], 10) === lvl4Item.code
+        ).map((dataItem: any) => {
+          let name = "";
+          const names = get(dataItem, "names.buckets", []);
+          if (names.length > 0) {
+            if (names[0].val !== "Ministry for Foreign Affairs of Finland") {
+              name = names[0].val;
+            } else if (names.length > 1) {
+              name = names[1].val;
+            }
+          }
+
+          return {
+            name,
+            code: dataItem.val
+          };
+        })
+      }));
+      const nonCodelistOrgs = filter(
+        rawData,
+        (dataItem: any) =>
+          parseInt(dataItem.val.split("-")[0], 10) === lvl1Item.code
+      ).map((dataItem: any) => {
+        let name = "";
+        const names = get(dataItem, "names.buckets", []);
+        if (names.length > 0) {
+          if (names[0].val !== "Ministry for Foreign Affairs of Finland") {
+            name = names[0].val;
+          } else if (names.length > 1) {
+            name = names[1].val;
+          }
+        }
+
+        return {
+          name,
+          code: dataItem.val
+        };
+      });
+      lvl1OrgsResult.push({
         name: lvl1Item.info.name,
         code: lvl1Item.code.toString(),
-        children: filter(
-          lvl4Orgs,
-          (lvl4Item: any) => lvl4Item.info.lvl_1 === lvl1Item.code
-        ).map((lvl4Item: any) => ({
-          name: lvl4Item.info.name,
-          code: lvl4Item.code.toString(),
-          children: filter(
-            rawData,
-            (dataItem: any) =>
-              parseInt(dataItem.val.split("-")[0], 10) === lvl4Item.code
-          ).map((dataItem: any) => {
-            let name = "";
-            const names = get(dataItem, "names.buckets", []);
-            if (names.length > 0) {
-              if (names[0].val !== "Ministry for Foreign Affairs of Finland") {
-                name = names[0].val;
-              } else if (names.length > 1) {
-                name = names[1].val;
-              }
-            }
-            return {
-              name,
-              code: dataItem.val
-            };
-          })
-        }))
-      }))
+        children: [...codelistOrgs, ...nonCodelistOrgs]
+      });
     });
+
+    lvl0Org.children = lvl1OrgsResult as never[];
+
+    result.push(lvl0Org);
   });
 
   return filter(result, (item: any) => item.children.length > 0);
