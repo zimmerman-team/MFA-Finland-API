@@ -344,53 +344,91 @@ export function organisationsTreemapChart(req: any, res: any) {
       );
 
       lvl0Orgs.forEach((lvl0Item: any) => {
-        orgs.push({
+        const lvl0Org = {
           name: lvl0Item.info.name,
           ref: lvl0Item.code.toString(),
-          orgs: filter(
-            lvl1Orgs,
-            (lvl1Item: any) => lvl1Item.info.lvl_0 === lvl0Item.code
-          ).map((lvl1Item: any) => ({
+          orgs: []
+        };
+
+        const lvl1OrgsResult: any[] = [];
+
+        filter(
+          lvl1Orgs,
+          (lvl1Item: any) => lvl1Item.info.lvl_0 === lvl0Item.code
+        ).forEach((lvl1Item: any) => {
+          const codelistOrgs = filter(
+            lvl4Orgs,
+            (lvl4Item: any) => lvl4Item.info.lvl_1 === lvl1Item.code
+          ).map((lvl4Item: any) => ({
+            name: lvl4Item.info.name,
+            ref: lvl4Item.code.toString(),
+            orgs: filter(
+              rawData,
+              (dataItem: any) =>
+                parseInt(dataItem.val.split("-")[0], 10) === lvl4Item.code
+            ).map((dataItem: any) => {
+              let name = "";
+              const names = get(dataItem, "names.buckets", []);
+              if (names.length > 0) {
+                if (
+                  names[0].val !== "Ministry for Foreign Affairs of Finland"
+                ) {
+                  name = names[0].val;
+                } else if (names.length > 1) {
+                  name = names[1].val;
+                }
+              }
+
+              const disbursed = get(dataItem, "disbursed.value", 0);
+              const committed = get(dataItem, "committed.value", 0);
+
+              return {
+                name,
+                ref: dataItem.val,
+                value: disbursed,
+                committed: committed,
+                percentage: (disbursed / committed) * 100,
+                orgs: []
+              };
+            })
+          }));
+          const nonCodelistOrgs = filter(
+            rawData,
+            (dataItem: any) =>
+              parseInt(dataItem.val.split("-")[0], 10) === lvl1Item.code
+          ).map((dataItem: any) => {
+            let name = "";
+            const names = get(dataItem, "names.buckets", []);
+            if (names.length > 0) {
+              if (names[0].val !== "Ministry for Foreign Affairs of Finland") {
+                name = names[0].val;
+              } else if (names.length > 1) {
+                name = names[1].val;
+              }
+            }
+
+            const disbursed = get(dataItem, "disbursed.value", 0);
+            const committed = get(dataItem, "committed.value", 0);
+
+            return {
+              name,
+              ref: dataItem.val,
+              value: disbursed,
+              committed: committed,
+              percentage: (disbursed / committed) * 100,
+              orgs: []
+            };
+          });
+          lvl1OrgsResult.push({
             name: lvl1Item.info.name,
             ref: lvl1Item.code.toString(),
-            orgs: filter(
-              lvl4Orgs,
-              (lvl4Item: any) => lvl4Item.info.lvl_1 === lvl1Item.code
-            ).map((lvl4Item: any) => ({
-              name: lvl4Item.info.name,
-              ref: lvl4Item.code.toString(),
-              orgs: filter(
-                rawData,
-                (dataItem: any) =>
-                  parseInt(dataItem.val.split("-")[0], 10) === lvl4Item.code
-              ).map((dataItem: any) => {
-                let name = "";
-                const names = get(dataItem, "names.buckets", []);
-                if (names.length > 0) {
-                  if (
-                    names[0].val !== "Ministry for Foreign Affairs of Finland"
-                  ) {
-                    name = names[0].val;
-                  } else if (names.length > 1) {
-                    name = names[1].val;
-                  }
-                }
-
-                const disbursed = get(dataItem, "disbursed.value", 0);
-                const committed = get(dataItem, "committed.value", 0);
-
-                return {
-                  name,
-                  ref: dataItem.val,
-                  value: disbursed,
-                  committed: committed,
-                  percentage: (disbursed / committed) * 100,
-                  orgs: []
-                };
-              })
-            }))
-          }))
+            orgs: [...codelistOrgs, ...nonCodelistOrgs]
+          });
         });
+
+        lvl0Org.orgs = lvl1OrgsResult as never[];
+
+        orgs.push(lvl0Org);
       });
 
       orgs.forEach((org: any, index: number) => {
@@ -398,12 +436,14 @@ export function organisationsTreemapChart(req: any, res: any) {
         let committed = 0;
         org.orgs.forEach((org1: any, index1: number) => {
           org1.orgs.forEach((org2: any, index2: number) => {
-            disbursed = sumBy(org2.orgs, "value");
-            committed = sumBy(org2.orgs, "committed");
-            orgs[index].orgs[index1].orgs[index2].value = disbursed;
-            orgs[index].orgs[index1].orgs[index2].committed = committed;
-            orgs[index].orgs[index1].orgs[index2].percentage =
-              (disbursed / committed) * 100;
+            if (org2.orgs.length > 0) {
+              disbursed = sumBy(org2.orgs, "value");
+              committed = sumBy(org2.orgs, "committed");
+              orgs[index].orgs[index1].orgs[index2].value = disbursed;
+              orgs[index].orgs[index1].orgs[index2].committed = committed;
+              orgs[index].orgs[index1].orgs[index2].percentage =
+                (disbursed / committed) * 100;
+            }
             orgs[index].orgs[index1].orgs[index2].orgs = getColorsBasedOnValues(
               orgs[index].orgs[index1].orgs[index2].orgs,
               true
