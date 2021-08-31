@@ -222,7 +222,7 @@ export function getSectors(
     name: item.sector.name,
     code: item.sector.code,
     url: `/sectors/${item.sector.code}`,
-    percentage: item.sector.percentage || "no data"
+    percentage: item.percentage || "no data"
   }));
 }
 

@@ -18,9 +18,9 @@ import { sectorMapping } from "../../static/sectorMapping";
 
 export function detailPageName(req: any, res: any) {
   const values = {
-    q: getFormattedFilters({
-      [req.body.detail_type]: get(req.body.filters, req.body.detail_type, [])
-    }),
+    q: `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND ${[
+      req.body.detail_type
+    ]}:(${get(req.body.filters, `${req.body.detail_type}[0]`, "")})`,
     fl:
       "participating_org_ref,participating_org_narrative,recipient_region_code,recipient_region_name,sector_code",
     rows: 1
