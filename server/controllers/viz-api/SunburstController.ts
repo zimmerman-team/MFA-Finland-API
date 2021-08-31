@@ -164,13 +164,19 @@ export function basicSunburstChart(req: any, res: any) {
                   );
                   draftData.children[index0].children[index1].size =
                     sumBy(
-                      draftData.children[index0].children[index1].children,
+                      filter(
+                        draftData.children[index0].children[index1].children,
+                        (c: any) => !Number.isNaN(c.size)
+                      ),
                       "size"
                     ) +
                     get(draftData.children[index0].children[index1], "size", 0);
                   draftData.children[index0].children[index1].committed =
                     sumBy(
-                      draftData.children[index0].children[index1].children,
+                      filter(
+                        draftData.children[index0].children[index1].children,
+                        (c: any) => !Number.isNaN(c.committed)
+                      ),
                       "committed"
                     ) +
                     get(
@@ -205,11 +211,21 @@ export function basicSunburstChart(req: any, res: any) {
               }
             );
             draftData.children[index0].size =
-              sumBy(draftData.children[index0].children, "size") +
-              get(draftData.children[index0], "size", 0);
+              sumBy(
+                filter(
+                  draftData.children[index0].children,
+                  (c: any) => !Number.isNaN(c.size)
+                ),
+                "size"
+              ) + get(draftData.children[index0], "size", 0);
             draftData.children[index0].committed =
-              sumBy(draftData.children[index0].children, "committed") +
-              get(draftData.children[index0], "committed", 0);
+              sumBy(
+                filter(
+                  draftData.children[index0].children,
+                  (c: any) => !Number.isNaN(c.committed)
+                ),
+                "committed"
+              ) + get(draftData.children[index0], "committed", 0);
             draftData.children[index0].percentage =
               (draftData.children[index0].size /
                 draftData.children[index0].committed) *
@@ -241,8 +257,8 @@ export function basicSunburstChart(req: any, res: any) {
           if (sector0.hasOwnProperty("children")) {
             draftData.children[index0].children = orderBy(
               draftData.children[index0].children,
-              "size",
-              "desc"
+              "code",
+              "asc"
             );
             draftData.children[index0].children.forEach(
               (sector1: any, index1: number) => {
@@ -251,8 +267,8 @@ export function basicSunburstChart(req: any, res: any) {
                     index1
                   ].children = orderBy(
                     draftData.children[index0].children[index1].children,
-                    "size",
-                    "desc"
+                    "code",
+                    "asc"
                   );
                   draftData.children[index0].children[index1].children.forEach(
                     (sector2: any, index2: number) => {
@@ -263,8 +279,8 @@ export function basicSunburstChart(req: any, res: any) {
                           draftData.children[index0].children[index1].children[
                             index2
                           ].children,
-                          "size",
-                          "desc"
+                          "code",
+                          "asc"
                         );
                       }
                     }
@@ -300,6 +316,8 @@ export function basicSunburstChart(req: any, res: any) {
           draftData.children,
           (item: any) => item.children.length > 0
         );
+
+        draftData.children = orderBy(draftData.children, "title", "asc");
       });
 
       res.json({
