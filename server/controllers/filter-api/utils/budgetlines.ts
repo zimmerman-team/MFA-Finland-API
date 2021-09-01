@@ -38,10 +38,7 @@ export function getBudgetLinesOptions(filterString = "*:*") {
             }
           });
         });
-        resolve({
-          count: result.length,
-          data: orderBy(result, "name", "asc")
-        });
+        resolve(orderBy(result, "name", "asc"));
       })
       .catch(error => {
         const _error = error.response ? error.response.data : error;
