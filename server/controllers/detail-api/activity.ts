@@ -31,7 +31,7 @@ export function activityDetail(req: any, res: any) {
   }
   const decodedId = decodeURIComponent(req.body.activityId);
   const metadata = {
-    q: `iati_identifier:${decodedId}`,
+    q: `iati_identifier:"${decodedId}"`,
     fl: activityMetadataFl
   };
   const disbursements = {
