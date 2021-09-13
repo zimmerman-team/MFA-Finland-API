@@ -5,16 +5,15 @@ import find from "lodash/find";
 import findIndex from "lodash/findIndex";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
+import { orgMapping } from "../../static/orgMapping";
 import { dac3sectors } from "../../static/dac3sectors";
 import { dac5sectors } from "../../static/dac5sectors";
 import { formatLocale } from "../../utils/formatLocale";
-import { getFormattedFilters } from "../../utils/filters";
+import { sectorMapping } from "../../static/sectorMapping";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
 import { locationsMapping } from "../../static/locationsMapping";
 import { partnerCountries } from "../../static/partnerCountries";
-import { thematicAreaNames } from "../../static/thematicAreaConsts";
-import { sectorMapping } from "../../static/sectorMapping";
 
 export function detailPageName(req: any, res: any) {
   const values = {
@@ -64,6 +63,19 @@ export function detailPageName(req: any, res: any) {
           res.json({
             data: ["", ""]
           });
+        }
+      }
+      if (!data && req.body.detail_type === "participating_org_ref") {
+        const fOrgMapping = find(orgMapping, {
+          code: parseInt(
+            req.body.filters.participating_org_ref[
+              req.body.filters.participating_org_ref.length - 1
+            ],
+            10
+          )
+        });
+        if (fOrgMapping) {
+          result = fOrgMapping.info.name;
         }
       }
       if (req.body.detail_type && data) {
@@ -139,11 +151,23 @@ export function detailPageName(req: any, res: any) {
           }
         }
         if (req.body.detail_type === "participating_org_ref") {
-          const refIndex = findIndex(
-            data.participating_org_ref,
-            (ref: string) => ref === req.body.filters.participating_org_ref[0]
-          );
-          result = get(data, `participating_org_narrative[${refIndex}]`, "");
+          const fOrgMapping = find(orgMapping, {
+            code: parseInt(
+              req.body.filters.participating_org_ref[
+                req.body.filters.participating_org_ref.length - 1
+              ],
+              10
+            )
+          });
+          if (fOrgMapping) {
+            result = fOrgMapping.info.name;
+          } else {
+            const refIndex = findIndex(
+              data.participating_org_ref,
+              (ref: string) => ref === req.body.filters.participating_org_ref[0]
+            );
+            result = get(data, `participating_org_narrative[${refIndex}]`, "");
+          }
         }
         if (req.body.detail_type === "recipient_region_code") {
           const refIndex = findIndex(
