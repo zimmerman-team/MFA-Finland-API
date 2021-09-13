@@ -46,15 +46,21 @@ export function getBudget(data: any) {
   }));
 }
 
-export function getParticipatingOrgs(data: any) {
+export function getParticipatingOrgs(data: any, lang: string) {
   const parsedData = data.map((item: any) => JSON.parse(item));
-  return parsedData.map((item: any) => ({
-    name: get(item, "narrative[0].text", ""),
-    reference: item.ref,
-    type: get(item, "type.name", "no data"),
-    role: get(item, "role.name", "no data"),
-    url: `/organisations/${encodeURIComponent(item.ref)}`
-  }));
+  return parsedData.map((item: any) => {
+    const fNameLang = find(
+      get(item, "narrative", []),
+      (narrative: any) => narrative.lang.code === lang
+    );
+    return {
+      name: fNameLang ? fNameLang.text : get(item, "narrative[0].text", ""),
+      reference: item.ref,
+      type: get(item, "type.name", "no data"),
+      role: get(item, "role.name", "no data"),
+      url: `/organisations/${encodeURIComponent(item.ref)}`
+    };
+  });
 }
 
 export function getSummary(data: any) {

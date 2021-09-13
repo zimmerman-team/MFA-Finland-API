@@ -110,7 +110,8 @@ export function activityDetail(req: any, res: any) {
                 get(activityMetaData, "description_lang", [""])
               ),
               participating_orgs: getParticipatingOrgs(
-                get(activityMetaData, "participating_org", [])
+                get(activityMetaData, "participating_org", []),
+                lang
               ),
               summary: getSummary(activityMetaData),
               countries: getCountries(
