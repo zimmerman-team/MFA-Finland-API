@@ -65,7 +65,10 @@ export function detailPageName(req: any, res: any) {
           });
         }
       }
-      if (!data && req.body.detail_type === "participating_org_ref") {
+      if (
+        (!data || req.body.filters.participating_org_ref.length > 1) &&
+        req.body.detail_type === "participating_org_ref"
+      ) {
         const fOrgMapping = find(orgMapping, {
           code: parseInt(
             req.body.filters.participating_org_ref[
@@ -150,7 +153,10 @@ export function detailPageName(req: any, res: any) {
               });
           }
         }
-        if (req.body.detail_type === "participating_org_ref") {
+        if (
+          req.body.detail_type === "participating_org_ref" &&
+          result.length === 0
+        ) {
           const refIndex = findIndex(
             data.participating_org_ref,
             (ref: string) => ref === req.body.filters.participating_org_ref[0]
