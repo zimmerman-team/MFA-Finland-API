@@ -151,6 +151,11 @@ export function detailPageName(req: any, res: any) {
           }
         }
         if (req.body.detail_type === "participating_org_ref") {
+          const refIndex = findIndex(
+            data.participating_org_ref,
+            (ref: string) => ref === req.body.filters.participating_org_ref[0]
+          );
+          result = get(data, `participating_org_narrative[${refIndex}]`, "");
           const fOrgMapping = find(orgMapping, {
             code: parseInt(
               req.body.filters.participating_org_ref[
@@ -159,14 +164,8 @@ export function detailPageName(req: any, res: any) {
               10
             )
           });
-          if (fOrgMapping) {
+          if (fOrgMapping && result.length === 0) {
             result = fOrgMapping.info.name;
-          } else {
-            const refIndex = findIndex(
-              data.participating_org_ref,
-              (ref: string) => ref === req.body.filters.participating_org_ref[0]
-            );
-            result = get(data, `participating_org_narrative[${refIndex}]`, "");
           }
         }
         if (req.body.detail_type === "recipient_region_code") {
