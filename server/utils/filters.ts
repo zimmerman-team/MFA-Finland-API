@@ -80,15 +80,13 @@ export function getFormattedFilters(
     //     .map((value: string) => `${value}*`)
     //     .join(" ")})${addTrailingAND ? " AND " : ""}`;
     // }
-    // TODO: uncomment when policy_marker_significance field added to transaction schema
-    // else if (filterKey === "policy_marker_code") {
-    //   result += `${filterKey}:(${filters[filterKey].join(
-    //     " "
-    //   )}) AND policy_marker_significance:(1 2 3 4)${
-    //     addTrailingAND ? " AND " : ""
-    //   }`;
-    // }
-    else if (filterKey !== "year_period") {
+    else if (filterKey === "policy_marker_code") {
+      result += `${filterKey}:(${filters[filterKey].join(
+        " "
+      )}) AND policy_marker_significance:(1 2 3 4)${
+        addTrailingAND ? " AND " : ""
+      }`;
+    } else if (filterKey !== "year_period") {
       result += `${filterKey}:(${filters[filterKey].join(" ")})${
         addTrailingAND ? " AND " : ""
       }`;
@@ -174,16 +172,13 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
         } TO *] AND transaction_value_date:[* TO ${
           filters[filterKey][0].endDate
         }]${addTrailingAND ? " AND " : ""}`;
-      }
-      // TODO: uncomment when policy_marker_significance field added to transaction schema
-      // else if (filterKey === "policy_marker_code") {
-      //   query += `${filterKey}:(${filters[filterKey].join(
-      //     " "
-      //   )}) AND policy_marker_significance:(1 2 3 4)${
-      //     addTrailingAND ? " AND " : ""
-      //   }`;
-      // }
-      else if (filterKey === "year_period") {
+      } else if (filterKey === "policy_marker_code") {
+        query += `${filterKey}:(${filters[filterKey].join(
+          " "
+        )}) AND policy_marker_significance:(1 2 3 4)${
+          addTrailingAND ? " AND " : ""
+        }`;
+      } else if (filterKey === "year_period") {
         query += `transaction_value_date:[${
           filters[filterKey]
         }-01-01T00:00:00Z TO ${filters[filterKey]}-12-31T23:59:59Z]${
