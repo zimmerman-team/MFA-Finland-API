@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import find from "lodash/find";
 import uniq from "lodash/uniq";
+import filter from "lodash/filter";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { getQuery } from "../../utils/filters";
@@ -12,7 +13,10 @@ import { formatDate } from "../../utils/formatDate";
 import { dac3sectors } from "../../static/dac3sectors";
 import { dac5sectors } from "../../static/dac5sectors";
 import { getFieldValueLang } from "../../utils/getFieldValueLang";
-import { activityStatusCodelist } from "../../static/activityStatusCodelist";
+import {
+  getDefaultAidTypes,
+  getParticipatingOrgs
+} from "../detail-api/utils/activity";
 import {
   globalSearchFields,
   activitySearchFields
@@ -32,7 +36,7 @@ export function activitiesTable(req: any, res: any) {
 
   const values = {
     q: getQuery(filters, search, globalSearchFields),
-    fl: `iati_identifier,activity_status_code,title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,recipient_country_code,transaction_recipient_country_code,recipient_region_name,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
+    fl: `iati_identifier,default_aid_type:[json],participating_org:[json],title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,recipient_country_code,transaction_recipient_country_code,recipient_region_name,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
     start,
     rows,
     sort
@@ -56,10 +60,9 @@ export function activitiesTable(req: any, res: any) {
       const result = actualData.map((activity: any) => {
         const startDate = activity.activity_date_start_planned || "";
         const endDate = activity.activity_date_end_planned || "";
-        const statusName = find(activityStatusCodelist, [
-          "code",
-          activity.activity_status_code
-        ]);
+        const aidTypes = getDefaultAidTypes(activity.default_aid_type)
+          .map((type: any) => type.name)
+          .join(", ");
         const code = get(activity, "iati_identifier", "");
         const title = getFieldValueLang(
           lang,
@@ -85,6 +88,12 @@ export function activitiesTable(req: any, res: any) {
                 return "";
               })
             : [];
+        const orgs = filter(
+          getParticipatingOrgs(get(activity, "participating_org", []), lang),
+          { role: "Extending" }
+        )
+          .map((org: any) => org.name)
+          .join(", ");
         let disbursed = 0;
         let committed = 0;
         if (activity.transaction_type && activity.transaction_value) {
@@ -121,7 +130,7 @@ export function activitiesTable(req: any, res: any) {
           ],
           startDate: formatDate(startDate),
           endDate: formatDate(endDate),
-          status: statusName ? statusName.name : "-",
+          status: aidTypes ? aidTypes : "-",
           committed,
           disbursed,
           budget,
@@ -152,7 +161,8 @@ export function activitiesTable(req: any, res: any) {
                 return code;
               }
             )
-          ]
+          ],
+          orgs: orgs ? orgs : "-"
         };
       });
       res.json({
