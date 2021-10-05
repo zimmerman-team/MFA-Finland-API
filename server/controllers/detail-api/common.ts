@@ -66,7 +66,9 @@ export function detailPageName(req: any, res: any) {
         }
       }
       if (
-        (!data || req.body.filters.participating_org_ref.length > 1) &&
+        (!data ||
+          (req.body.filters.participating_org_ref &&
+            req.body.filters.participating_org_ref.length > 1)) &&
         req.body.detail_type === "participating_org_ref"
       ) {
         const fOrgMapping = find(orgMapping, {
