@@ -334,13 +334,29 @@ export function organisationsTreemapChart(req: any, res: any) {
         codelist,
         (item: any) =>
           item.info.level === 1 &&
-          some(lvl4Orgs, (lvl4Item: any) => lvl4Item.info.lvl_1 === item.code)
+          (some(
+            lvl4Orgs,
+            (lvl4Item: any) => lvl4Item.info.lvl_1 === item.code
+          ) ||
+            some(
+              rawData,
+              (dataItem: any) =>
+                parseInt(dataItem.val.split("-")[0], 10) === item.code
+            ))
       );
       const lvl0Orgs = filter(
         codelist,
         (item: any) =>
           item.info.level === 0 &&
-          some(lvl1Orgs, (lvl1Item: any) => lvl1Item.info.lvl_0 === item.code)
+          (some(
+            lvl1Orgs,
+            (lvl1Item: any) => lvl1Item.info.lvl_0 === item.code
+          ) ||
+            some(
+              rawData,
+              (dataItem: any) =>
+                parseInt(dataItem.val.split("-")[0], 10) === item.code
+            ))
       );
 
       lvl0Orgs.forEach((lvl0Item: any) => {
@@ -471,7 +487,10 @@ export function organisationsTreemapChart(req: any, res: any) {
         vizData: {
           name: "",
           color: "",
-          children: getColorsBasedOnValues(orgs, true)
+          children: getColorsBasedOnValues(
+            filter(orgs, (org: any) => org.value > 0 || org.committed > 0),
+            true
+          )
         }
       });
     })
