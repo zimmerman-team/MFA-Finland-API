@@ -681,7 +681,7 @@ export const countries = [
   },
   {
     code: "PS",
-    name: "Palestine, State of"
+    name: "Palestinian Territory"
   },
   {
     code: "PA",
@@ -857,7 +857,7 @@ export const countries = [
   },
   {
     code: "SZ",
-    name: "Swaziland"
+    name: "Eswatini"
   },
   {
     code: "SE",
