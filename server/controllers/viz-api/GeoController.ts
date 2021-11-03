@@ -3,8 +3,8 @@ import get from "lodash/get";
 import find from "lodash/find";
 import sumBy from "lodash/sumBy";
 import querystring from "querystring";
-import { translatedCountries } from "../../static/countries";
 import { genericError } from "../../utils/general";
+import { translatedCountries } from "../../static/countries";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
 import {
   getFormattedFilters,

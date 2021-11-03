@@ -7,6 +7,7 @@ import orderBy from "lodash/orderBy";
 import { orgMapping } from "../../../static/orgMapping";
 import { orgDacChannel } from "../../../static/orgDacChannel";
 import { translatedCountries } from "../../../static/countries";
+import { sectorTranslations } from "../../../static/sectorTranslations";
 import {
   locationsMapping,
   regionTranslations
@@ -76,18 +77,35 @@ export function formatLocationOptions(rawData: any) {
 }
 
 export function formatSectorOptions(rawData: any) {
-  return rawData.map((item: any) => ({
-    name: item.title,
-    code: item.code,
-    children: get(item, "children", []).map((child: any) => ({
-      name: child.title,
-      code: child.code,
-      children: get(child, "children", []).map((gchild: any) => ({
-        name: gchild.title,
-        code: gchild.code
-      }))
-    }))
-  }));
+  return rawData.map((item: any) => {
+    let fItem = find(sectorTranslations, { code: parseInt(item.code, 10) });
+    return {
+      name: get(fItem, "info.name", item.title),
+      name_fi: get(fItem, "info.name_fi", item.title),
+      name_se: get(fItem, "info.name_se", item.title),
+      code: item.code,
+      children: get(item, "children", []).map((child: any) => {
+        fItem = find(sectorTranslations, { code: parseInt(child.code, 10) });
+        return {
+          name: get(fItem, "info.name", child.title),
+          name_fi: get(fItem, "info.name_fi", child.title),
+          name_se: get(fItem, "info.name_se", child.title),
+          code: child.code,
+          children: get(child, "children", []).map((gchild: any) => {
+            fItem = find(sectorTranslations, {
+              code: parseInt(gchild.code, 10)
+            });
+            return {
+              name: get(fItem, "info.name", gchild.title),
+              name_fi: get(fItem, "info.name_fi", gchild.title),
+              name_se: get(fItem, "info.name_se", gchild.title),
+              code: gchild.code
+            };
+          })
+        };
+      })
+    };
+  });
 }
 
 export function formatOrganisationsOptions(rawData: any, codelistData?: any) {

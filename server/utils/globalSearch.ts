@@ -1,8 +1,7 @@
 import get from "lodash/get";
 import find from "lodash/find";
-import { dac3sectors } from "../static/dac3sectors";
-import { dac5sectors } from "../static/dac5sectors";
 import { translatedCountries } from "../static/countries";
+import { sectorTranslations } from "../static/sectorTranslations";
 
 interface ResultModel {
   link: string;
@@ -57,11 +56,13 @@ export function getSectors(rawData: any) {
   const result: ResultModel[] = [];
 
   rawData.forEach((item: any) => {
-    const fSector = find([...dac3sectors, ...dac5sectors], { code: item.val });
+    const fSector = find(sectorTranslations, { code: parseInt(item.val, 10) });
     if (fSector) {
       result.push({
-        name: fSector.name,
-        link: `/sectors/${item.val}`
+        link: `/sectors/${item.val}`,
+        name: get(fSector, "info.name", item.val),
+        name_fi: get(fSector, "info.name_fi", item.val),
+        name_se: get(fSector, "info.name_se", item.val)
       });
     }
   });
