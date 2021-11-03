@@ -175,3 +175,56 @@ export type LocationMappingKeys = {
   Oceania: string[];
   "Regional and Unspecified": string[];
 };
+
+export const regionTranslations = {
+  Europe: {
+    name: "Europe",
+    name_fi: "Eurooppa",
+    name_se: "Europa"
+  },
+  "North of Sahara": {
+    name: "North of Sahara",
+    name_fi: "Saharan pohjoispuolinen Afrikka",
+    name_se: "Norr om Sahara"
+  },
+  "South of Sahara": {
+    name: "South of Sahara",
+    name_fi: "Saharan eteläpuolinen Afrikka",
+    name_se: "Söder om Sahara"
+  },
+  "North & Central America": {
+    name: "North & Central America",
+    name_fi: "Pohjois- ja Väli-Amerikka",
+    name_se: "Nord- och Mellanamerika"
+  },
+  "South America": {
+    name: "South America",
+    name_fi: "Etelä-Amerikka",
+    name_se: "Sydamerika"
+  },
+  "Middle East": {
+    name: "Middle East",
+    name_fi: "Lähi-Itä",
+    name_se: "Mellanöstern"
+  },
+  "South & Central Asia": {
+    name: "South & Central Asia",
+    name_fi: "Etelä- ja Keski-Aasia",
+    name_se: "Syd- och Centralasien"
+  },
+  "Far East Asia": {
+    name: "Far East Asia",
+    name_fi: "Itäinen Aasia",
+    name_se: "Östasien"
+  },
+  Oceania: {
+    name: "Oceania",
+    name_fi: "Oseania",
+    name_se: "Oceania"
+  },
+  "Regional and Unspecified": {
+    name: "Regional and Unspecified",
+    name_fi: "Alueellinen ja alueellisesti kohdistamaton",
+    name_se: "Regional och ospecificerat"
+  }
+};

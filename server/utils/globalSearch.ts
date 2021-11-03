@@ -1,12 +1,13 @@
 import get from "lodash/get";
 import find from "lodash/find";
-import { countries } from "../static/countries";
-import { dac3sectors } from "../static/dac3sectors";
-import { dac5sectors } from "../static/dac5sectors";
+import { translatedCountries } from "../static/countries";
+import { sectorTranslations } from "../static/sectorTranslations";
 
 interface ResultModel {
-  name: string;
   link: string;
+  name: string;
+  name_fi?: string;
+  name_se?: string;
 }
 
 export function getActivities(rawData: any) {
@@ -20,11 +21,13 @@ export function getCountries(rawData: any) {
   let result: ResultModel[] = [];
 
   rawData.forEach((item: any) => {
-    const fCountry = find(countries, { code: item.val });
+    const fCountry = find(translatedCountries, { code: item.val });
     if (fCountry) {
       result.push({
-        name: fCountry.name,
-        link: `/countries/${fCountry.code}`
+        link: `/countries/${fCountry.code}`,
+        name: get(fCountry, "info.name", item.val),
+        name_fi: get(fCountry, "info.name_fi", item.val),
+        name_se: get(fCountry, "info.name_se", item.val)
       });
     }
   });
@@ -53,11 +56,13 @@ export function getSectors(rawData: any) {
   const result: ResultModel[] = [];
 
   rawData.forEach((item: any) => {
-    const fSector = find([...dac3sectors, ...dac5sectors], { code: item.val });
+    const fSector = find(sectorTranslations, { code: parseInt(item.val, 10) });
     if (fSector) {
       result.push({
-        name: fSector.name,
-        link: `/sectors/${item.val}`
+        link: `/sectors/${item.val}`,
+        name: get(fSector, "info.name", item.val),
+        name_fi: get(fSector, "info.name_fi", item.val),
+        name_se: get(fSector, "info.name_se", item.val)
       });
     }
   });

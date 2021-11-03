@@ -6,14 +6,13 @@ import findIndex from "lodash/findIndex";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { orgMapping } from "../../static/orgMapping";
-import { dac3sectors } from "../../static/dac3sectors";
-import { dac5sectors } from "../../static/dac5sectors";
 import { formatLocale } from "../../utils/formatLocale";
-import { sectorMapping } from "../../static/sectorMapping";
+import { translatedCountries } from "../../static/countries";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
 import { locationsMapping } from "../../static/locationsMapping";
 import { partnerCountries } from "../../static/partnerCountries";
+import { sectorTranslations } from "../../static/sectorTranslations";
 
 export function detailPageName(req: any, res: any) {
   const values = {
@@ -39,29 +38,30 @@ export function detailPageName(req: any, res: any) {
       const data = get(response.data, "response.docs[0]", null);
       let result = "";
       if (req.body.detail_type === "sector_code") {
-        const fsector = find(
-          [
-            ...dac3sectors,
-            ...dac5sectors,
-            ...sectorMapping.children.map((item: any) => ({
-              ...item,
-              name: item.title
-            }))
-          ],
-          {
-            code: req.body.filters.sector_code[0]
-          }
-        );
+        const fsector = find(sectorTranslations, {
+          code: parseInt(req.body.filters.sector_code[0], 10)
+        });
         if (fsector) {
           res.json({
-            data: [
-              get(fsector, "name", req.body.filters.sector_code[0]),
-              get(fsector, "description", "")
-            ]
+            data: {
+              names: {
+                name: fsector.info.name,
+                name_fi: fsector.info.name_fi,
+                name_se: fsector.info.name_se
+              },
+              description: fsector.info.description
+            }
           });
         } else {
           res.json({
-            data: ["", ""]
+            data: {
+              names: {
+                name: req.body.filters.sector_code[0],
+                name_fi: req.body.filters.sector_code[0],
+                name_se: req.body.filters.sector_code[0]
+              },
+              description: ""
+            }
           });
         }
       }
@@ -88,6 +88,9 @@ export function detailPageName(req: any, res: any) {
           const iso3 = getCountryISO3(
             req.body.filters.recipient_country_code[0]
           );
+          const fCountry = find(translatedCountries, {
+            code: req.body.filters.recipient_country_code[0]
+          });
           let isPartner = false;
           let region = "";
           isPartner =
@@ -146,7 +149,22 @@ export function detailPageName(req: any, res: any) {
                   data: {
                     region,
                     isPartner,
-                    indicators
+                    indicators,
+                    name: get(
+                      fCountry,
+                      "info.name",
+                      req.body.filters.recipient_country_code[0]
+                    ),
+                    name_fi: get(
+                      fCountry,
+                      "info.name_fi",
+                      req.body.filters.recipient_country_code[0]
+                    ),
+                    name_se: get(
+                      fCountry,
+                      "info.name_se",
+                      req.body.filters.recipient_country_code[0]
+                    )
                   }
                 });
               })

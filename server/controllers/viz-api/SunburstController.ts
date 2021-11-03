@@ -1,4 +1,5 @@
 import axios from "axios";
+import produce from "immer";
 import get from "lodash/get";
 import find from "lodash/find";
 import sumBy from "lodash/sumBy";
@@ -8,12 +9,12 @@ import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { genericError } from "../../utils/general";
+import { sectorMapping } from "../../static/sectorMapping";
+import { sectorTranslations } from "../../static/sectorTranslations";
 import {
   getFormattedFilters,
   normalizeActivity2TransactionFilters
 } from "../../utils/filters";
-import { sectorMapping } from "../../static/sectorMapping";
-import produce from "immer";
 
 // exclude sectors that don't have data
 function getSectorsWithData(sectorData: any) {
@@ -37,6 +38,39 @@ function getSectorsWithData(sectorData: any) {
   });
 
   result = orderBy(uniqBy(result, "title"), "title");
+  result = result.map((category: any) => {
+    const fSector = find(sectorTranslations, {
+      code: parseInt(category.code, 10)
+    });
+    return {
+      ...category,
+      title: get(fSector, "info.name", category.title),
+      title_fi: get(fSector, "info.name_fi", category.title),
+      title_se: get(fSector, "info.name_se", category.title),
+      children: category.children.map((dac3: any) => {
+        const fDac3Sector = find(sectorTranslations, {
+          code: parseInt(dac3.code, 10)
+        });
+        return {
+          ...dac3,
+          title: get(fDac3Sector, "info.name", dac3.title),
+          title_fi: get(fDac3Sector, "info.name_fi", dac3.title),
+          title_se: get(fDac3Sector, "info.name_se", dac3.title),
+          children: dac3.children.map((dac5: any) => {
+            const fDac5Sector = find(sectorTranslations, {
+              code: parseInt(dac5.code, 10)
+            });
+            return {
+              ...dac5,
+              title: get(fDac5Sector, "info.name", dac5.title),
+              title_fi: get(fDac5Sector, "info.name_fi", dac5.title),
+              title_se: get(fDac5Sector, "info.name_se", dac5.title)
+            };
+          })
+        };
+      })
+    };
+  });
   return result;
 }
 
