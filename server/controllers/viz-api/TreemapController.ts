@@ -139,11 +139,11 @@ export function locationsTreemapChart(req: any, res: any) {
         []
       );
       const regionsData = get(call1Response, "data.facets.regions.buckets", []);
-      const regionNameData = get(
-        call1Response,
-        "data.facets.regionNames.buckets",
-        []
-      );
+      // const regionNameData = get(
+      //   call1Response,
+      //   "data.facets.regionNames.buckets",
+      //   []
+      // );
       const countries = countriesData.map((item: any) => {
         const fCountry = find(translatedCountries, { code: item.val });
         return {
@@ -157,9 +157,13 @@ export function locationsTreemapChart(req: any, res: any) {
           orgs: []
         };
       });
-      const regions = regionsData.map((item: any, index: number) => {
+      const regions = regionsData.map((item: any) => {
         return {
-          name: `${get(regionNameData, `[${index}].val`, "")}`,
+          name: get(
+            find(translatedCountries, { code: item.val }),
+            "info.name",
+            item.val
+          ),
           value: item.disbursed.value || 0,
           committed: item.committed.value || 0,
           percentage: (item.disbursed.value / item.committed.value) * 100,
