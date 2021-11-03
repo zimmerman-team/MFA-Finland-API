@@ -7,7 +7,10 @@ import sumBy from "lodash/sumBy";
 import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
 import inRange from "lodash/inRange";
-import { locationsMapping } from "../static/locationsMapping";
+import {
+  locationsMapping,
+  regionTranslations
+} from "../static/locationsMapping";
 
 export const TreemapVizColorsRegions = [
   "#E5F0F0",
@@ -94,7 +97,9 @@ export function calculateRegions(data: any) {
     const committed = sumBy(regionCountries, "committed");
     if (value > 0) {
       result.push({
-        name: region,
+        name: get(regionTranslations, `${region}.name`, region),
+        name_fi: get(regionTranslations, `${region}.name_fi`, region),
+        name_se: get(regionTranslations, `${region}.name_se`, region),
         value,
         committed,
         percentage: (value / committed) * 100,

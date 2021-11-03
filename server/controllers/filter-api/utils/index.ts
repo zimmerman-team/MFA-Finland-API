@@ -4,10 +4,13 @@ import find from "lodash/find";
 import some from "lodash/some";
 import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
-import { countries } from "../../../static/countries";
 import { orgMapping } from "../../../static/orgMapping";
 import { orgDacChannel } from "../../../static/orgDacChannel";
-import { locationsMapping } from "../../../static/locationsMapping";
+import { translatedCountries } from "../../../static/countries";
+import {
+  locationsMapping,
+  regionTranslations
+} from "../../../static/locationsMapping";
 
 interface OptionModel {
   name: string;
@@ -23,11 +26,13 @@ export function formatCountryOptions(rawData: any) {
   let result: OptionModel[] = [];
 
   rawData.forEach((item: any) => {
-    const fCountry = find(countries, { code: item.val });
+    const fCountry = find(translatedCountries, { code: item.val });
     if (fCountry) {
       result.push({
-        name: fCountry.name,
-        code: fCountry.code
+        code: fCountry.code,
+        name: get(fCountry, "info.name", item.val),
+        name_fi: get(fCountry, "info.name_fi", item.val),
+        name_se: get(fCountry, "info.name_se", item.val)
       });
     }
   });
@@ -39,9 +44,12 @@ export function formatRegionOptions(rawData: any) {
   const result: OptionModel[] = [];
 
   rawData.forEach((item: any) => {
+    const fRegion = find(translatedCountries, { code: item.val });
     result.push({
-      name: get(item, "sub.buckets[0].val", item.val.toUpperCase()),
-      code: item.val
+      code: item.val,
+      name: get(fRegion, "info.name", item.val),
+      name_fi: get(fRegion, "info.name_fi", item.val),
+      name_se: get(fRegion, "info.name_se", item.val)
     });
   });
 
@@ -56,9 +64,11 @@ export function formatLocationOptions(rawData: any) {
       find(locationsMapping[region], (m: string) => m === d.code)
     );
     result.push({
-      name: region,
       code: "",
-      children: regionCountries
+      children: regionCountries,
+      name: get(regionTranslations, `${region}.name`, region),
+      name_fi: get(regionTranslations, `${region}.name_fi`, region),
+      name_se: get(regionTranslations, `${region}.name_se`, region)
     });
   });
 

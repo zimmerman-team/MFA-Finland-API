@@ -3,7 +3,7 @@ import get from "lodash/get";
 import find from "lodash/find";
 import sumBy from "lodash/sumBy";
 import querystring from "querystring";
-import { countries } from "../../static/countries";
+import { translatedCountries } from "../../static/countries";
 import { genericError } from "../../utils/general";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
 import {
@@ -92,10 +92,13 @@ export function geoChart(req: any, res: any) {
         const total = get(responses[1], "data.facets.total.sum", 0);
 
         const result = actualData.map((item: any) => {
+          const fCountry = find(translatedCountries, { code: item.val });
           return {
             id: getCountryISO3(item.val),
             value: item.sum,
-            name: get(find(countries, { code: item.val }), "name", item.val)
+            name: get(fCountry, "info.name", item.val),
+            name_fi: get(fCountry, "info.name_fi", item.val),
+            name_se: get(fCountry, "info.name_se", item.val)
           };
         });
 

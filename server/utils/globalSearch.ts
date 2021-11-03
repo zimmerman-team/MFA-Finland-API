@@ -1,12 +1,14 @@
 import get from "lodash/get";
 import find from "lodash/find";
-import { countries } from "../static/countries";
 import { dac3sectors } from "../static/dac3sectors";
 import { dac5sectors } from "../static/dac5sectors";
+import { translatedCountries } from "../static/countries";
 
 interface ResultModel {
-  name: string;
   link: string;
+  name: string;
+  name_fi?: string;
+  name_se?: string;
 }
 
 export function getActivities(rawData: any) {
@@ -20,11 +22,13 @@ export function getCountries(rawData: any) {
   let result: ResultModel[] = [];
 
   rawData.forEach((item: any) => {
-    const fCountry = find(countries, { code: item.val });
+    const fCountry = find(translatedCountries, { code: item.val });
     if (fCountry) {
       result.push({
-        name: fCountry.name,
-        link: `/countries/${fCountry.code}`
+        link: `/countries/${fCountry.code}`,
+        name: get(fCountry, "info.name", item.val),
+        name_fi: get(fCountry, "info.name_fi", item.val),
+        name_se: get(fCountry, "info.name_se", item.val)
       });
     }
   });

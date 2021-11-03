@@ -10,6 +10,7 @@ import { dac3sectors } from "../../static/dac3sectors";
 import { dac5sectors } from "../../static/dac5sectors";
 import { formatLocale } from "../../utils/formatLocale";
 import { sectorMapping } from "../../static/sectorMapping";
+import { translatedCountries } from "../../static/countries";
 import { getCountryISO3 } from "../../utils/countryISOMapping";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
 import { locationsMapping } from "../../static/locationsMapping";
@@ -88,6 +89,9 @@ export function detailPageName(req: any, res: any) {
           const iso3 = getCountryISO3(
             req.body.filters.recipient_country_code[0]
           );
+          const fCountry = find(translatedCountries, {
+            code: req.body.filters.recipient_country_code[0]
+          });
           let isPartner = false;
           let region = "";
           isPartner =
@@ -146,7 +150,22 @@ export function detailPageName(req: any, res: any) {
                   data: {
                     region,
                     isPartner,
-                    indicators
+                    indicators,
+                    name: get(
+                      fCountry,
+                      "info.name",
+                      req.body.filters.recipient_country_code[0]
+                    ),
+                    name_fi: get(
+                      fCountry,
+                      "info.name_fi",
+                      req.body.filters.recipient_country_code[0]
+                    ),
+                    name_se: get(
+                      fCountry,
+                      "info.name_se",
+                      req.body.filters.recipient_country_code[0]
+                    )
                   }
                 });
               })

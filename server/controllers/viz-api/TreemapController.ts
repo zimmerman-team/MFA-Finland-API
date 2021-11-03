@@ -8,7 +8,7 @@ import filter from "lodash/filter";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { orgMapping } from "../../static/orgMapping";
-import { countries as COUNTRIES } from "../../static/countries";
+import { translatedCountries } from "../../static/countries";
 import { orgTypesCodelist } from "../../static/orgTypesCodelist";
 import { calculateRegions, getColorsBasedOnValues } from "../../utils/treemap";
 import {
@@ -144,9 +144,12 @@ export function locationsTreemapChart(req: any, res: any) {
         "data.facets.regionNames.buckets",
         []
       );
-      const countries = countriesData.map((item: any, index: number) => {
+      const countries = countriesData.map((item: any) => {
+        const fCountry = find(translatedCountries, { code: item.val });
         return {
-          name: get(find(COUNTRIES, { code: item.val }), "name", item.val),
+          name: get(fCountry, "info.name", item.val),
+          name_fi: get(fCountry, "info.name_fi", item.val),
+          name_se: get(fCountry, "info.name_se", item.val),
           value: item.disbursed.value || 0,
           committed: item.committed.value || 0,
           percentage: (item.disbursed.value / item.committed.value) * 100,
