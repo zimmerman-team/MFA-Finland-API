@@ -193,14 +193,18 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   }
 
   if (search.length > 0 && filterKeys.length > 0) {
-    query += " AND (";
+    if (query.length > 0) {
+      query += " AND (";
+    } else {
+      query += "(";
+    }
     query += searchFields
       .map((field: string) => `${field}:(${search})`)
       .join(" OR ");
     query += ")";
   }
 
-  if (search.length > 0 && filterKeys.length <= 0) {
+  if (search.length > 0 && filterKeys.length === 0) {
     query += "(";
     query += searchFields
       .map((field: string) => `${field}:(${search})`)
