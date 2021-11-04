@@ -51,6 +51,8 @@ MFA_PUBLISHER_REF=FI-3
 PROJECT_URL=http://localhost:4200
 DS_REST_API=https://iati.cloud/api
 DS_SOLR_API=https://iati.cloud/search
+HDRO_API=http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php
+UM_FI_API=https://um.fi/o/public-api/v1/content
 ```
 
 2. start Docker

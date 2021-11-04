@@ -109,65 +109,101 @@ export function detailPageName(req: any, res: any) {
             }
           });
           if (iso3) {
-            axios
-              .get(
+            const calls = [
+              axios.get(
                 `${process.env.HDRO_API}/country_code=${iso3}/indicator_id=69206,69706,103006,195706,146206/structure=ciy`
+              ),
+              axios.get(
+                `${
+                  process.env.UM_FI_API
+                }/articles/current-affairs/${iso3.toLowerCase()}?category=386596&lang=${req
+                  .body.lang || "en"}`
+              ),
+              axios.get(
+                `${
+                  process.env.UM_FI_API
+                }/contact-info/${iso3.toLowerCase()}/um?lang=${req.body.lang ||
+                  "en"}&page=1`
               )
-              .then((hdroresp: any) => {
-                const indicatorsData = hdroresp.data.indicator_value[iso3];
-                const indicators = Object.keys(indicatorsData).map(
-                  (indicator: string) => {
-                    let value = 0;
-                    const length = Object.keys(indicatorsData[indicator])
-                      .length;
-                    Object.keys(indicatorsData[indicator]).forEach(
-                      (year: string, index: number) => {
-                        if (index === length - 1) {
-                          value = indicatorsData[indicator][year];
+            ];
+            axios
+              .all(calls)
+              .then(
+                axios.spread((...responses) => {
+                  const indicatorsData =
+                    responses[0].data.indicator_value[iso3];
+                  const indicators = Object.keys(indicatorsData).map(
+                    (indicator: string) => {
+                      let value = 0;
+                      const length = Object.keys(indicatorsData[indicator])
+                        .length;
+                      Object.keys(indicatorsData[indicator]).forEach(
+                        (year: string, index: number) => {
+                          if (index === length - 1) {
+                            value = indicatorsData[indicator][year];
+                          }
                         }
+                      );
+                      switch (indicator) {
+                        case "69206":
+                          return `Life expectancy at birth: ${value}`;
+                        case "69706":
+                          return `Expected years of schooling: ${value}`;
+                        case "103006":
+                          return `Mean years of schooling: ${value}`;
+                        case "195706":
+                          return `Gross national income (GNI) per capita: ${formatLocale(
+                            value
+                          ).replace("€", "$")}`;
+                        case "146206":
+                          return `HDI rank: ${value}`;
+                        default:
+                          return "";
                       }
-                    );
-                    switch (indicator) {
-                      case "69206":
-                        return `Life expectancy at birth: ${value}`;
-                      case "69706":
-                        return `Expected years of schooling: ${value}`;
-                      case "103006":
-                        return `Mean years of schooling: ${value}`;
-                      case "195706":
-                        return `Gross national income (GNI) per capita: ${formatLocale(
-                          value
-                        ).replace("€", "$")}`;
-                      case "146206":
-                        return `HDI rank: ${value}`;
-                      default:
-                        return "";
                     }
-                  }
-                );
-                res.json({
-                  data: {
-                    region,
-                    isPartner,
-                    indicators,
-                    name: get(
-                      fCountry,
-                      "info.name",
-                      req.body.filters.recipient_country_code[0]
-                    ),
-                    name_fi: get(
-                      fCountry,
-                      "info.name_fi",
-                      req.body.filters.recipient_country_code[0]
-                    ),
-                    name_se: get(
-                      fCountry,
-                      "info.name_se",
-                      req.body.filters.recipient_country_code[0]
-                    )
-                  }
-                });
-              })
+                  );
+                  const newsData = responses[1].data;
+                  const contactData = get(
+                    responses[2],
+                    "data.contactInfos[0]",
+                    null
+                  );
+                  res.json({
+                    data: {
+                      region,
+                      isPartner,
+                      indicators,
+                      name: get(
+                        fCountry,
+                        "info.name",
+                        req.body.filters.recipient_country_code[0]
+                      ),
+                      name_fi: get(
+                        fCountry,
+                        "info.name_fi",
+                        req.body.filters.recipient_country_code[0]
+                      ),
+                      name_se: get(
+                        fCountry,
+                        "info.name_se",
+                        req.body.filters.recipient_country_code[0]
+                      ),
+                      news: newsData.map((n: any) => ({
+                        title: n.title,
+                        link: n.link
+                      })),
+                      contact: {
+                        title: contactData.reportName || contactData.title,
+                        link: contactData.link,
+                        email:
+                          contactData.emails && contactData.emails.length > 0
+                            ? contactData.emails[0].value
+                            : ""
+                      }
+                    }
+                  });
+                })
+              )
               .catch((error: any) => {
                 genericError(error, res);
               });
