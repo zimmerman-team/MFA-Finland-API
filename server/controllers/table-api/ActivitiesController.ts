@@ -26,11 +26,11 @@ export function activitiesTable(req: any, res: any) {
   const lang = req.body.lang || "en";
   const rows = get(req.body, "rows", 10);
   const start = get(req.body, "page", 0) * rows;
-  const sort: string = get(
-    sortKeys,
-    `[${get(req.body, "sort", "Start date desc")}]`,
-    ""
-  );
+  // const sort: string = get(
+  //   sortKeys,
+  //   `[${get(req.body, "sort", "Start date desc")}]`,
+  //   ""
+  // );
   const filters: any = get(req.body, "filters", {});
   const search: string = get(req.body, "search", "");
 
@@ -39,7 +39,7 @@ export function activitiesTable(req: any, res: any) {
     fl: `iati_identifier,default_aid_type:[json],participating_org:[json],title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,recipient_country_code,transaction_recipient_country_code,recipient_region_name,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
     start,
     rows,
-    sort
+    sort: "iati_identifier desc"
   };
 
   axios
