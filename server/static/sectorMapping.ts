@@ -928,7 +928,7 @@ export const sectorMapping = {
       ]
     },
     {
-      code: "",
+      code: "9",
       title: "Other aid",
       color: SunburstChartColors[4],
       children: [
