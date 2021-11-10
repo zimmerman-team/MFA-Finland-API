@@ -137,26 +137,28 @@ export function detailPageName(req: any, res: any) {
                       let value = 0;
                       const length = Object.keys(indicatorsData[indicator])
                         .length;
+                      let yearvalue = "";
                       Object.keys(indicatorsData[indicator]).forEach(
                         (year: string, index: number) => {
                           if (index === length - 1) {
+                            yearvalue = year;
                             value = indicatorsData[indicator][year];
                           }
                         }
                       );
                       switch (indicator) {
                         case "69206":
-                          return `Life expectancy at birth: ${value}`;
+                          return `Life expectancy at birth (${yearvalue}): ${value}`;
                         case "69706":
-                          return `Expected years of schooling: ${value}`;
+                          return `Expected years of schooling (${yearvalue}): ${value}`;
                         case "103006":
-                          return `Mean years of schooling: ${value}`;
+                          return `Mean years of schooling (${yearvalue}): ${value}`;
                         case "195706":
-                          return `Gross national income (GNI) per capita: ${formatLocale(
+                          return `Gross national income (GNI) per capita (${yearvalue}): ${formatLocale(
                             value
                           ).replace("€", "$")}`;
                         case "146206":
-                          return `HDI rank: ${value}`;
+                          return `HDI rank (${yearvalue}): ${value}`;
                         default:
                           return "";
                       }
