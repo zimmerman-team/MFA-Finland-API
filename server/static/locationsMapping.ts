@@ -13,7 +13,7 @@ export const locationsMapping: LocationMappingKeys = {
     "88",
     "89"
   ],
-  "North of Sahara": ["DZ", "LB", "MA", "TN", "EG", "189"],
+  "North of Sahara": ["DZ", "LY", "MA", "TN", "EG", "189"],
   "South of Sahara": [
     "ZA",
     "AO",
@@ -104,7 +104,7 @@ export const locationsMapping: LocationMappingKeys = {
     "489",
     "498"
   ],
-  "Middle East": ["IR", "IQ", "JO", "LB", "SY", "YE", "589"],
+  "Middle East": ["IR", "IQ", "JO", "LB", "PS", "SY", "YE", "589"],
   "South & Central Asia": [
     "AM",
     "AZ",

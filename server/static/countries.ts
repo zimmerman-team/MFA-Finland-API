@@ -4325,6 +4325,7 @@ export const translatedCountries = [
     }
   },
   {
+    code: "NA",
     info: {
       codeType: "countryCodeAlpha2",
       type: "country",
