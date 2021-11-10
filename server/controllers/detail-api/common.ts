@@ -124,6 +124,12 @@ export function detailPageName(req: any, res: any) {
                   process.env.UM_FI_API
                 }/contact-info/${iso3.toLowerCase()}/um?lang=${req.body.lang ||
                   "en"}&page=1`
+              ),
+              axios.get(
+                `${
+                  process.env.UM_FI_API
+                }/contact-info/${iso3.toLowerCase()}/ue?lang=${req.body.lang ||
+                  "en"}&page=1`
               )
             ];
             axios
@@ -170,6 +176,11 @@ export function detailPageName(req: any, res: any) {
                     "data.contactInfos[0]",
                     null
                   );
+                  const embassyData = get(
+                    responses[3],
+                    "data.contactInfos[0]",
+                    null
+                  );
                   res.json({
                     data: {
                       region,
@@ -197,10 +208,10 @@ export function detailPageName(req: any, res: any) {
                       contact: {
                         title: contactData.reportName || contactData.title,
                         link: contactData.link,
-                        email:
-                          contactData.emails && contactData.emails.length > 0
-                            ? contactData.emails[0].value
-                            : ""
+                        embassy: {
+                          title: embassyData.reportName || embassyData.title,
+                          link: embassyData.link
+                        }
                       }
                     }
                   });
