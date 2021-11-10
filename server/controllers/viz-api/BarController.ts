@@ -13,7 +13,11 @@ import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
-import { budgetLineCodes2Values, colors } from "../../static/budgetLineConsts";
+import {
+  colors,
+  translatedLines,
+  budgetLineCodes2Values
+} from "../../static/budgetLineConsts";
 
 export function budgetLineBarChart1(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
@@ -481,8 +485,11 @@ export function budgetLineBarChart(req: any, res: any) {
 
         result = get(result, "lines", []).map((line: string) => {
           const ref = line.ref.replace(/\./g, "");
+          const translatedLine = find(translatedLines, { code: ref });
           return {
-            line: get(budgetLineCodes2Values, ref, ""),
+            line: get(translatedLine, "info.name", ref),
+            line_fi: get(translatedLine, "info.name_fi", ref),
+            line_se: get(translatedLine, "info.name_se", ref),
             value: line.value.value,
             code: line.ref,
             valueColor: get(colors, ref, "")
@@ -574,16 +581,27 @@ export function budgetLineBarChart(req: any, res: any) {
               const yearInstances = get(groupedExclusive, year, []);
               yearInstances.forEach((item: any) => {
                 item.tags.forEach((tag: string) => {
-                  const tagname = get(budgetLineCodes2Values, tag, "");
+                  const translatedLine = find(translatedLines, { code: tag });
+                  const tagname = get(translatedLine, "info.name", null);
+                  const tagnamefi = get(translatedLine, "info.name_fi", null);
+                  const tagnamese = get(translatedLine, "info.name_se", null);
                   if (tagname) {
                     if (yearObj[tagname]) {
                       yearObj[tagname] += item.value;
+                      yearObj[`${tagnamefi}_fi`] += item.value;
+                      yearObj[`${tagnamefi}_se`] += item.value;
                     } else {
                       yearObj = {
                         ...yearObj,
                         [tagname]: item.value,
+                        [`${tagnamefi}_fi`]: item.value,
+                        [`${tagnamese}_se`]: item.value,
                         [`${tagname}Code`]: tag,
-                        [`${tagname}Color`]: get(colors, tag, "")
+                        [`${tagnamefi}Code`]: tag,
+                        [`${tagnamese}Code`]: tag,
+                        [`${tagname}Color`]: get(colors, tag, ""),
+                        [`${tagnamefi}Color`]: get(colors, tag, ""),
+                        [`${tagnamese}Color`]: get(colors, tag, "")
                       };
                     }
                   }
@@ -598,16 +616,27 @@ export function budgetLineBarChart(req: any, res: any) {
                 );
                 yearInstances.forEach((item: any) => {
                   const ref = item.ref.replace(/\./g, "");
-                  const tagname = get(budgetLineCodes2Values, ref, "");
+                  const translatedLine = find(translatedLines, { code: ref });
+                  const tagname = get(translatedLine, "info.name", null);
+                  const tagnamefi = get(translatedLine, "info.name_fi", null);
+                  const tagnamese = get(translatedLine, "info.name_se", null);
                   if (tagname) {
                     if (yearObj[tagname]) {
                       yearObj[tagname] += item.value.value;
+                      yearObj[`${tagnamefi}_fi`] += item.value.value;
+                      yearObj[`${tagnamefi}_se`] += item.value.value;
                     } else {
                       yearObj = {
                         ...yearObj,
                         [tagname]: item.value.value,
+                        [`${tagnamefi}_fi`]: item.value.value,
+                        [`${tagnamese}_se`]: item.value.value,
                         [`${tagname}Code`]: ref,
-                        [`${tagname}Color`]: get(colors, ref, "")
+                        [`${tagnamefi}Code`]: ref,
+                        [`${tagnamese}Code`]: ref,
+                        [`${tagname}Color`]: get(colors, ref, ""),
+                        [`${tagnamefi}Color`]: get(colors, ref, ""),
+                        [`${tagnamese}Color`]: get(colors, ref, "")
                       };
                     }
                   }
@@ -625,10 +654,17 @@ export function budgetLineBarChart(req: any, res: any) {
                 (key: string) =>
                   key !== "year" &&
                   key.indexOf("Color") === -1 &&
-                  key.indexOf("Code") === -1
+                  key.indexOf("Code") === -1 &&
+                  key.indexOf("_fi") === -1 &&
+                  key.indexOf("_se") === -1
               ).map((tag: string) => {
+                const translatedLine = find(translatedLines, {
+                  code: fYear[`${tag}Code`]
+                });
                 return {
                   line: tag,
+                  line_fi: get(translatedLine, "info.name_fi", null),
+                  line_se: get(translatedLine, "info.name_se", null),
                   value: fYear[tag],
                   code: fYear[`${tag}Code`],
                   valueColor: fYear[`${tag}Color`]
