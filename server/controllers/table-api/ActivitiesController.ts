@@ -60,7 +60,7 @@ export function activitiesTable(req: any, res: any) {
       const result = actualData.map((activity: any) => {
         const startDate = activity.activity_date_start_planned || "";
         const endDate = activity.activity_date_end_planned || "";
-        const aidTypes = getDefaultAidTypes(activity.default_aid_type)
+        const aidTypes = getDefaultAidTypes(activity.default_aid_type, lang)
           .map((type: any) => type.name)
           .join(", ");
         const code = get(activity, "iati_identifier", "");

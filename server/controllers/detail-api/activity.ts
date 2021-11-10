@@ -116,7 +116,8 @@ export function activityDetail(req: any, res: any) {
               summary: getSummary(activityMetaData),
               countries: getCountries(
                 get(activityMetaData, "recipient_country", []),
-                get(activityMetaData, "transaction_recipient_country_code", [])
+                get(activityMetaData, "transaction_recipient_country_code", []),
+                lang
               ),
               regions: getRegions(
                 get(activityMetaData, "recipient_region", []),
@@ -125,10 +126,11 @@ export function activityDetail(req: any, res: any) {
               sectors: getSectors(
                 get(activityMetaData, "sector", []),
                 get(activityMetaData, "transaction_sector_code", []),
-                get(activityMetaData, "reporting_org_ref", null)
+                lang
               ),
               default_aid_types: getDefaultAidTypes(
-                get(activityMetaData, "default_aid_type", [])
+                get(activityMetaData, "default_aid_type", []),
+                lang
               ),
               policy_markers: getPolicyMarkers(
                 get(activityMetaData, "policy_marker", [])

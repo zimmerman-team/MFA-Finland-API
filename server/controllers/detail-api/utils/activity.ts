@@ -3,15 +3,20 @@ import find from "lodash/find";
 import sumBy from "lodash/sumBy";
 import filter from "lodash/filter";
 import groupBy from "lodash/groupBy";
-import { countries as countriesCodelist } from "../../../static/countries";
+import {
+  countries as countriesCodelist,
+  translatedCountries
+} from "../../../static/countries";
 import {
   activityStatusCodelist,
   activityScopeCodelist,
   collaborationTypeCodelist,
   defaultFlowTypeCodelist,
   defaultFinanceTypeCodelist,
-  defaultTiedStatusCodelist
+  defaultTiedStatusCodelist,
+  tranlatedAidTypes
 } from "../../../static/codelists";
+import { sectorTranslations } from "../../../static/sectorTranslations";
 
 export function getDates(data: any) {
   const parsedData = data.map((item: any) => JSON.parse(item));
@@ -131,7 +136,8 @@ export function getSummary(data: any) {
 
 export function getCountries(
   countries: any,
-  transaction_recipient_country_codes: any
+  transaction_recipient_country_codes: any,
+  lang: string
 ) {
   const parsedData = countries.map((item: any) => JSON.parse(item));
   transaction_recipient_country_codes.forEach((item: any) => {
@@ -142,12 +148,19 @@ export function getCountries(
       });
     }
   });
-  return parsedData.map((item: any) => ({
-    name: item.country.name,
-    code: item.country.code,
-    percentage: item.country.percentage || "no data",
-    url: `/countries/${encodeURIComponent(item.country.code)}`
-  }));
+  return parsedData.map((item: any) => {
+    const fTranslatedItem = find(translatedCountries, {
+      code: item.country.code
+    });
+    return {
+      name: fTranslatedItem
+        ? get(fTranslatedItem.info, `name_${lang}`, item.country.name)
+        : item.country.name,
+      code: item.country.code,
+      percentage: item.country.percentage || "no data",
+      url: `/countries/${encodeURIComponent(item.country.code)}`
+    };
+  });
 }
 
 export function getRegions(
@@ -215,7 +228,7 @@ export function getHumanitarianScopes(
 export function getSectors(
   sectors: any,
   transaction_sector_codes: any,
-  reporting_org: any
+  lang: string
 ) {
   const parsedData = sectors.map((item: any) => JSON.parse(item));
   transaction_sector_codes.map((item: any) => ({
@@ -224,21 +237,35 @@ export function getSectors(
       code: item
     }
   }));
-  return parsedData.map((item: any) => ({
-    name: item.sector.name,
-    code: item.sector.code,
-    url: `/sectors/${item.sector.code}`,
-    percentage: item.percentage || "no data"
-  }));
+  return parsedData.map((item: any) => {
+    const fTranslatedItem = find(sectorTranslations, {
+      code: parseInt(item.sector.code, 10)
+    });
+    return {
+      name: fTranslatedItem
+        ? get(fTranslatedItem.info, `name_${lang}`, item.sector.name)
+        : item.sector.name,
+      code: item.sector.code,
+      url: `/sectors/${item.sector.code}`,
+      percentage: item.percentage || "no data"
+    };
+  });
 }
 
-export function getDefaultAidTypes(data: any) {
+export function getDefaultAidTypes(data: any, lang: string) {
   const parsedData = data.map((item: any) => JSON.parse(item));
-  return parsedData.map((item: any) => ({
-    name: get(item, "aid_type.name", "no data"),
-    code: get(item, "aid_type.code", "no data"),
-    vocabulary: item.aid_type.vocabulary.name
-  }));
+  return parsedData.map((item: any) => {
+    const fTranslatedItem = find(tranlatedAidTypes, {
+      code: get(item, "aid_type.code", "")
+    });
+    return {
+      name: fTranslatedItem
+        ? get(fTranslatedItem.info, `name_${lang}`)
+        : get(item, "aid_type.name", "no data"),
+      code: get(item, "aid_type.code", "no data"),
+      vocabulary: item.aid_type.vocabulary.name
+    };
+  });
 }
 
 export function getPolicyMarkers(data: any) {
