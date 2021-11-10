@@ -480,3 +480,348 @@ export const transactionTypesCodelist = [
     name: "Incoming Pledge"
   }
 ];
+
+export const tranlatedAidTypes = [
+  {
+    code: "A01",
+    info: {
+      name: "General budget support",
+      name_fi: "Yleinen budjettituki",
+      name_se: "Generellt budgetstöd",
+      level: 1,
+      lvl_0: "A",
+      lvl_1: "A01",
+      parent: "A",
+      version: 2020
+    }
+  },
+  {
+    code: "A02",
+    info: {
+      name: "Sector budget support",
+      name_fi: "Sektoribudjettituki",
+      name_se: "Sektorbudgetstöd",
+      level: 1,
+      lvl_0: "A",
+      lvl_1: "A02",
+      parent: "A",
+      version: 2020
+    }
+  },
+  {
+    code: "B01",
+    info: {
+      name:
+        "Core support to NGOs and civil society, PPPs and research institutes",
+      name_fi:
+        "Yleistuki kansalaisjärjestöille ja muille yksityisille toimijoille (julkisen ja yksityisen tahon kumppanuudet (ns. PPP:t) ja tutkimuslaitokset)",
+      name_se:
+        "Basstöd till NGOs, andra privata organ, PPPs och forskningsinstitutioner",
+      level: 1,
+      lvl_0: "B",
+      lvl_1: "B01",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "B02",
+    info: {
+      name: "Core contributions to multilateral institutions",
+      name_fi: "Yleisavustukset monenkeskisille järjestöille",
+      name_se: "Basstöd till multilaterala institutioner",
+      level: 1,
+      lvl_0: "B",
+      lvl_1: "B02",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "B03",
+    info: {
+      name:
+        "Contributions to specific-purpose programmes and funds managed by implementing partners",
+      name_fi:
+        "Avustukset erityisiin ohjelmiin ja rahastoihin, jotka on hallinnoitu kansainvälisen järjestön kautta (monenkeskinen tai kansalaisjärjestö)",
+      name_se:
+        "Bidrag till specifika program och fonder genom implementerande parter",
+      level: 1,
+      lvl_0: "B",
+      lvl_1: "B03",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "B031",
+    info: {
+      name: "Contributions to multi-donor/multi-entity funding mechanisms",
+      name_fi:
+        "Avustukset erityisiin ohjelmiin ja rahastoihin, jotka on hallinnoitu kansainvälisen järjestön kautta (monenkeskinen tai kansalaisjärjestö) - usea rahoittaja/usea kohde",
+      name_se:
+        "Bidrag till finansieringsmekanismer med flera givare och flera implementerande organisationer",
+      level: 1,
+      lvl_0: "B",
+      lvl_1: "B031",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "B032",
+    info: {
+      name: "Contributions to multi-donor/single-entity funding mechanisms",
+      name_fi:
+        "Avustukset erityisiin ohjelmiin ja rahastoihin, jotka on hallinnoitu kansainvälisen järjestön kautta (monenkeskinen tai kansalaisjärjestö) - usea rahoittaja/yksi kohde",
+      name_se:
+        "Bidrag till finansieringsmekanismer med flera givare och endast en implementerande organisation",
+      level: 1,
+      lvl_0: "B",
+      lvl_1: "B032",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "B033",
+    info: {
+      name:
+        "Contributions to single-donor funding mechanisms and contributions earmarked for a specific funding window or geographical location",
+      name_fi:
+        "Avustukset erityisiin ohjelmiin ja rahastoihin, jotka on hallinnoitu kansainvälisen järjestön kautta (monenkeskinen tai kansalaisjärjestö) - yksi rahoittaja/korvamerkitty",
+      name_se:
+        "Bidrag till finansieringsmekanismer med endast en givare samt bidrag som öronmärks till ett särskilt fönster eller en geografisk plats (som del av en givargemensam fond eller liknande)",
+      level: 1,
+      lvl_0: "B",
+      lvl_1: "B033",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "B04",
+    info: {
+      name:
+        "Basket funds/pooled funding (excluding funds managed by international organisations)",
+      name_fi: "Korirahastot/yhteisrahoitusohjelmat",
+      name_se:
+        "Poolfinansiering (exklusive bidrag som hanteras av internationella organisationer)",
+      level: 1,
+      lvl_0: "B",
+      lvl_1: "B04",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "C01",
+    info: {
+      name: "Project type interventions",
+      name_fi: "Hanketuki",
+      name_se: "Projektstöd",
+      level: 1,
+      lvl_0: "C",
+      lvl_1: "C01",
+      parent: "C",
+      version: 2020
+    }
+  },
+  {
+    code: "D01",
+    info: {
+      name: "Donor country personnel",
+      name_fi: "Avunantajan henkilöstö",
+      name_se: "Personal från givarlandet",
+      level: 1,
+      lvl_0: "D",
+      lvl_1: "D01",
+      parent: "D",
+      version: 2020
+    }
+  },
+  {
+    code: "D02",
+    info: {
+      name: "Other technical assistance",
+      name_fi: "Muu tekninen apu",
+      name_se: "Annat tekniskt samarbete",
+      level: 1,
+      lvl_0: "D",
+      lvl_1: "D02",
+      parent: "D",
+      version: 2020
+    }
+  },
+  {
+    code: "E01",
+    info: {
+      name: "Scholarship/training donor country",
+      name_fi: "Apurahat/koulutus avunantajamaassa",
+      name_se: "Stipendier i givarlandet",
+      level: 1,
+      lvl_0: "E",
+      lvl_1: "E01",
+      parent: "E",
+      version: 2020
+    }
+  },
+  {
+    code: "E02",
+    info: {
+      name: "Imputed student cost",
+      name_fi: "Laskennalliset opiskelijakulut",
+      name_se: "",
+      level: 1,
+      lvl_0: "E",
+      lvl_1: "E02",
+      parent: "E",
+      version: 2020
+    }
+  },
+  {
+    code: "F01",
+    info: {
+      name: "Debt relief",
+      name_fi: "Velkahelpotus",
+      name_se: "Skuldlättnader",
+      level: 1,
+      lvl_0: "F",
+      lvl_1: "F01",
+      parent: "F",
+      version: 2020
+    }
+  },
+  {
+    code: "G01",
+    info: {
+      name: "Administrative costs not included elsewhere",
+      name_fi: "Hallintokulut",
+      name_se:
+        "Administrativa kostnader som inte inkluderats i övriga kategorier",
+      level: 1,
+      lvl_0: "G",
+      lvl_1: "G01",
+      parent: "G",
+      version: 2020
+    }
+  },
+  {
+    code: "H01",
+    info: {
+      name: "Development awareness",
+      name_fi: "Kehitystietoisuuden edistäminen",
+      name_se: "Informera om och främja utvecklingssamarbete i givarlandet",
+      level: 1,
+      lvl_0: "H",
+      lvl_1: "H01",
+      parent: "H",
+      version: 2020
+    }
+  },
+  {
+    code: "A",
+    info: {
+      name: "Budget support",
+      name_fi: "Budjettituki",
+      name_se: "Budgetstöd",
+      level: 0,
+      lvl_0: "A",
+      lvl_1: "",
+      parent: "A",
+      version: 2020
+    }
+  },
+  {
+    code: "B",
+    info: {
+      name: "Core contributions and pooled programmes and funds ",
+      name_fi: "Yleistuet, ohjelmat ja rahastot",
+      name_se: "Basstöd, program och fonder",
+      level: 0,
+      lvl_0: "B",
+      lvl_1: "",
+      parent: "B",
+      version: 2020
+    }
+  },
+  {
+    code: "C",
+    info: {
+      name: "Project-type interventions",
+      name_fi: "Projekti",
+      name_se: "Projektstöd",
+      level: 0,
+      lvl_0: "C",
+      lvl_1: "",
+      parent: "C",
+      version: 2020
+    }
+  },
+  {
+    code: "D",
+    info: {
+      name: "Experts and other technical assistance",
+      name_fi: "Asiantuntija ja tekninen avustus",
+      name_se: "",
+      level: 0,
+      lvl_0: "D",
+      lvl_1: "",
+      parent: "D",
+      version: 2020
+    }
+  },
+  {
+    code: "E",
+    info: {
+      name: "Scholarships and student costs in donor countries",
+      name_fi: "Apurahat/koulutus avunantajamaassa",
+      name_se: "Stipendier i givarlandet",
+      level: 0,
+      lvl_0: "E",
+      lvl_1: "",
+      parent: "E",
+      version: 2020
+    }
+  },
+  {
+    code: "F",
+    info: {
+      name: "Debt relief",
+      name_fi: "Velkahelpotus",
+      name_se: "Skuldlättnader",
+      level: 0,
+      lvl_0: "F",
+      lvl_1: "",
+      parent: "F",
+      version: 2020
+    }
+  },
+  {
+    code: "G",
+    info: {
+      name: "Administrative costs not included elsewhere",
+      name_fi: "Hallintokulut",
+      name_se:
+        "Administrativa kostnader som inte inkluderats i övriga kategorier",
+      level: 0,
+      lvl_0: "G",
+      lvl_1: "",
+      parent: "G",
+      version: 2020
+    }
+  },
+  {
+    code: "H",
+    info: {
+      name: "Other in-donor expenditures",
+      name_fi: "Muut avunantajamaassa",
+      name_se: "",
+      level: 0,
+      lvl_0: "H",
+      lvl_1: "",
+      parent: "H",
+      version: 2020
+    }
+  }
+];

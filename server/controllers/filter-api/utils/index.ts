@@ -284,6 +284,33 @@ export function formatActivituStatusOptions(rawData: any, codelistData: any) {
   );
 }
 
+export function formatAidTypeOptions(rawData: any, translatedCodelist: any) {
+  const result: OptionModel[] = [];
+
+  rawData.forEach((item: any) => {
+    const fOption = find(
+      translatedCodelist,
+      (codelistitem: any) => codelistitem.code === item.val
+    );
+    if (fOption) {
+      result.push({
+        name: fOption.info.name,
+        name_fi: fOption.info.name_fi,
+        name_se: fOption.info.name_se,
+        code: fOption.code
+      });
+    }
+  });
+
+  return orderBy(
+    result,
+    function(o) {
+      return new Number(o.code);
+    },
+    ["asc"]
+  );
+}
+
 export function formatOrgOptions(rawData: any, codelistData: any) {
   const result: OptionModel[] = [];
 
