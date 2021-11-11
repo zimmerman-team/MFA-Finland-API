@@ -4889,6 +4889,23 @@ export const sectorTranslations = [
     }
   },
   {
+    code: 16,
+    info: {
+      id: "16_1",
+      name: "Other Social Infrastructure & Services",
+      name_fi: "Muu yhteiskuntarakenne ja palvelut",
+      name_se: "Övrig social infrastruktur",
+      parent_id: "16_0",
+      parent: 16,
+      parent_name: "Other Social Infrastructure & Services",
+      level: 1,
+      lvl_0: 16,
+      lvl_1: 16,
+      description: "",
+      version: 2020
+    }
+  },
+  {
     code: 160,
     info: {
       id: "160_1",
@@ -5020,6 +5037,23 @@ export const sectorTranslations = [
       level: 1,
       lvl_0: 9,
       lvl_1: 998,
+      description: "",
+      version: 2020
+    }
+  },
+  {
+    code: 13,
+    info: {
+      id: "13_1",
+      name: "Population policies / programmes and reproductive health",
+      name_fi: "Väestöohjelmat",
+      name_se: "Befolkning och reproduktiv hälsa",
+      parent_id: "13_0",
+      parent: 13,
+      parent_name: "Population policies / programmes and reproductive health",
+      level: 1,
+      lvl_0: 13,
+      lvl_1: 13,
       description: "",
       version: 2020
     }
@@ -5178,6 +5212,23 @@ export const sectorTranslations = [
     }
   },
   {
+    code: 14,
+    info: {
+      id: "14_1",
+      name: "Water Supply & Sanitation",
+      name_fi: "Vesihuolto ja sanitaatio",
+      name_se: "Vatten och sanitet",
+      parent_id: "14_0",
+      parent: 14,
+      parent_name: "Water Supply & Sanitation",
+      level: 1,
+      lvl_0: 14,
+      lvl_1: 14,
+      description: "",
+      version: 2020
+    }
+  },
+  {
     code: 140,
     info: {
       id: "140_1",
@@ -5220,6 +5271,21 @@ export const sectorTranslations = [
       parent_name: "",
       level: 0,
       lvl_0: 11,
+      description: "",
+      version: 2020
+    }
+  },
+  {
+    code: 15,
+    info: {
+      id: "15_0",
+      name: "Government and civil society, general",
+      name_fi: "Julkinen hallinto ja kansalaisyhteiskunta, yleinen",
+      name_se: "Regering och civila samhället",
+      parent_id: "",
+      parent_name: "",
+      level: 0,
+      lvl_0: 15,
       description: "",
       version: 2020
     }

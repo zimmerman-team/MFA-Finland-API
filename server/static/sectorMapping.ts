@@ -1318,7 +1318,7 @@ export const sectorMapping = {
       ]
     },
     {
-      code: "130",
+      code: "13",
       title: "Population policies / programmes and reproductive health",
       color: SunburstChartColors[7],
       children: [
@@ -1363,7 +1363,7 @@ export const sectorMapping = {
       ]
     },
     {
-      code: "140",
+      code: "14",
       title: "Water Supply & Sanitation",
       color: SunburstChartColors[8],
       children: [
@@ -1432,7 +1432,7 @@ export const sectorMapping = {
       ]
     },
     {
-      code: "151",
+      code: "15",
       title: "Government and civil society, general",
       color: SunburstChartColors[9],
       children: [
@@ -1727,7 +1727,7 @@ export const sectorMapping = {
       ]
     },
     {
-      code: "160",
+      code: "16",
       title: "Other Social Infrastructure & Services",
       color: SunburstChartColors[10],
       children: [
