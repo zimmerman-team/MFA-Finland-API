@@ -6553,8 +6553,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Entisen Jugoslavian alue, alueellinen",
+      name_se: "Stater i tidigare Jugoslavien, ospecificerade",
       name: "States Ex-Yugoslavia unspecified",
       region_0: "Europe",
       region_1: "Europe",
@@ -6565,7 +6565,7 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6575,8 +6575,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Eurooppa, alueellinen",
+      name_se: "Europa, regional",
       name: "Europe, regional",
       region_0: "Europe",
       region_1: "Europe",
@@ -6587,7 +6587,7 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6597,8 +6597,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Saharan pohjoispuolinen Afrikka, alueellinen",
+      name_se: "Norr om Sahara, regional",
       name: "North of Sahara, regional",
       region_0: "Africa",
       region_1: "North of Sahara",
@@ -6609,7 +6609,7 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "northofSahara_1",
       parent_name: "North of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6619,19 +6619,19 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Saharan eteläpuolinen Afrikka, alueellinen",
+      name_se: "Söder om Sahara, regional",
       name: "South of Sahara, regional",
-      region_0: "",
+      region_0: "Africa",
       region_1: "South of Sahara",
       region_DAC: "South of Sahara",
       region_0_fi: "",
       region_1_fi: "Saharan eteläpuolinen Afrikka",
-      region_0_se: "",
+      region_0_se: "Afrika",
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6641,19 +6641,19 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Afrikka, alueellinen",
+      name_se: "Afrika, regional",
       name: "Africa, regional",
-      region_0: "",
+      region_0: "Africa",
       region_1: "South of Sahara",
       region_DAC: "South of Sahara",
       region_0_fi: "",
       region_1_fi: "Saharan eteläpuolinen Afrikka",
-      region_0_se: "",
+      region_0_se: "Afrika",
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6663,19 +6663,19 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Pohjois-ja Väliamerikka, alueellinen",
+      name_se: "Nord- och Centralamerika, regional",
       name: "Caribbean & Central America, regional",
-      region_0: "",
+      region_0: "North & Central America",
       region_1: "North & Central America",
       region_DAC: "North & Central America",
       region_0_fi: "",
       region_1_fi: "Pohjois- ja Väli-Amerikka",
-      region_0_se: "",
+      region_0_se: "Nord- och Mellanamerika",
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6685,8 +6685,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Etelä-Amerikka, alueellinen",
+      name_se: "Sydamerika, regional",
       name: "South America, regional",
       region_0: "South America",
       region_1: "South America",
@@ -6697,7 +6697,7 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6707,8 +6707,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Amerikka, alueellinen",
+      name_se: "Amerika, regional",
       name: "America, regional",
       region_0: "South America",
       region_1: "South America",
@@ -6719,7 +6719,7 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6729,8 +6729,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Lähi-Itä, alueellinen",
+      name_se: "Mellanöstern, regional",
       name: "Middle East, regional",
       region_0: "Asia",
       region_1: "Middle East",
@@ -6741,7 +6741,7 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6751,8 +6751,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Keski-Aasia, alueellinen",
+      name_se: "Centralasien, regional",
       name: "Central Asia, regional",
       region_0: "Asia",
       region_1: "South & Central Asia",
@@ -6763,7 +6763,7 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6773,8 +6773,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Etelä-Aasia, alueellinen",
+      name_se: "Sydasien, regional",
       name: "South Asia, regional",
       region_0: "Asia",
       region_1: "South & Central Asia",
@@ -6785,7 +6785,7 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6795,8 +6795,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Etelä- ja Keski-Aasia, alueellinen",
+      name_se: "Syd- och Centralasien, regional",
       name: "South & Central Asia, regional",
       region_0: "Asia",
       region_1: "South & Central Asia",
@@ -6807,7 +6807,7 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6817,8 +6817,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Kaukoitä, alueellinen",
+      name_se: "Bortre Asien, regional",
       name: "Far East Asia, regional",
       region_0: "Asia",
       region_1: "Far East Asia",
@@ -6829,7 +6829,7 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6839,8 +6839,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Aasia, alueellinen",
+      name_se: "Asien, regional",
       name: "Asia, regional",
       region_0: "Asia",
       region_1: "South & Central Asia",
@@ -6851,7 +6851,7 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6861,8 +6861,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Oseania, alueellinen",
+      name_se: "Oceania, regional",
       name: "Oceania, regional",
       region_0: "Oceania",
       region_1: "Oceania",
@@ -6873,7 +6873,7 @@ export const translatedCountries = [
       region_1_se: "Oceania",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6883,8 +6883,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Määrittelemätön",
+      name_se: "Ospecificerat",
       name: "Developing countries, unspecified",
       region_0: "Regional and Unspecified",
       region_1: "Regional and Unspecified",
@@ -6895,7 +6895,7 @@ export const translatedCountries = [
       region_1_se: "Regional och ospecificerat",
       parent: "regionalandUnspecified_1",
       parent_name: "Regional and Unspecified",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6905,8 +6905,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Itäinen Afrikka, alueellinen",
+      name_se: "Östafrika, regional",
       name: "Eastern Africa, regional",
       region_0: "Africa",
       region_1: "South of Sahara",
@@ -6917,7 +6917,7 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6927,8 +6927,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Keski-Afrikka, alueellinen",
+      name_se: "Centralafrika, regional",
       name: "Middle Africa, regional",
       region_0: "Africa",
       region_1: "South of Sahara",
@@ -6939,7 +6939,7 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6949,8 +6949,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Eteläinen Afrikka, alueellinen",
+      name_se: "Södra Afrika, regional",
       name: "Southern Africa, regional",
       region_0: "Africa",
       region_1: "South of Sahara",
@@ -6961,7 +6961,7 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6971,8 +6971,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Läntinen Afrikka, alueellinen",
+      name_se: "Västafrika, regional",
       name: "Western Africa, regional",
       region_0: "Africa",
       region_1: "South of Sahara",
@@ -6983,7 +6983,7 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -6993,8 +6993,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Karibia, alueellinen",
+      name_se: "Karibien, regional",
       name: "Caribbean, regional",
       region_0: "North & Central America",
       region_1: "North & Central America",
@@ -7005,7 +7005,7 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7015,8 +7015,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Väli-Amerikka, alueellinen",
+      name_se: "Centralamerika, regional",
       name: "Central America, regional",
       region_0: "North & Central America",
       region_1: "North & Central America",
@@ -7027,7 +7027,7 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7037,8 +7037,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Melanesia, alueellinen",
+      name_se: "Melanesien, regional",
       name: "Melanesia, regional",
       region_0: "Oceania",
       region_1: "Oceania",
@@ -7049,7 +7049,7 @@ export const translatedCountries = [
       region_1_se: "Oceania",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7059,8 +7059,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Mikronesia, alueellinen",
+      name_se: "Mikronesien, regional",
       name: "Micronesia, regional",
       region_0: "Oceania",
       region_1: "Oceania",
@@ -7071,7 +7071,7 @@ export const translatedCountries = [
       region_1_se: "Oceania",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7081,8 +7081,8 @@ export const translatedCountries = [
       type: "regionalDAC",
       level: 2,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Polynesia, alueellinen",
+      name_se: "Polynesien, regional",
       name: "Polynesia, regional",
       region_0: "Oceania",
       region_1: "Oceania",
@@ -7093,7 +7093,7 @@ export const translatedCountries = [
       region_1_se: "Oceania",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7103,8 +7103,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Etelä- ja Keski-Aasia",
+      name_se: "Syd- och Centralasien",
       name: "South & Central Asia",
       region_0: "Asia",
       region_1: "South & Central Asia",
@@ -7115,7 +7115,7 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "asia",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7125,8 +7125,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Eurooppa",
+      name_se: "Europa",
       name: "Europe",
       region_0: "Europe",
       region_1: "Europe",
@@ -7137,7 +7137,7 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7147,8 +7147,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Saharan pohjoispuolinen Afrikka",
+      name_se: "Norr om Sahara",
       name: "North of Sahara",
       region_0: "Africa",
       region_1: "North of Sahara",
@@ -7159,7 +7159,7 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "africa",
       parent_name: "North of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7169,8 +7169,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Saharan eteläpuolinen Afrikka",
+      name_se: "Söder om Sahara",
       name: "South of Sahara",
       region_0: "Africa",
       region_1: "South of Sahara",
@@ -7181,7 +7181,7 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "africa",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7191,8 +7191,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Pohjois- ja Väli-Amerikka",
+      name_se: "Nord- och Mellanamerika",
       name: "North & Central America",
       region_0: "North & Central America",
       region_1: "North & Central America",
@@ -7203,7 +7203,7 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7213,8 +7213,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Etelä-Amerikka",
+      name_se: "Sydamerika",
       name: "South America",
       region_0: "South America",
       region_1: "South America",
@@ -7225,7 +7225,7 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7235,8 +7235,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Oseania",
+      name_se: "Oceania",
       name: "Oceania",
       region_0: "Oceania",
       region_1: "Oceania",
@@ -7247,7 +7247,7 @@ export const translatedCountries = [
       region_1_se: "Oceania",
       parent: "oceania",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7257,8 +7257,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Itäinen Aasia",
+      name_se: "Östasien",
       name: "Far East Asia",
       region_0: "Asia",
       region_1: "Far East Asia",
@@ -7269,7 +7269,7 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "asia",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7279,8 +7279,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Lähi-Itä",
+      name_se: "Mellanöstern",
       name: "Middle East",
       region_0: "Asia",
       region_1: "Middle East",
@@ -7291,7 +7291,7 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "asia",
       parent_name: "Middle East",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7301,8 +7301,8 @@ export const translatedCountries = [
       type: "region",
       level: 1,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Alueellinen ja alueellisesti kohdistamaton",
+      name_se: "Regional och ospecificerat",
       name: "Regional and Unspecified",
       region_0: "Regional and Unspecified",
       region_1: "Regional and Unspecified",
@@ -7313,7 +7313,7 @@ export const translatedCountries = [
       region_1_se: "Regional och ospecificerat",
       parent: "regionalandUnspecified",
       parent_name: "Regional and Unspecified",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7323,8 +7323,8 @@ export const translatedCountries = [
       type: "region",
       level: 0,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Aasia",
+      name_se: "Asien",
       name: "Asia",
       region_0: "Asia",
       region_1: "",
@@ -7335,7 +7335,7 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7345,8 +7345,8 @@ export const translatedCountries = [
       type: "region",
       level: 0,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Eurooppa",
+      name_se: "Europa",
       name: "Europe",
       region_0: "Europe",
       region_1: "",
@@ -7357,7 +7357,7 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7367,8 +7367,8 @@ export const translatedCountries = [
       type: "region",
       level: 0,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Afrikka",
+      name_se: "Afrika",
       name: "Africa",
       region_0: "Africa",
       region_1: "",
@@ -7379,7 +7379,7 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7389,8 +7389,8 @@ export const translatedCountries = [
       type: "region",
       level: 0,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Pohjois- ja Väli-Amerikka",
+      name_se: "Nord- och Mellanamerika",
       name: "North & Central America",
       region_0: "North & Central America",
       region_1: "",
@@ -7401,7 +7401,7 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7411,8 +7411,8 @@ export const translatedCountries = [
       type: "region",
       level: 0,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Etelä-Amerikka",
+      name_se: "Sydamerika",
       name: "South America",
       region_0: "South America",
       region_1: "",
@@ -7423,7 +7423,7 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7433,8 +7433,8 @@ export const translatedCountries = [
       type: "region",
       level: 0,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Oseania",
+      name_se: "Oceania",
       name: "Oceania",
       region_0: "Oceania",
       region_1: "",
@@ -7445,7 +7445,7 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false
     }
   },
   {
@@ -7455,8 +7455,8 @@ export const translatedCountries = [
       type: "region",
       level: 0,
       countryCodeAlpha3: "",
-      name_fi: "",
-      name_se: "",
+      name_fi: "Alueellinen ja alueellisesti kohdistamaton",
+      name_se: "Regional och ospecificerat",
       name: "Regional and Unspecified",
       region_0: "Regional and Unspecified",
       region_1: "",
@@ -7467,7 +7467,7 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false
     }
   }
 ];

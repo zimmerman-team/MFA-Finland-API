@@ -158,12 +158,11 @@ export function locationsTreemapChart(req: any, res: any) {
         };
       });
       const regions = regionsData.map((item: any) => {
+        const fRegion = find(translatedCountries, { code: item.val });
         return {
-          name: get(
-            find(translatedCountries, { code: item.val }),
-            "info.name",
-            item.val
-          ),
+          name: get(fRegion, "info.name", item.val),
+          name_fi: get(fRegion, "info.name_fi", item.val),
+          name_se: get(fRegion, "info.name_se", item.val),
           value: item.disbursed.value || 0,
           committed: item.committed.value || 0,
           percentage: (item.disbursed.value / item.committed.value) * 100,
