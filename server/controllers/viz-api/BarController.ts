@@ -589,7 +589,7 @@ export function budgetLineBarChart(req: any, res: any) {
                     if (yearObj[tagname]) {
                       yearObj[tagname] += item.value;
                       yearObj[`${tagnamefi}_fi`] += item.value;
-                      yearObj[`${tagnamefi}_se`] += item.value;
+                      yearObj[`${tagnamese}_se`] += item.value;
                     } else {
                       yearObj = {
                         ...yearObj,
@@ -624,7 +624,7 @@ export function budgetLineBarChart(req: any, res: any) {
                     if (yearObj[tagname]) {
                       yearObj[tagname] += item.value.value;
                       yearObj[`${tagnamefi}_fi`] += item.value.value;
-                      yearObj[`${tagnamefi}_se`] += item.value.value;
+                      yearObj[`${tagnamese}_se`] += item.value.value;
                     } else {
                       yearObj = {
                         ...yearObj,
