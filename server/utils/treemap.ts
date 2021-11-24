@@ -13,21 +13,21 @@ import {
 } from "../static/locationsMapping";
 
 export const TreemapVizColorsRegions = [
-  "#E5F0F0",
-  "#DCECEC",
-  "#D0E5E5",
-  "#C1DDDD",
-  "#ACD1D1",
-  "#8DB7B5"
+  "#E2ECE7",
+  "#E2ECE7",
+  "#E2ECE7",
+  "#CCDDD5",
+  "#CCDDD5",
+  "#BAD2C7"
 ];
 
 export const TreemapVizColorsOrganisations = [
-  "#BDCCEB",
-  "#BDCCEB",
-  "#BDCCEB",
-  "#A8BBE4",
-  "#BDCCEB",
-  "#8AA4DB"
+  "#FCE2DC",
+  "#FCE2DC",
+  "#FCE2DC",
+  "#FAD9D0",
+  "#FAD9D0",
+  "#F9CCC1"
 ];
 
 export function getColorsBasedOnValues(data: any, isOrg: boolean) {

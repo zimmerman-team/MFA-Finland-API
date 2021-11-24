@@ -1,15 +1,15 @@
 export const SunburstChartColors = [
-  "#DA8E68",
-  "#8AA4DB",
-  "#DCECEC",
-  "#425346",
-  "#EABFAA",
-  "#E7C3CD",
-  "#AE4764",
-  "#819DAB",
-  "#ACD1D1",
-  "#343249",
-  "#233C71"
+  "#4CAEEF",
+  "#D1D1D1",
+  "#F4A490",
+  "#5F8070",
+  "#FEEAD1",
+  "#561735",
+  "#D4B59E",
+  "#CCDDD5",
+  "#023833",
+  "#BBA1BF",
+  "#FCBB6D"
 ];
 
 export const sectorMapping = {

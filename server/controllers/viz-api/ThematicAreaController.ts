@@ -63,7 +63,7 @@ export function thematicAreasChart(req: any, res: any) {
           {
             ref: "Priority area 1",
             name: "Thematic area A",
-            color: "#AE4764",
+            color: "#D06448",
             area: "Strengthening the status and rights of women and girls",
             value:
               get(
@@ -110,7 +110,7 @@ export function thematicAreasChart(req: any, res: any) {
           {
             ref: "Priority area 2",
             name: "Thematic area B",
-            color: "#DA8E68",
+            color: "#D98B2C",
             area:
               "Strengthening the economic base of developing countries and creating jobs",
             value:
@@ -160,7 +160,7 @@ export function thematicAreasChart(req: any, res: any) {
           {
             ref: "Priority area 3",
             name: "Thematic area C",
-            color: "#819DAB",
+            color: "#8C6E91",
             area: "Education, well-functioning societies and democracy",
             value:
               get(
@@ -207,7 +207,7 @@ export function thematicAreasChart(req: any, res: any) {
           {
             ref: "Priority area 4",
             name: "Thematic area D",
-            color: "#425346",
+            color: "#5F8070",
             area: "Climate change and natural resources",
             value:
               get(
