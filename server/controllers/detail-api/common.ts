@@ -206,11 +206,15 @@ export function detailPageName(req: any, res: any) {
                         link: n.link
                       })),
                       contact: {
-                        title: contactData.reportName || contactData.title,
-                        link: contactData.link,
+                        title: contactData
+                          ? contactData.reportName || contactData.title
+                          : "",
+                        link: contactData ? contactData.link : "",
                         embassy: {
-                          title: embassyData.reportName || embassyData.title,
-                          link: embassyData.link
+                          title: embassyData
+                            ? embassyData.reportName || embassyData.title
+                            : "",
+                          link: embassyData ? embassyData.link : ""
                         }
                       }
                     }
