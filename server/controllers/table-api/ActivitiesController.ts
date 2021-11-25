@@ -7,7 +7,7 @@ import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { getQuery } from "../../utils/filters";
 import { sortKeys } from "../../static/sortKeys";
-import { countries } from "../../static/countries";
+import { countries, translatedCountries } from "../../static/countries";
 import { genericError } from "../../utils/general";
 import { formatDate } from "../../utils/formatDate";
 import { dac3sectors } from "../../static/dac3sectors";
@@ -21,6 +21,7 @@ import {
   globalSearchFields,
   activitySearchFields
 } from "../../static/globalSearchFields";
+import { sectorTranslations } from "../../static/sectorTranslations";
 
 export function activitiesTable(req: any, res: any) {
   const lang = req.body.lang || "en";
@@ -36,7 +37,7 @@ export function activitiesTable(req: any, res: any) {
 
   const values = {
     q: getQuery(filters, search, globalSearchFields),
-    fl: `iati_identifier,default_aid_type:[json],participating_org:[json],title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,recipient_country_code,transaction_recipient_country_code,recipient_region_name,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
+    fl: `iati_identifier,default_aid_type:[json],participating_org:[json],title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,recipient_country_code,transaction_recipient_country_code,recipient_region_code,transaction_recipient_region_code,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
     start,
     rows,
     sort: "iati_identifier desc"
@@ -76,14 +77,22 @@ export function activitiesTable(req: any, res: any) {
         );
         const countriesData = uniq([
           ...get(activity, "recipient_country_code", []),
-          ...get(activity, "transaction_recipient_country_code", [])
+          ...get(activity, "transaction_recipient_country_code", []),
+          ...get(activity, "recipient_region_code", []),
+          ...get(activity, "transaction_recipient_region_code", [])
         ]);
         const countryNames =
           countriesData.length > 0
             ? countriesData.map(countryCode => {
-                const country = find(countries, { code: countryCode });
+                const country = find(translatedCountries, {
+                  code: countryCode
+                });
                 if (country) {
-                  return country.name;
+                  return get(
+                    country.info,
+                    `name${lang === "en" ? "" : `_${lang}`}`,
+                    ""
+                  );
                 }
                 return "";
               })
@@ -124,12 +133,9 @@ export function activitiesTable(req: any, res: any) {
           code,
           title,
           description,
-          country_region: [
-            ...countryNames,
-            ...get(activity, "recipient_region_name", [])
-          ],
-          startDate: formatDate(startDate),
-          endDate: formatDate(endDate),
+          country_region: countryNames,
+          startDate: formatDate(startDate, undefined, lang),
+          endDate: formatDate(endDate, undefined, lang),
           status: aidTypes ? aidTypes : "-",
           committed,
           disbursed,
@@ -137,7 +143,16 @@ export function activitiesTable(req: any, res: any) {
           sectors: [
             ...get(activity, "sector_code", []).map((code: string) => {
               let fCode = find(dac3sectors, { code: code });
-              if (fCode) {
+              const fTranslatedItem = find(sectorTranslations, {
+                code: parseInt(code, 10)
+              });
+              if (fTranslatedItem) {
+                return get(
+                  fTranslatedItem.info,
+                  `name${lang === "en" ? "" : `_${lang}`}`,
+                  ""
+                );
+              } else if (fCode) {
                 return fCode.name;
               } else {
                 fCode = find(dac5sectors, { code: code });
@@ -150,7 +165,16 @@ export function activitiesTable(req: any, res: any) {
             ...get(activity, "transaction_sector_code", []).map(
               (code: string) => {
                 let fCode = find(dac3sectors, { code: code });
-                if (fCode) {
+                const fTranslatedItem = find(sectorTranslations, {
+                  code: parseInt(code, 10)
+                });
+                if (fTranslatedItem) {
+                  return get(
+                    fTranslatedItem.info,
+                    `name${lang === "en" ? "" : `_${lang}`}`,
+                    ""
+                  );
+                } else if (fCode) {
                   return fCode.name;
                 } else {
                   fCode = find(dac5sectors, { code: code });

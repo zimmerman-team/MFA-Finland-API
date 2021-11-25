@@ -154,7 +154,11 @@ export function getCountries(
     });
     return {
       name: fTranslatedItem
-        ? get(fTranslatedItem.info, `name_${lang}`, item.country.name)
+        ? get(
+            fTranslatedItem.info,
+            `name${lang === "en" ? "" : `_${lang}`}`,
+            item.country.name
+          )
         : item.country.name,
       code: item.country.code,
       percentage: item.country.percentage || "no data",
@@ -243,7 +247,11 @@ export function getSectors(
     });
     return {
       name: fTranslatedItem
-        ? get(fTranslatedItem.info, `name_${lang}`, item.sector.name)
+        ? get(
+            fTranslatedItem.info,
+            `name${lang === "en" ? "" : `_${lang}`}`,
+            item.sector.name
+          )
         : item.sector.name,
       code: item.sector.code,
       url: `/sectors/${item.sector.code}`,
@@ -260,7 +268,7 @@ export function getDefaultAidTypes(data: any, lang: string) {
     });
     return {
       name: fTranslatedItem
-        ? get(fTranslatedItem.info, `name_${lang}`)
+        ? get(fTranslatedItem.info, `name${lang === "en" ? "" : `_${lang}`}`)
         : get(item, "aid_type.name", "no data"),
       code: get(item, "aid_type.code", "no data"),
       vocabulary: item.aid_type.vocabulary.name
