@@ -30,8 +30,8 @@ export function getDates(data: any) {
   );
 
   const dates = [
-    start ? new Date(start.iso_date).toLocaleDateString("fi-FI") : "",
-    end ? new Date(end.iso_date).toLocaleDateString("fi-FI") : ""
+    start ? new Date(start.iso_date).toLocaleDateString("en-GB") : "",
+    end ? new Date(end.iso_date).toLocaleDateString("en-GB") : ""
   ];
 
   return dates;
