@@ -47,7 +47,7 @@ export function searchThematicareas(req: any, res: any) {
           if (fArea) {
             data.push({
               name: fArea,
-              link: encodeURIComponent(`thematic-area/${tag.val}`)
+              link: encodeURIComponent(`/thematic-area/${tag.val}`)
             });
           }
         }
@@ -60,7 +60,7 @@ export function searchThematicareas(req: any, res: any) {
           decodeURIComponent(item.link)
             .replace(", primary", "")
             .replace(", secondary", "")
-        )
+        ).replace(/%2F/g, "/")
       }));
       data = uniqBy(data, "name");
       res.json({
