@@ -215,7 +215,15 @@ export function detailPageName(req: any, res: any) {
                             ? embassyData.reportName || embassyData.title
                             : "",
                           link: embassyData ? embassyData.link : ""
-                        }
+                        },
+                        strategy:
+                          isPartner && fCountry
+                            ? {
+                                en: fCountry.info.countryStrategyHTML,
+                                fi: fCountry.info.countryStrategyHTML_fi,
+                                se: fCountry.info.countryStrategyHTML_se
+                              }
+                            : null
                       }
                     }
                   });

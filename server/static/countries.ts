@@ -1021,7 +1021,13 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-afghanistan">Finland\'s Country Strategy and Country Programme for development cooperation in Afghanistan<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-afganistan">Suomen maastrategia ja kehitysyhteistyön maaohjelma Afganistanissa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-afghanistan">Landstrategi och landprogram för Finlands utvecklingssamarbete med Afghanistan<a/>'
     }
   },
   {
@@ -1043,7 +1049,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1065,7 +1074,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1087,7 +1099,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1109,7 +1124,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1131,7 +1149,10 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "northofSahara_1",
       parent_name: "North of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1153,7 +1174,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1175,7 +1199,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1197,7 +1224,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1219,7 +1249,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1241,7 +1274,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1263,7 +1299,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1285,7 +1324,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1307,7 +1349,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1329,7 +1374,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1351,7 +1399,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1373,7 +1424,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1395,7 +1449,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1417,7 +1474,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1439,7 +1499,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1461,7 +1524,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1483,7 +1549,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1505,7 +1574,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1527,7 +1599,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1549,7 +1624,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1571,7 +1649,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1593,7 +1674,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1615,7 +1699,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1637,7 +1724,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1659,7 +1749,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1681,7 +1774,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1703,7 +1799,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1725,7 +1824,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1747,7 +1849,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1769,7 +1874,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1791,7 +1899,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1813,7 +1924,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1835,7 +1949,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1857,7 +1974,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1879,7 +1999,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1901,7 +2024,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1923,7 +2049,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1945,7 +2074,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1967,7 +2099,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -1989,7 +2124,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2011,7 +2149,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2033,7 +2174,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2055,7 +2199,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2077,7 +2224,10 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "northofSahara_1",
       parent_name: "North of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2099,7 +2249,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2121,7 +2274,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2143,7 +2299,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2165,7 +2324,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2187,7 +2349,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2209,7 +2374,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2231,7 +2399,13 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-ethiopia">Finland\'s Country Strategy and Country Programme for development cooperation in Ethiopia<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-etiopia">Suomen maastrategia ja kehitysyhteistyön maaohjelma Etiopiassa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-etiopien">Landstrategi och landprogram för Finlands utvecklingssamarbete med Etiopien<a/>'
     }
   },
   {
@@ -2253,7 +2427,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2271,11 +2448,14 @@ export const translatedCountries = [
       region_DAC: "Melanesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2297,7 +2477,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2319,7 +2502,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2341,7 +2527,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2363,7 +2552,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2385,7 +2577,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2407,7 +2602,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2429,7 +2627,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2451,7 +2652,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2473,7 +2677,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2495,7 +2702,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2517,7 +2727,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2539,7 +2752,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2561,7 +2777,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2583,7 +2802,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2605,7 +2827,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2627,7 +2852,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2649,7 +2877,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2671,7 +2902,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2693,7 +2927,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2715,7 +2952,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2737,7 +2977,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2759,7 +3002,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2781,7 +3027,10 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "true"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2803,7 +3052,10 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2825,7 +3077,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2847,7 +3102,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2869,7 +3127,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2891,7 +3152,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2913,7 +3177,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2935,7 +3202,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2957,7 +3227,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -2979,7 +3252,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3001,7 +3277,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3023,7 +3302,10 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3045,7 +3327,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3067,7 +3352,10 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3089,7 +3377,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3111,7 +3402,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "true"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3133,7 +3427,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3155,7 +3452,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3177,7 +3477,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3199,7 +3502,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3221,7 +3527,13 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-kenya">Finland\'s Country Strategy and Country Programme for development cooperation in Kenya<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-kenia">Suomen maastrategia ja kehitysyhteistyön maaohjelma Keniassa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-kenya">Landstrategi och landprogram för Finlands utvecklingssamarbete med Kenya<a/>'
     }
   },
   {
@@ -3243,7 +3555,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3265,7 +3580,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3287,7 +3605,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3305,11 +3626,14 @@ export const translatedCountries = [
       region_DAC: "Micronesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3331,7 +3655,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3353,7 +3680,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3375,7 +3705,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3397,7 +3730,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3419,7 +3755,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3441,7 +3780,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3463,7 +3805,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3485,7 +3830,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3507,7 +3855,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3529,7 +3880,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3551,7 +3905,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3573,7 +3930,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3595,7 +3955,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3617,7 +3980,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3639,7 +4005,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3661,7 +4030,10 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3683,7 +4055,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3705,7 +4080,10 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "northofSahara_1",
       parent_name: "North of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3727,7 +4105,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3749,7 +4130,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3771,7 +4155,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3793,7 +4180,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3815,7 +4205,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3837,7 +4230,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3859,7 +4255,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3881,7 +4280,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3903,7 +4305,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3925,7 +4330,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3947,7 +4355,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3969,7 +4380,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -3991,7 +4405,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4013,7 +4430,10 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "northofSahara_1",
       parent_name: "North of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4031,11 +4451,14 @@ export const translatedCountries = [
       region_DAC: "Micronesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4057,7 +4480,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4079,7 +4505,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4101,7 +4530,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4123,7 +4555,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4145,7 +4580,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4163,11 +4601,14 @@ export const translatedCountries = [
       region_DAC: "Micronesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4189,7 +4630,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4211,7 +4655,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4233,7 +4680,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4255,7 +4705,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4277,7 +4730,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4299,7 +4755,13 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-mosambik">Suomen maastrategia ja kehitysyhteistyön maaohjelma Mosambikissa<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-mozambique">Finland\'s Country Strategy and Country Programme for development cooperation in Mozambique<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-mocambique">Landstrategi och landprogram för Finlands utvecklingssamarbete med Moçambique<a/>'
     }
   },
   {
@@ -4321,11 +4783,16 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-myanmar">Finland\'s Country Strategy and Country Programme for development cooperation in Myanmar<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-myanmar">Suomen maastrategia ja kehitysyhteistyön maaohjelma Myanmarissa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-myanmar">Landstrategi och landprogram för Finlands utvecklingssamarbete med Myanmar<a/>'
     }
   },
   {
-    code: "NA",
     info: {
       codeType: "countryCodeAlpha2",
       type: "country",
@@ -4343,7 +4810,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4361,11 +4831,14 @@ export const translatedCountries = [
       region_DAC: "Micronesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4387,7 +4860,13 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-nepal">Finland\'s Country Strategy and Country Programme for development cooperation in Nepal<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-nepal">Suomen maastrategia ja kehitysyhteistyön maaohjelma Nepalissa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-nepal">Landstrategi och landprogram för Finlands utvecklingssamarbete med Nepal<a/>'
     }
   },
   {
@@ -4409,7 +4888,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4431,7 +4913,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4453,7 +4938,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4471,11 +4959,14 @@ export const translatedCountries = [
       region_DAC: "Polynesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4497,7 +4988,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4519,7 +5013,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4541,7 +5038,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4563,7 +5063,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4585,7 +5088,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4603,11 +5109,14 @@ export const translatedCountries = [
       region_DAC: "Micronesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4618,7 +5127,7 @@ export const translatedCountries = [
       level: 2,
       countryCodeAlpha3: "PSE",
       name_fi: "Palestiinalaisalue",
-      name_se: "Palestinska omrÅdet",
+      name_se: "Palestinska området",
       name: "Palestinian territory",
       region_0: "Asia",
       region_1: "Middle East",
@@ -4629,7 +5138,13 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-palestinian-territory">Finland\'s Country Strategy and Country Programme for development cooperation in Palestinian territory<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-palestiinalaisalue">Suomen maastrategia ja kehitysyhteistyön maaohjelma Palestiinalaisalueella<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-palestinska-omradet">Landstrategi och landprogram för Finlands utvecklingssamarbete med Palestinska området<a/>'
     }
   },
   {
@@ -4651,7 +5166,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4669,11 +5187,14 @@ export const translatedCountries = [
       region_DAC: "Melanesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4695,7 +5216,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4717,7 +5241,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4739,7 +5266,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4761,7 +5291,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4783,7 +5316,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4805,7 +5341,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4827,7 +5366,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4849,7 +5391,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4871,7 +5416,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4893,7 +5441,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4915,7 +5466,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4937,7 +5491,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4959,7 +5516,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -4981,7 +5541,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5003,7 +5566,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5025,7 +5591,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5047,7 +5616,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5069,7 +5641,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5091,7 +5666,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5113,7 +5691,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5135,7 +5716,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5157,7 +5741,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5179,7 +5766,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5201,7 +5791,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5223,7 +5816,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5245,7 +5841,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5263,11 +5862,14 @@ export const translatedCountries = [
       region_DAC: "Melanesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5289,7 +5891,13 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-zambia">Finland\'s Country Strategy and Country Programme for development cooperation in Zambia<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-sambia">Suomen maastrategia ja kehitysyhteistyön maaohjelma Sambiassa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-zambia">Landstrategi och landprogram för Finlands utvecklingssamarbete med Zambia<a/>'
     }
   },
   {
@@ -5307,11 +5915,14 @@ export const translatedCountries = [
       region_DAC: "Polynesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5333,7 +5944,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5355,7 +5969,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5377,7 +5994,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5399,7 +6019,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5421,7 +6044,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5443,7 +6069,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5465,7 +6094,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5487,7 +6119,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5509,7 +6144,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5531,7 +6169,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5553,7 +6194,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5575,7 +6219,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5597,7 +6244,13 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-somalia">Finland\'s Country Strategy and Country Programme for development cooperation in Somalia<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-somalia">Suomen maastrategia ja kehitysyhteistyön maaohjelma Somaliassa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-somalia">Landstrategi och landprogram för Finlands utvecklingssamarbete med Somalia<a/>'
     }
   },
   {
@@ -5619,7 +6272,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5641,7 +6297,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5663,7 +6322,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5685,7 +6347,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5707,7 +6372,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5729,7 +6397,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5751,7 +6422,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5773,7 +6447,13 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-syria">Finland\'s Country Strategy and Country Programme for development cooperation in Syria<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-syyriassa">Suomen maastrategia ja kehitysyhteistyön maaohjelma Syyriassa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-syrien">Landstrategi och landprogram för Finlands utvecklingssamarbete med Syrien<a/>'
     }
   },
   {
@@ -5795,7 +6475,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "true"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5817,7 +6500,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5839,7 +6525,13 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-tanzania">Finland\'s Country Strategy and Country Programme for development cooperation in Tanzania<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-tansania">Suomen maastrategia ja kehitysyhteistyön maaohjelma Tansaniassa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-tanzania">Landstrategi och landprogram för Finlands utvecklingssamarbete med Tanzania<a/>'
     }
   },
   {
@@ -5861,7 +6553,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5883,7 +6578,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5905,7 +6603,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5923,11 +6624,14 @@ export const translatedCountries = [
       region_DAC: "Polynesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5945,11 +6649,14 @@ export const translatedCountries = [
       region_DAC: "Polynesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5971,7 +6678,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -5993,7 +6703,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6015,7 +6728,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6037,7 +6753,10 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "northofSahara_1",
       parent_name: "North of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6059,7 +6778,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6081,7 +6803,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6103,7 +6828,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6121,11 +6849,14 @@ export const translatedCountries = [
       region_DAC: "Polynesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6147,7 +6878,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6169,7 +6903,13 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/ukraine">Finland\'s Country Strategy and Country Programme for development cooperation in Ukraine<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-ukraina">Suomen maastrategia ja kehitysyhteistyön maaohjelma Ukrainassa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-ukraina">Landstrategi och landprogram för Finlands utvecklingssamarbete med Ukraina<a/>'
     }
   },
   {
@@ -6191,7 +6931,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6213,7 +6956,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6235,7 +6981,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6257,7 +7006,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6279,7 +7031,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6301,7 +7056,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6319,11 +7077,14 @@ export const translatedCountries = [
       region_DAC: "Polynesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6341,11 +7102,14 @@ export const translatedCountries = [
       region_DAC: "Melanesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6367,7 +7131,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6389,7 +7156,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6411,7 +7181,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6433,7 +7206,13 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: "true"
+      isPartner: true,
+      countryStrategyHTML:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/development-cooperation-vietnam">Finland\'s Country Strategy and Country Programme for development cooperation in Vietnam<a/>',
+      countryStrategyHTML_fi:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/kehitysyhteistyo-vietnam">Suomen maastrategia ja kehitysyhteistyön maaohjelma Vietnamissa<a/>',
+      countryStrategyHTML_se:
+        '<a target="_blank" rel="noreferrer" href="https://um.fi/utvecklingssamarbete-vietnam">Landstrategi och landprogram för Finlands utvecklingssamarbete med Vietnam<a/>'
     }
   },
   {
@@ -6455,7 +7234,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6477,7 +7259,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6499,7 +7284,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6521,7 +7309,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6543,7 +7334,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: "false"
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6565,7 +7359,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6587,7 +7384,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe_1",
       parent_name: "Europe",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6609,7 +7409,10 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "northofSahara_1",
       parent_name: "North of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6631,7 +7434,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6653,7 +7459,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6675,7 +7484,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6697,7 +7509,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6719,7 +7534,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica_1",
       parent_name: "South America",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6741,7 +7559,10 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "middleEast_1",
       parent_name: "Middle East",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6763,7 +7584,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6785,7 +7609,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6807,7 +7634,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6829,7 +7659,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "farEastAsia_1",
       parent_name: "Far East Asia",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6851,7 +7684,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "southCentralAsia_1",
       parent_name: "South & Central Asia",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6862,18 +7698,21 @@ export const translatedCountries = [
       level: 2,
       countryCodeAlpha3: "",
       name_fi: "Oseania, alueellinen",
-      name_se: "Oceania, regional",
+      name_se: "Oceanien, regional",
       name: "Oceania, regional",
       region_0: "Oceania",
       region_1: "Oceania",
       region_DAC: "Oceania",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6895,7 +7734,10 @@ export const translatedCountries = [
       region_1_se: "Regional och ospecificerat",
       parent: "regionalandUnspecified_1",
       parent_name: "Regional and Unspecified",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6917,7 +7759,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6939,7 +7784,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6961,7 +7809,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -6983,7 +7834,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "southofSahara_1",
       parent_name: "South of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7005,7 +7859,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7027,7 +7884,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica_1",
       parent_name: "North & Central America",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7045,11 +7905,14 @@ export const translatedCountries = [
       region_DAC: "Melanesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7067,11 +7930,14 @@ export const translatedCountries = [
       region_DAC: "Micronesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7089,11 +7955,14 @@ export const translatedCountries = [
       region_DAC: "Polynesia",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania_1",
       parent_name: "Oceania",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7115,7 +7984,10 @@ export const translatedCountries = [
       region_1_se: "Syd- och Centralasien",
       parent: "asia",
       parent_name: "South & Central Asia",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7137,7 +8009,10 @@ export const translatedCountries = [
       region_1_se: "Europa",
       parent: "europe",
       parent_name: "Europe",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7159,7 +8034,10 @@ export const translatedCountries = [
       region_1_se: "Norr om Sahara",
       parent: "africa",
       parent_name: "North of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7181,7 +8059,10 @@ export const translatedCountries = [
       region_1_se: "Söder om Sahara",
       parent: "africa",
       parent_name: "South of Sahara",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7203,7 +8084,10 @@ export const translatedCountries = [
       region_1_se: "Nord- och Mellanamerika",
       parent: "northCentralAmerica",
       parent_name: "North & Central America",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7225,7 +8109,10 @@ export const translatedCountries = [
       region_1_se: "Sydamerika",
       parent: "southAmerica",
       parent_name: "South America",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7236,18 +8123,21 @@ export const translatedCountries = [
       level: 1,
       countryCodeAlpha3: "",
       name_fi: "Oseania",
-      name_se: "Oceania",
+      name_se: "Oceanien",
       name: "Oceania",
       region_0: "Oceania",
       region_1: "Oceania",
       region_DAC: "",
       region_0_fi: "Oseania",
       region_1_fi: "Oseania",
-      region_0_se: "Oceania",
-      region_1_se: "Oceania",
+      region_0_se: "Oceanien",
+      region_1_se: "Oceanien",
       parent: "oceania",
       parent_name: "Oceania",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7269,7 +8159,10 @@ export const translatedCountries = [
       region_1_se: "Östasien",
       parent: "asia",
       parent_name: "Far East Asia",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7291,7 +8184,10 @@ export const translatedCountries = [
       region_1_se: "Mellanöstern",
       parent: "asia",
       parent_name: "Middle East",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7313,7 +8209,10 @@ export const translatedCountries = [
       region_1_se: "Regional och ospecificerat",
       parent: "regionalandUnspecified",
       parent_name: "Regional and Unspecified",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7335,7 +8234,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7357,7 +8259,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7379,7 +8284,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7401,7 +8309,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7423,7 +8334,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7434,18 +8348,21 @@ export const translatedCountries = [
       level: 0,
       countryCodeAlpha3: "",
       name_fi: "Oseania",
-      name_se: "Oceania",
+      name_se: "Oceanien",
       name: "Oceania",
       region_0: "Oceania",
       region_1: "",
       region_DAC: "",
       region_0_fi: "Oseania",
       region_1_fi: "",
-      region_0_se: "Oceania",
+      region_0_se: "Oceanien",
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   },
   {
@@ -7467,7 +8384,10 @@ export const translatedCountries = [
       region_1_se: "",
       parent: "",
       parent_name: "",
-      isPartner: false
+      isPartner: false,
+      countryStrategyHTML: "",
+      countryStrategyHTML_fi: "",
+      countryStrategyHTML_se: ""
     }
   }
 ];
