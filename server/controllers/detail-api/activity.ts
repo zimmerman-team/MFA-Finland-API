@@ -121,7 +121,8 @@ export function activityDetail(req: any, res: any) {
               ),
               regions: getRegions(
                 get(activityMetaData, "recipient_region", []),
-                get(activityMetaData, "transaction_recipient_region_code", [])
+                get(activityMetaData, "transaction_recipient_region_code", []),
+                lang
               ),
               sectors: getSectors(
                 get(activityMetaData, "sector", []),

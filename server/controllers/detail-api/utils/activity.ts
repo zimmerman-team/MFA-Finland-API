@@ -169,20 +169,37 @@ export function getCountries(
 
 export function getRegions(
   regions: any,
-  transaction_recipient_region_codes: any
+  transaction_recipient_region_codes: any,
+  lang: string
 ) {
   const parsedData = regions.map((item: any) => JSON.parse(item));
-  transaction_recipient_region_codes.map((item: any) => ({
-    region: {
-      name: item,
-      code: item
+  transaction_recipient_region_codes.forEach((item: any) => {
+    const fRegion = find(translatedCountries, { code: item });
+    if (fRegion) {
+      parsedData.push({
+        region: {
+          code: fRegion.code,
+          name: fRegion.info.name
+        }
+      });
     }
-  }));
-  return parsedData.map((item: any) => ({
-    name: item.region.name,
-    code: item.region.code,
-    percentage: item.region.percentage || "no data"
-  }));
+  });
+  return parsedData.map((item: any) => {
+    const fTranslatedItem = find(translatedCountries, {
+      code: item.region.code
+    });
+    return {
+      name: fTranslatedItem
+        ? get(
+            fTranslatedItem.info,
+            `name${lang === "en" ? "" : `_${lang}`}`,
+            item.region.name
+          )
+        : item.country.name,
+      code: item.region.code,
+      percentage: item.region.percentage || "no data"
+    };
+  });
 }
 
 export function getLocations(coordinates: any, texts: any) {
