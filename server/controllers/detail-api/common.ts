@@ -80,7 +80,15 @@ export function detailPageName(req: any, res: any) {
           )
         });
         if (fOrgMapping) {
-          result = fOrgMapping.info.name;
+          result = get(
+            fOrgMapping.info,
+            `name${
+              req.body.lang === "en"
+                ? ""
+                : `_${req.body.lang === "se" ? "sv" : req.body.lang}`
+            }`,
+            ""
+          );
         }
       }
       if (req.body.detail_type && data) {

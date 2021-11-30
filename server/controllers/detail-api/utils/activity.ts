@@ -17,6 +17,7 @@ import {
   tranlatedAidTypes
 } from "../../../static/codelists";
 import { sectorTranslations } from "../../../static/sectorTranslations";
+import { orgMapping } from "../../../static/orgMapping";
 
 export function getDates(data: any) {
   const parsedData = data.map((item: any) => JSON.parse(item));
@@ -54,10 +55,18 @@ export function getBudget(data: any) {
 export function getParticipatingOrgs(data: any, lang: string) {
   const parsedData = data.map((item: any) => JSON.parse(item));
   return parsedData.map((item: any) => {
-    const fNameLang = find(
+    let fNameLang = find(
       get(item, "narrative", []),
       (narrative: any) => narrative.lang.code === lang
     );
+    if (!fNameLang) {
+      const fOrg = find(orgMapping, (org: any) => org.code === item.ref);
+      if (fOrg) {
+        fNameLang = {
+          text: get(fOrg.info, `name${lang === "en" ? "" : `_${lang}`}`, "")
+        };
+      }
+    }
     return {
       name: fNameLang ? fNameLang.text : get(item, "narrative[0].text", ""),
       reference: item.ref,

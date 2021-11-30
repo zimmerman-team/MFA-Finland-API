@@ -177,6 +177,8 @@ export function formatOrganisationsOptions2(rawData: any) {
   lvl0Orgs.forEach((lvl0Item: any) => {
     const lvl0Org = {
       name: lvl0Item.info.name,
+      name_fi: lvl0Item.info.name_fi,
+      name_se: lvl0Item.info.name_sv,
       code: lvl0Item.code.toString(),
       children: []
     };
@@ -192,6 +194,8 @@ export function formatOrganisationsOptions2(rawData: any) {
         (lvl4Item: any) => lvl4Item.info.lvl_1 === lvl1Item.code
       ).map((lvl4Item: any) => ({
         name: lvl4Item.info.name,
+        name_fi: lvl4Item.info.name_fi,
+        name_se: lvl4Item.info.name_sv,
         code: lvl4Item.code.toString(),
         children: filter(
           rawData,
@@ -236,6 +240,8 @@ export function formatOrganisationsOptions2(rawData: any) {
       });
       lvl1OrgsResult.push({
         name: lvl1Item.info.name,
+        name_fi: lvl1Item.info.name_fi,
+        name_se: lvl1Item.info.name_sv,
         code: lvl1Item.code.toString(),
         children: [...codelistOrgs, ...nonCodelistOrgs]
       });
