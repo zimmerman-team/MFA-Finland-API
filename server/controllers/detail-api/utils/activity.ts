@@ -79,7 +79,7 @@ export function getParticipatingOrgs(
     };
     if (withRole) {
       item = {
-        ...item,
+        ...org,
         role: get(item, "role.name", "no data")
       };
     }
