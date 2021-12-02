@@ -71,14 +71,20 @@ export function getParticipatingOrgs(
         };
       }
     }
-    let org = {
+    let org: {
+      name: string;
+      reference: string;
+      type: string;
+      url: string;
+      role?: string;
+    } = {
       name: fNameLang ? fNameLang.text : get(item, "narrative[0].text", ""),
       reference: item.ref,
       type: get(item, "type.name", "no data"),
       url: `/organisations/${encodeURIComponent(item.ref)}`
     };
     if (withRole) {
-      item = {
+      org = {
         ...org,
         role: get(item, "role.name", "no data")
       };
