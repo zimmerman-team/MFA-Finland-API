@@ -98,7 +98,11 @@ export function activitiesTable(req: any, res: any) {
               })
             : [];
         const orgs = filter(
-          getParticipatingOrgs(get(activity, "participating_org", []), lang),
+          getParticipatingOrgs(
+            get(activity, "participating_org", []),
+            lang,
+            true
+          ),
           { role: "Extending" }
         )
           .map((org: any) => org.name)

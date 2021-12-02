@@ -52,7 +52,11 @@ export function getBudget(data: any) {
   }));
 }
 
-export function getParticipatingOrgs(data: any, lang: string) {
+export function getParticipatingOrgs(
+  data: any,
+  lang: string,
+  withRole?: boolean
+) {
   const parsedData = data.map((item: any) => JSON.parse(item));
   return parsedData.map((item: any) => {
     let fNameLang = find(
@@ -67,13 +71,19 @@ export function getParticipatingOrgs(data: any, lang: string) {
         };
       }
     }
-    return {
+    let org = {
       name: fNameLang ? fNameLang.text : get(item, "narrative[0].text", ""),
       reference: item.ref,
       type: get(item, "type.name", "no data"),
-      role: get(item, "role.name", "no data"),
       url: `/organisations/${encodeURIComponent(item.ref)}`
     };
+    if (withRole) {
+      item = {
+        ...item,
+        role: get(item, "role.name", "no data")
+      };
+    }
+    return org;
   });
 }
 
