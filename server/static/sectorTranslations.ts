@@ -5279,9 +5279,9 @@ export const sectorTranslations = [
     code: 15,
     info: {
       id: "15_0",
-      name: "Government and civil society, general",
-      name_fi: "Julkinen hallinto ja kansalaisyhteiskunta, yleinen",
-      name_se: "Regering och civila samhället",
+      name: "Government and civil society, general ",
+      name_fi: "Julkinen hallinto ja kansalaisyhteiskunta, yleinen ",
+      name_se: "Regering och civila samhället ",
       parent_id: "",
       parent_name: "",
       level: 0,
