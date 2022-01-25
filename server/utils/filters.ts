@@ -81,11 +81,9 @@ export function getFormattedFilters(
     //     .join(" ")})${addTrailingAND ? " AND " : ""}`;
     // }
     else if (filterKey === "policy_marker_code") {
-      result += `${filterKey}:(${filters[filterKey].join(
-        " "
-      )}) AND policy_marker_significance:(1 2 3 4)${
-        addTrailingAND ? " AND " : ""
-      }`;
+      result += `policy_marker_combined:(${filters[filterKey]
+        .map((code: string) => `${code}__1 ${code}__2 ${code}__3 ${code}__4`)
+        .join(" ")})${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey !== "year_period") {
       result += `${filterKey}:(${filters[filterKey].join(" ")})${
         addTrailingAND ? " AND " : ""
@@ -173,11 +171,9 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
           filters[filterKey][0].endDate
         }]${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "policy_marker_code") {
-        query += `${filterKey}:(${filters[filterKey].join(
-          " "
-        )}) AND policy_marker_significance:(1 2 3 4)${
-          addTrailingAND ? " AND " : ""
-        }`;
+        query += `policy_marker_combined:(${filters[filterKey]
+          .map((code: string) => `${code}__1 ${code}__2 ${code}__3 ${code}__4`)
+          .join(" ")})${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "year_period") {
         query += `transaction_value_date:[${
           filters[filterKey]
