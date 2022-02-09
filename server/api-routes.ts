@@ -20,16 +20,9 @@ const SunburstController = require("./controllers/viz-api/SunburstController");
 const ThematicAreaController = require("./controllers/viz-api/ThematicAreaController");
 
 // table
-// const DonorsTableController = require("./controllers/table-api/DonorsController");
-// const SectorsTableController = require("./controllers/table-api/SectorsController");
-// const CountriesTableController = require("./controllers/table-api/CountriesController");
 const ActivitiesTableController = require("./controllers/table-api/ActivitiesController");
-// const OrganisationsTableController = require("./controllers/table-api/OrganisationsController");
 
 // detail pages
-// const CountryDetailController = require("./controllers/detail-api/country");
-// const DonorDetailController = require("./controllers/detail-api/donor");
-// const OrganisationDetailController = require("./controllers/detail-api/organisation");
 const ActivityDetailController = require("./controllers/detail-api/activity");
 const DetailCommonController = require("./controllers/detail-api/common");
 
@@ -112,19 +105,6 @@ router
   .route("/activities-simple-table")
   .post(ActivitiesTableController.simpleActivitiesTable);
 
-// router.route("/donors").post(DonorsTableController.donorsTable);
-// router.route("/sectors").post(SectorsTableController.sectorsTable);
-// router.route("/countries").post(CountriesTableController.countriesTable);
-// router
-//   .route("/organisations")
-//   .post(OrganisationsTableController.organisationsTable);
-
-/* DETAIL PAGE */
-// router.route("/country-detail").post(CountryDetailController.countryDetail);
-// router.route("/donor-detail").post(DonorDetailController.donorDetail);
-// router
-//   .route("/organisation-detail")
-//   .post(OrganisationDetailController.organisationDetail);
 router.route("/activity-detail").post(ActivityDetailController.activityDetail);
 router.route("/feedback").post(FeedbackController.sendMail);
 
