@@ -2,8 +2,8 @@
 
 ---
 
-[![License: AGPLv3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://github.com/zimmerman-team/MFA-Finland-API/blob/master/LICENSE.MD)
-[![CircleCI](https://circleci.com/gh/zimmerman-team/MFA-Finland-frontend.svg?style=svg&circle-token=bcebf25436749cfa4297687c0eee4aa1393762c0)](https://circleci.com/gh/zimmerman-team/MFA-Finland-frontend)
+[![License: AGPLv3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://github.com/zimmerman-team/MFA-Finland-API/blob/main/LICENSE.MD)
+[![CircleCI](https://circleci.com/gh/zimmerman-team/MFA-Finland-API/tree/main.svg?style=svg&circle-token=ae015a1b18d85d297a0a9c71131da97726b87a6b)](https://circleci.com/gh/zimmerman-team/MFA-Finland-API/tree/main)
 
 Zimmerman was commissioned to deliver the Transparency Data Portal for the Finnish Ministry for Foreign affairs (MFA). Part of the work was to integrate the open data provided in the IATI datastandard by MFA into a web application (website). The work was delivered in between October 2020 and May 2021 and soft launched in June 2021.
 
