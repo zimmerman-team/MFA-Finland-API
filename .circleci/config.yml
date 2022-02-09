@@ -1,0 +1,23 @@
+version: 2.1
+
+jobs:
+  release:
+    docker:
+      - image: circleci/node:14.17-stretch-browsers
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run:
+          name: Semantic release
+          no_output_timeout: 30m
+          command: npx semantic-release
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - release:
+          filters:
+            branches:
+              only:
+                - main
+                - develop

@@ -2,10 +2,18 @@
 
 ---
 
-Replace these badges with badges and correct URL's !!! that reflect the state of this project
-
 [![License: AGPLv3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://github.com/zimmerman-team/MFA-Finland-API/blob/master/LICENSE.MD)
-[![CircleCI](https://circleci.com/gh/zimmerman-team/iati.cloud.svg?style=svg&circle-token=193a84b0736b82dd10d5e7bb0a118c2fc1c30273)](https://circleci.com/gh/zimmerman-team/MFA-Finland-API)
+[![CircleCI](https://circleci.com/gh/zimmerman-team/MFA-Finland-frontend.svg?style=svg&circle-token=bcebf25436749cfa4297687c0eee4aa1393762c0)](https://circleci.com/gh/zimmerman-team/MFA-Finland-frontend)
+
+Zimmerman was commissioned to deliver the Transparency Data Portal for the Finnish Ministry for Foreign affairs (MFA). Part of the work was to integrate the open data provided in the IATI datastandard by MFA into a web application (website). The work was delivered in between October 2020 and May 2021 and soft launched in June 2021.
+
+Also makes use of a [headless CMS](https://getcockpit.com) with multilingual support.
+
+The Data API Middleware makes use of the dataservice [IATI Cloud](http://iati.cloud/) which extracts all open data annotated in the IATI datastandard and extracted from the [IATI Registry](http://www.iatiregistry.org/publisher) and makes the data available in [Apache Solr](https://iati.cloud/documentation), allowing for fast querying of the data.
+
+The [Transparency Data Portal for the Finnish Ministry for Foreign affairs (MFA)](https://github.com/zimmerman-team/MFA-Finland-frontend/) makes use of the Data API Middleware in order to retrieve all data needed for the visualisations/tables/filters and detail pages.
+
+IATI is a global aid transparency standard and it makes information about aid spending easier to access, re-use and understand the underlying data using a unified open standard. You can find more about the IATI data standard at: [www.iatistandard.org](www.iatistandard.org)
 
 ## Requirements
 
@@ -27,6 +35,8 @@ PROJECT_URL=http://localhost:3000
 DS_SOLR_API=https://iati.cloud/search
 DS_REST_API=https://iati.cloud/api
 MFA_PUBLISHER_REF=FI-3
+HDRO_API=http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php
+UM_FI_API=https://um.fi/o/public-api/v1/content
 ```
 
 2. `yarn install`
