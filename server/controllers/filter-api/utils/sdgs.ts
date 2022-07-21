@@ -5,13 +5,17 @@ import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { GOALS, TARGETS } from "../../../static/sdgs";
+import {
+  AF_TAG_CODE,
+  AF_TAG_VOCABULARY
+} from "../../../static/apiFilterFields";
 
 export function getSDGOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
     const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
       {
-        q: `${filterString} AND (tag_vocabulary:2 OR tag_vocabulary:3)`,
-        fl: "tag_code,tag_vocabulary",
+        q: `${filterString} AND (${AF_TAG_VOCABULARY}:2 OR ${AF_TAG_VOCABULARY}:3)`,
+        fl: `${AF_TAG_CODE},${AF_TAG_VOCABULARY}`,
         rows: 20000
       },
       "&",
@@ -27,36 +31,36 @@ export function getSDGOptions(filterString = "*:*") {
         const goals: any = [];
         const targets: any = [];
         actualData.forEach((activity: any) => {
-          activity.tag_vocabulary.forEach((tv: string, index: number) => {
+          activity[AF_TAG_VOCABULARY].forEach((tv: string, index: number) => {
             if (tv === "2") {
-              if (activity.tag_code[index]) {
+              if (activity[AF_TAG_CODE][index]) {
                 const fItemIndex = findIndex(goals, {
-                  code: activity.tag_code[index]
+                  code: activity[AF_TAG_CODE][index]
                 });
-                if (fItemIndex === -1 && activity.tag_code[index] !== "0") {
+                if (fItemIndex === -1 && activity[AF_TAG_CODE][index] !== "0") {
                   goals.push({
                     name: get(
-                      find(GOALS, { code: activity.tag_code[index] }),
+                      find(GOALS, { code: activity[AF_TAG_CODE][index] }),
                       "name",
-                      activity.tag_code[index]
+                      activity[AF_TAG_CODE][index]
                     ),
-                    code: activity.tag_code[index]
+                    code: activity[AF_TAG_CODE][index]
                   });
                 }
               }
             } else if (tv === "3") {
-              if (activity.tag_code[index]) {
+              if (activity[AF_TAG_CODE][index]) {
                 const fItemIndex = findIndex(targets, {
-                  code: activity.tag_code[index]
+                  code: activity[AF_TAG_CODE][index]
                 });
                 if (fItemIndex === -1) {
                   targets.push({
                     name: get(
-                      find(TARGETS, { code: activity.tag_code[index] }),
+                      find(TARGETS, { code: activity[AF_TAG_CODE][index] }),
                       "name",
-                      activity.tag_code[index]
+                      activity[AF_TAG_CODE][index]
                     ),
-                    code: activity.tag_code[index]
+                    code: activity[AF_TAG_CODE][index]
                   });
                 }
               }

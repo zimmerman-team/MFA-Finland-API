@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DEFAULT_LANG } from "../../../static/apiFilterFields";
 
 export function getLanguageOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getLanguageOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "default_lang",
+          field: AF_DEFAULT_LANG,
           limit: -1
         }
       }),

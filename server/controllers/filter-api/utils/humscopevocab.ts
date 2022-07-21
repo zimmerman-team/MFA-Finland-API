@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_HUMANITARIAN_SCOPE_VOCABULARY } from "../../../static/apiFilterFields";
 
 export function getHumanitarianScopeVocabs(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getHumanitarianScopeVocabs(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "humanitarian_scope_vocabulary",
+          field: AF_HUMANITARIAN_SCOPE_VOCABULARY,
           limit: -1
         }
       }),

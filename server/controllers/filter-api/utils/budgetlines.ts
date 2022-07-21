@@ -8,13 +8,14 @@ import {
   translatedLines,
   budgetLineCodes2Values
 } from "../../../static/budgetLineConsts";
+import { AF_TAG_CODE } from "../../../static/apiFilterFields";
 
 export function getBudgetLinesOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
     const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
       {
-        q: `${filterString} AND tag_code:243066*`,
-        fl: "tag_code",
+        q: `${filterString} AND ${AF_TAG_CODE}:243066*`,
+        fl: AF_TAG_CODE,
         rows: 20000
       },
       "&",
@@ -29,7 +30,7 @@ export function getBudgetLinesOptions(filterString = "*:*") {
         const actualData = get(callResponse, "data.response.docs", []);
         const result: any = [];
         actualData.forEach((activity: any) => {
-          activity.tag_code.forEach((tc: string) => {
+          activity[`"${AF_TAG_CODE}"`].forEach((tc: string) => {
             const budgetLine = get(budgetLineCodes2Values, tc, null);
             if (budgetLine) {
               const fItemIndex = findIndex(result, { code: tc });

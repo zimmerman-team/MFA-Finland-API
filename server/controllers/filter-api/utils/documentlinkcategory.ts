@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DOCUMENT_LINK_CATEGORY_CODE } from "../../../static/apiFilterFields";
 
 export function getDocumentLinkCategoryOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getDocumentLinkCategoryOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "document_link_category_code",
+          field: AF_DOCUMENT_LINK_CATEGORY_CODE,
           limit: -1
         }
       }),

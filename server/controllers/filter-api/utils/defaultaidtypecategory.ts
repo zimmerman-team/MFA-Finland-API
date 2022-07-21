@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DEFAULT_AID_TYPE_CATEGORY_CODE } from "../../../static/apiFilterFields";
 
 export function getDefaultAidTypeCategoryOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getDefaultAidTypeCategoryOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "default_aid_type_category_code",
+          field: AF_DEFAULT_AID_TYPE_CATEGORY_CODE,
           limit: -1
         }
       }),

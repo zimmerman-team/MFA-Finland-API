@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import { formatOrgOptions } from ".";
 import querystring from "querystring";
+import { AF_REPORTING_ORG_TYPE_CODE } from "../../../static/apiFilterFields";
 
 export function getReportingOrgTypeOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getReportingOrgTypeOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "reporting_org_type_code",
+          field: AF_REPORTING_ORG_TYPE_CODE,
           limit: -1
         }
       }),

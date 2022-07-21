@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatCountryOptions } from ".";
+import { AF_COUNTRY } from "../../../static/apiFilterFields";
 
 export function getCountriesOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getCountriesOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "recipient_country_code",
+          field: AF_COUNTRY,
           limit: -1
         }
       }),

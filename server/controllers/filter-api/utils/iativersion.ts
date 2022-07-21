@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_IATI_VERSION } from "../../../static/apiFilterFields";
 
 export function getIATIVersionOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getIATIVersionOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "dataset_iati_version",
+          field: AF_IATI_VERSION,
           limit: -1
         }
       }),

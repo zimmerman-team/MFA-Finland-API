@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatOrganisationsOptions } from ".";
+import { AF_TRANSACTION_PROVIDER_ORG_REF } from "../../../static/apiFilterFields";
 
 export function getDonorsOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getDonorsOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "transaction_provider_org_ref",
+          field: AF_TRANSACTION_PROVIDER_ORG_REF,
           limit: -1
         }
       }),

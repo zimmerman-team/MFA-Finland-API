@@ -5,13 +5,14 @@ import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { thematicAreaNames } from "../../../static/thematicAreaConsts";
+import { AF_TAG_CODE } from "../../../static/apiFilterFields";
 
 export function getThematicAreaOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
     const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
       {
-        q: `${filterString} AND tag_code:Priority*`,
-        fl: "tag_code",
+        q: `${filterString} AND ${AF_TAG_CODE}:Priority*`,
+        fl: AF_TAG_CODE,
         rows: 20000
       },
       "&",

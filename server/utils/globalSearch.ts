@@ -2,6 +2,10 @@ import get from "lodash/get";
 import find from "lodash/find";
 import { translatedCountries } from "../static/countries";
 import { sectorTranslations } from "../static/sectorTranslations";
+import {
+  AF_IATI_IDENTIFIER,
+  AF_TITLE_NARRATIVE
+} from "../static/apiFilterFields";
 
 interface ResultModel {
   link: string;
@@ -12,8 +16,10 @@ interface ResultModel {
 
 export function getActivities(rawData: any) {
   return rawData.map((item: any) => ({
-    name: get(item, "title_narrative_text[0]", ""),
-    link: `/project/${encodeURIComponent(get(item, "iati_identifier", ""))}`
+    name: get(item, `["${AF_TITLE_NARRATIVE}"][0]`, ""),
+    link: `/project/${encodeURIComponent(
+      get(item, `["${AF_IATI_IDENTIFIER}"]`, "")
+    )}`
   }));
 }
 

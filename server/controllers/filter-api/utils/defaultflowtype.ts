@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DEFAULT_FLOW_TYPE_CODE } from "../../../static/apiFilterFields";
 
 export function getDefaultFlowTypeOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getDefaultFlowTypeOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "default_flow_type_code",
+          field: AF_DEFAULT_FLOW_TYPE_CODE,
           limit: -1
         }
       }),

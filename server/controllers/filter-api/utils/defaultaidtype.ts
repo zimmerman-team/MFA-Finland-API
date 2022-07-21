@@ -3,6 +3,7 @@ import get from "lodash/get";
 import querystring from "querystring";
 import { formatAidTypeOptions } from ".";
 import { tranlatedAidTypes } from "../../../static/codelists";
+import { AF_DEFAULT_AID_TYPE_CODE } from "../../../static/apiFilterFields";
 
 export function getDefaultAidTypeOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ export function getDefaultAidTypeOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "default_aid_type_code",
+          field: AF_DEFAULT_AID_TYPE_CODE,
           limit: -1
         }
       }),

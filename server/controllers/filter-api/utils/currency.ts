@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DEFAULT_CURRENCY } from "../../../static/apiFilterFields";
 
 export function getCurrencyOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getCurrencyOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "default_currency",
+          field: AF_DEFAULT_CURRENCY,
           limit: -1
         }
       }),

@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_TRANSACTION_TYPE_CODE } from "../../../static/apiFilterFields";
 
 export function getTransactionTypeOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getTransactionTypeOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "transaction_type",
+          field: AF_TRANSACTION_TYPE_CODE,
           limit: -1
         }
       }),

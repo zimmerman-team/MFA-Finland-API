@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_TRANSACTION_VALUE_CURRENCY } from "../../../static/apiFilterFields";
 
 export function getTransactionValueCurrencyOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getTransactionValueCurrencyOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "transaction_value_currency",
+          field: AF_TRANSACTION_VALUE_CURRENCY,
           limit: -1
         }
       }),

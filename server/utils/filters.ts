@@ -1,13 +1,25 @@
 import get from "lodash/get";
 import { globalSearchFields } from "../static/globalSearchFields";
+import {
+  AF_BUDGET_VALUE,
+  AF_COUNTRY,
+  AF_POLICY_MARKER_CODE,
+  AF_POLICY_MARKER_COMBINED,
+  AF_REGION,
+  AF_REPORTING_ORG_REF,
+  AF_SECTOR,
+  AF_TAG_CODE,
+  AF_TAG_NARRATIVE,
+  AF_TRANSACTION_VALUE_DATE
+} from "../static/apiFilterFields";
 
-const stickyPeriodFilter = `transaction_value_date:[2015-01-01T00:00:00Z TO *]`;
+const stickyPeriodFilter = `${AF_TRANSACTION_VALUE_DATE}:[2015-01-01T00:00:00Z TO *]`;
 
 export function getFormattedSearchParam(q: string) {
   const qstring = globalSearchFields
     .map((field: string) => `${field}:"${q}"`)
     .join(" OR ");
-  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${qstring}) AND (${stickyPeriodFilter})`;
+  return `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND (${qstring}) AND (${stickyPeriodFilter})`;
 }
 
 export function getFormattedFilters(
@@ -23,13 +35,12 @@ export function getFormattedFilters(
   let localStickyPeriodFilter = stickyPeriodFilter;
 
   if (isFilterOption) {
-    localStickyPeriodFilter +=
-      " OR transaction_value_date:[2015-01-01T00:00:00Z TO *]";
+    localStickyPeriodFilter += ` OR ${AF_TRANSACTION_VALUE_DATE}:[2015-01-01T00:00:00Z TO *]`;
   }
 
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0) {
-    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${localStickyPeriodFilter})`;
+    return `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND (${localStickyPeriodFilter})`;
   }
 
   let result = "";
@@ -40,38 +51,38 @@ export function getFormattedFilters(
   filterKeys.forEach((filterKey: string, index: number) => {
     const addTrailingAND =
       filterKeys.length - 1 !== index &&
-      get(filterKeys, `[${index + 1}]`, "") !== "recipient_country_code" &&
-      get(filterKeys, `[${index + 1}]`, "") !== "recipient_region_code";
-    if (filterKey === "recipient_country_code") {
+      get(filterKeys, `[${index + 1}]`, "") !== AF_COUNTRY &&
+      get(filterKeys, `[${index + 1}]`, "") !== AF_REGION;
+    if (filterKey === AF_COUNTRY) {
       locations.countries = filters[filterKey];
-    } else if (filterKey === "recipient_region_code") {
+    } else if (filterKey === AF_REGION) {
       locations.regions = filters[filterKey];
-    } else if (filterKey === "budget_value") {
+    } else if (filterKey === AF_BUDGET_VALUE) {
       result += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
         addTrailingAND ? " AND " : ""
       }`;
     } else if (filterKey === "years") {
-      result += `transaction_value_date:[${
+      result += `${AF_TRANSACTION_VALUE_DATE}:[${
         filters[filterKey][0]
       }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
         addTrailingAND ? " AND " : ""
       }`;
-    } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
-      result += `(tag_code:(${filters[filterKey]
+    } else if (filterKey === AF_TAG_CODE || filterKey === AF_TAG_NARRATIVE) {
+      result += `(${AF_TAG_CODE}:(${filters[filterKey]
         .map((value: string) => `"${value.replace("|", ",")}"`)
-        .join(" ")}) OR tag_narrative:(${filters[filterKey]
+        .join(" ")}) OR ${AF_TAG_NARRATIVE}:(${filters[filterKey]
         .map((value: string) => `"${value.replace("|", ",")}"`)
         .join(" ")}))${addTrailingAND ? " AND " : ""}`;
-    } else if (filterKey === "sector_code") {
-      result += `sector_code:(${filters[filterKey]
+    } else if (filterKey === AF_SECTOR) {
+      result += `${AF_SECTOR}:(${filters[filterKey]
         .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)
         .join(" ")})${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey === "budget_line") {
-      result += `tag_code:(${filters[filterKey]
+      result += `${AF_TAG_CODE}:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
         .join(" ")})${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey === "human_rights_approach") {
-      result += `tag_narrative:(${filters[filterKey]
+      result += `${AF_TAG_NARRATIVE}:(${filters[filterKey]
         .map((value: string) => `"${value}"`)
         .join(" ")})${addTrailingAND ? " AND " : ""}`;
     }
@@ -80,8 +91,8 @@ export function getFormattedFilters(
     //     .map((value: string) => `${value}*`)
     //     .join(" ")})${addTrailingAND ? " AND " : ""}`;
     // }
-    else if (filterKey === "policy_marker_code") {
-      result += `policy_marker_combined:(${filters[filterKey]
+    else if (filterKey === AF_POLICY_MARKER_CODE) {
+      result += `${AF_POLICY_MARKER_COMBINED}:(${filters[filterKey]
         .map((code: string) => `${code}__1 ${code}__2 ${code}__3 ${code}__4`)
         .join(" ")})${addTrailingAND ? " AND " : ""}`;
     } else if (filterKey !== "year_period") {
@@ -98,18 +109,18 @@ export function getFormattedFilters(
   if (locations.countries.length > 0 || locations.regions.length > 0) {
     result += `${result.length > 0 ? " AND " : ""}(${
       locations.countries.length > 0
-        ? `recipient_country_code:(${locations.countries.join(" ")})`
+        ? `${AF_COUNTRY}:(${locations.countries.join(" ")})`
         : ""
     }${
       locations.regions.length > 0
         ? `${
             locations.countries.length > 0 ? "OR " : ""
-          }recipient_region_code:(${locations.regions.join(" ")})`
+          }${AF_REGION}:(${locations.regions.join(" ")})`
         : ""
     })`;
   }
 
-  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${result})`;
+  return `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND (${result})`;
 }
 
 export function getQuery(filters: any, search: string, searchFields: string[]) {
@@ -118,7 +129,7 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   }
   const filterKeys = Object.keys(filters);
   if (filterKeys.length === 0 && search.length === 0) {
-    return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${stickyPeriodFilter})`;
+    return `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND (${stickyPeriodFilter})`;
   }
 
   let query = "";
@@ -130,52 +141,52 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
     filterKeys.forEach((filterKey: string, index: number) => {
       const addTrailingAND =
         filterKeys.length - 1 !== index &&
-        get(filterKeys, `[${index + 1}]`, "") !== "recipient_country_code" &&
-        get(filterKeys, `[${index + 1}]`, "") !== "recipient_region_code";
-      if (filterKey === "recipient_country_code") {
+        get(filterKeys, `[${index + 1}]`, "") !== AF_COUNTRY &&
+        get(filterKeys, `[${index + 1}]`, "") !== AF_REGION;
+      if (filterKey === AF_COUNTRY) {
         locations.countries = filters[filterKey];
-      } else if (filterKey === "recipient_region_code") {
+      } else if (filterKey === AF_REGION) {
         locations.regions = filters[filterKey];
-      } else if (filterKey === "budget_value") {
+      } else if (filterKey === AF_BUDGET_VALUE) {
         query += `${filterKey}:[${filters[filterKey].join(" TO ")}]${
           addTrailingAND ? " AND " : ""
         }`;
       } else if (filterKey === "years") {
-        query += `transaction_value_date:[${
+        query += `${AF_TRANSACTION_VALUE_DATE}:[${
           filters[filterKey][0]
         }-01-01T00:00:00Z TO ${filters[filterKey][1]}-12-31T23:59:59Z]${
           addTrailingAND ? " AND " : ""
         }`;
-      } else if (filterKey === "tag_code" || filterKey === "tag_narrative") {
-        query += `(tag_code:(${filters[filterKey]
+      } else if (filterKey === AF_TAG_CODE || filterKey === AF_TAG_NARRATIVE) {
+        query += `(${AF_TAG_CODE}:(${filters[filterKey]
           .map((value: string) => `"${value.replace("|", ",")}"`)
-          .join(" ")}) OR tag_narrative:(${filters[filterKey]
+          .join(" ")}) OR ${AF_TAG_NARRATIVE}:(${filters[filterKey]
           .map((value: string) => `"${value.replace("|", ",")}"`)
           .join(" ")}))${addTrailingAND ? " AND " : ""}`;
-      } else if (filterKey === "sector_code") {
-        query += `sector_code:(${filters[filterKey]
+      } else if (filterKey === AF_SECTOR) {
+        query += `${AF_SECTOR}:(${filters[filterKey]
           .map((value: string) => `${value}${value.length < 5 ? "*" : ""}`)
           .join(" ")})${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "budget_line") {
-        query += `(tag_code:(${filters[filterKey]
+        query += `(${AF_TAG_CODE}:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
           .join(" ")}))${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "human_rights_approach") {
-        query += `tag_narrative:(${filters[filterKey]
+        query += `${AF_TAG_NARRATIVE}:(${filters[filterKey]
           .map((value: string) => `"${value}"`)
           .join(" ")}))${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "period") {
-        query += `transaction_value_date:[${
+        query += `${AF_TRANSACTION_VALUE_DATE}:[${
           filters[filterKey][0].startDate
-        } TO *] AND transaction_value_date:[* TO ${
+        } TO *] AND ${AF_TRANSACTION_VALUE_DATE}:[* TO ${
           filters[filterKey][0].endDate
         }]${addTrailingAND ? " AND " : ""}`;
-      } else if (filterKey === "policy_marker_code") {
-        query += `policy_marker_combined:(${filters[filterKey]
+      } else if (filterKey === AF_POLICY_MARKER_CODE) {
+        query += `${AF_POLICY_MARKER_COMBINED}:(${filters[filterKey]
           .map((code: string) => `${code}__1 ${code}__2 ${code}__3 ${code}__4`)
           .join(" ")})${addTrailingAND ? " AND " : ""}`;
       } else if (filterKey === "year_period") {
-        query += `transaction_value_date:[${
+        query += `${AF_TRANSACTION_VALUE_DATE}:[${
           filters[filterKey]
         }-01-01T00:00:00Z TO ${filters[filterKey]}-12-31T23:59:59Z]${
           addTrailingAND ? " AND " : ""
@@ -215,24 +226,21 @@ export function getQuery(filters: any, search: string, searchFields: string[]) {
   if (locations.countries.length > 0 || locations.regions.length > 0) {
     query += `${query.length > 0 ? " AND " : ""}(${
       locations.countries.length > 0
-        ? `recipient_country_code:(${locations.countries.join(" ")})`
+        ? `${AF_COUNTRY}:(${locations.countries.join(" ")})`
         : ""
     }${
       locations.regions.length > 0
         ? `${
             locations.countries.length > 0 ? "OR " : ""
-          }recipient_region_code:(${locations.regions.join(" ")})`
+          }${AF_REGION}:(${locations.regions.join(" ")})`
         : ""
     })`;
   }
 
-  return `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (${query})`;
+  return `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND (${query})`;
 }
 
+// TODO: Test and remove, casting no longer necessary as field names are identical across activity/transaction
 export function normalizeActivity2TransactionFilters(filterstring: string) {
-  return filterstring
-    .replace(/tag_narrative/g, "tag_code")
-    .replace(/sector_code/g, "activity_sector_code")
-    .replace(/recipient_region_code/g, "activity_recipient_region_code")
-    .replace(/recipient_country_code/g, "activity_recipient_country_code");
+  return filterstring;
 }

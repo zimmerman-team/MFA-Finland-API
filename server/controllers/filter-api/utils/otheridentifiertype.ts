@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_OTHER_IDENTIFIER_TYPE } from "../../../static/apiFilterFields";
 
 export function getOtherIdentifierTypeOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getOtherIdentifierTypeOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "other_identifier_type",
+          field: AF_OTHER_IDENTIFIER_TYPE,
           limit: -1
         }
       }),

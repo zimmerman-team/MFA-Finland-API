@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DEFAULT_AID_TYPE_VOCABULARY } from "../../../static/apiFilterFields";
 
 export function getDefaultAidTypeVocabOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getDefaultAidTypeVocabOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "default_aid_type_vocabulary",
+          field: AF_DEFAULT_AID_TYPE_VOCABULARY,
           limit: -1
         }
       }),

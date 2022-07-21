@@ -4,6 +4,11 @@ import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { getDonors } from "../../utils/globalSearch";
 import { getFormattedSearchParam } from "../../utils/filters";
+import {
+  AF_REPORTING_ORG_REF,
+  AF_TRANSACTION_PROVIDER_ORG_NARRATIVE,
+  AF_TRANSACTION_PROVIDER_ORG_REF
+} from "../../static/apiFilterFields";
 
 export function searchDonors(req: any, res: any) {
   if (!req.body.q || req.body.q.length === 0) {
@@ -15,11 +20,11 @@ export function searchDonors(req: any, res: any) {
   const limit = get(req.body, "rows", 10);
   const offset = get(req.body, "page", 0) * limit;
   const values = {
-    q: `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND transaction_provider_org_narrative:"${req.body.q}"`,
+    q: `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND ${AF_TRANSACTION_PROVIDER_ORG_NARRATIVE}:"${req.body.q}"`,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "transaction_provider_org_ref",
+        field: AF_TRANSACTION_PROVIDER_ORG_REF,
         limit,
         offset,
         missing: true,
@@ -27,7 +32,7 @@ export function searchDonors(req: any, res: any) {
         facet: {
           sub: {
             type: "terms",
-            field: "transaction_provider_org_narrative",
+            field: AF_TRANSACTION_PROVIDER_ORG_NARRATIVE,
             limit: 1
           }
         }

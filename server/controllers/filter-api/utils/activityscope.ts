@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_ACTIVITY_SCOPE_CODE } from "../../../static/apiFilterFields";
 
 export function getActivituScopeOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getActivituScopeOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "activity_scope_code",
+          field: AF_ACTIVITY_SCOPE_CODE,
           limit: -1
         }
       }),

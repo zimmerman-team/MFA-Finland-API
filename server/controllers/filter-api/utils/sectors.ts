@@ -3,6 +3,7 @@ import get from "lodash/get";
 import querystring from "querystring";
 import { formatSectorOptions } from ".";
 import { getSectorsWithData } from "../../table-api/SectorsController";
+import { AF_SECTOR } from "../../../static/apiFilterFields";
 
 export function getSectorsOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ export function getSectorsOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "sector_code",
+          field: AF_SECTOR,
           limit: -1
           // missing: true,
           // facet: {

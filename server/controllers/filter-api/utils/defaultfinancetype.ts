@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DEFAULT_FINANCE_CODE } from "../../../static/apiFilterFields";
 
 export function getDefaultFinanceTypeOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getDefaultFinanceTypeOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "default_finance_type_code",
+          field: AF_DEFAULT_FINANCE_CODE,
           limit: -1
         }
       }),

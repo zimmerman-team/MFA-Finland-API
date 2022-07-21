@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_POLICY_MARKER_CODE } from "../../../static/apiFilterFields";
 
 export function getPolicyMarkerOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getPolicyMarkerOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "policy_marker_code",
+          field: AF_POLICY_MARKER_CODE,
           limit: -1
         }
       }),

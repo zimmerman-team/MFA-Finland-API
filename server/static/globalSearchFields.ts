@@ -1,42 +1,54 @@
+import {
+  AF_COUNTRY,
+  AF_COUNTRY_NAME,
+  AF_DESCRIPTION_NARRATIVE,
+  AF_IATI_IDENTIFIER,
+  AF_PARTICIPATING_ORG_NARRATIVE,
+  AF_PARTICIPATING_ORG_REF,
+  AF_REPORTING_ORG_NARRATIVE,
+  AF_REPORTING_ORG_REF,
+  AF_TITLE_NARRATIVE,
+  AF_TRANSACTION_COUNTRY,
+  AF_TRANSACTION_PROVIDER_ORG_NARRATIVE,
+  AF_TRANSACTION_PROVIDER_ORG_REF
+} from "./apiFilterFields";
+
 export const globalSearchFields = [
-  "iati_identifier",
-  "title_narrative_text",
-  "participating_org_ref",
-  "recipient_country_code",
-  "reporting_org_narrative",
-  "description_narrative_text",
-  "participating_org_narrative",
-  "transaction_provider_org_ref",
-  "transaction_provider_org_narrative",
-  "transaction_recipient_country_code"
+  AF_IATI_IDENTIFIER,
+  AF_TITLE_NARRATIVE,
+  AF_PARTICIPATING_ORG_REF,
+  AF_COUNTRY,
+  AF_REPORTING_ORG_NARRATIVE,
+  AF_DESCRIPTION_NARRATIVE,
+  AF_PARTICIPATING_ORG_NARRATIVE,
+  AF_TRANSACTION_PROVIDER_ORG_REF,
+  AF_TRANSACTION_PROVIDER_ORG_NARRATIVE,
+  AF_TRANSACTION_COUNTRY
 ];
 
 export const globalSearchSelectFields = [
-  "iati_identifier",
-  "reporting_org_ref",
-  "title_narrative_text",
-  "participating_org_ref",
-  "recipient_country_code",
-  "reporting_org_narrative",
-  "participating_org_narrative",
-  "transaction_provider_org_ref",
-  "transaction_provider_org_narrative",
-  "transaction_recipient_country_code"
+  AF_IATI_IDENTIFIER,
+  AF_REPORTING_ORG_REF,
+  AF_TITLE_NARRATIVE,
+  AF_PARTICIPATING_ORG_REF,
+  AF_COUNTRY,
+  AF_REPORTING_ORG_NARRATIVE,
+  AF_PARTICIPATING_ORG_NARRATIVE,
+  AF_TRANSACTION_PROVIDER_ORG_REF,
+  AF_TRANSACTION_PROVIDER_ORG_NARRATIVE,
+  AF_TRANSACTION_COUNTRY
 ];
 
-export const activitySearchFields = [
-  "recipient_country_code",
-  "title_narrative_text"
-];
+export const activitySearchFields = [AF_COUNTRY, AF_TITLE_NARRATIVE];
 
 export const donorsSearchFields = [
-  "transaction_provider_org_ref",
-  "transaction_provider_org_narrative"
+  AF_TRANSACTION_PROVIDER_ORG_REF,
+  AF_TRANSACTION_PROVIDER_ORG_NARRATIVE
 ];
 
 export const publishersSearchFields = [
-  "reporting_org_ref",
-  "reporting_org_narrative"
+  AF_REPORTING_ORG_REF,
+  AF_REPORTING_ORG_NARRATIVE
 ];
 
 export const sectorsSearchFields = ["", ""];

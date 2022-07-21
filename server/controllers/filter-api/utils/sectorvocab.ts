@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_SECTOR_VOCABULARY } from "../../../static/apiFilterFields";
 
 export function getSectorVocabularyOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getSectorVocabularyOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "sector_vocabulary",
+          field: AF_SECTOR_VOCABULARY,
           limit: -1
         }
       }),
