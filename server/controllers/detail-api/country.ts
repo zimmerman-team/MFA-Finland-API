@@ -5,14 +5,20 @@ import querystring from "querystring";
 import { countries } from "../../static/countries";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
+import {
+  AF_COUNTRY,
+  AF_REPORTING_ORG_REF,
+  AF_TRANSACTION_PROVIDER_ORG_REF
+} from "../../static/apiFilterFields";
 
 export function countryDetail(req: any, res: any) {
+  const filters = getFormattedFilters(req.body.filters);
   const activitiesValues = {
-    q: getFormattedFilters(req.body.filters),
+    q: filters,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "recipient_country_code",
+        field: AF_COUNTRY,
         limit: 1,
         numBuckets: true
       }
@@ -20,16 +26,16 @@ export function countryDetail(req: any, res: any) {
     rows: 0
   };
   const donorsValues = {
-    q: getFormattedFilters(req.body.filters),
+    q: filters,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "recipient_country_code",
+        field: AF_COUNTRY,
         limit: 1,
         facet: {
           sub: {
             type: "terms",
-            field: "transaction_provider_org_ref",
+            field: AF_TRANSACTION_PROVIDER_ORG_REF,
             limit: -1,
             numBuckets: true
           }
@@ -39,16 +45,16 @@ export function countryDetail(req: any, res: any) {
     rows: 0
   };
   const publishersValue = {
-    q: getFormattedFilters(req.body.filters),
+    q: filters,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "recipient_country_code",
+        field: AF_COUNTRY,
         limit: 1,
         facet: {
           sub: {
             type: "terms",
-            field: "reporting_org_ref",
+            field: AF_REPORTING_ORG_REF,
             limit: -1,
             numBuckets: true
           }
@@ -90,7 +96,7 @@ export function countryDetail(req: any, res: any) {
     )
   ];
   const fCountry = find(countries, {
-    code: get(req.body, "filters.recipient_country_code[0]", "")
+    code: get(req.body, `filters[${AF_COUNTRY}][0]`, "")
   });
   if (fCountry) {
     const wikiExcerptValue = {

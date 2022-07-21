@@ -3,6 +3,11 @@ import get from "lodash/get";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
+import {
+  AF_REPORTING_ORG_NARRATIVE,
+  AF_REPORTING_ORG_REF,
+  AF_TRANSACTION_PROVIDER_ORG_REF
+} from "../../static/apiFilterFields";
 
 export function publisherDetail(req: any, res: any) {
   const activitiesValues = {
@@ -10,25 +15,25 @@ export function publisherDetail(req: any, res: any) {
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "reporting_org_ref",
+        field: AF_REPORTING_ORG_REF,
         limit: 1,
         numBuckets: true
       }
     }),
     rows: 1,
-    fl: "reporting_org_narrative"
+    fl: AF_REPORTING_ORG_NARRATIVE
   };
   const donorsValues = {
     q: getFormattedFilters(req.body.filters),
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "reporting_org_ref",
+        field: AF_REPORTING_ORG_REF,
         limit: 1,
         facet: {
           sub: {
             type: "terms",
-            field: "transaction_provider_org_ref",
+            field: AF_TRANSACTION_PROVIDER_ORG_REF,
             limit: -1,
             numBuckets: true
           }
@@ -65,7 +70,7 @@ export function publisherDetail(req: any, res: any) {
       axios.spread((...responses) => {
         const name = get(
           responses[0],
-          "data.response.docs[0].reporting_org_narrative[0]",
+          `data.response.docs[0]["${AF_REPORTING_ORG_NARRATIVE}"][0]`,
           ""
         );
         const activities = get(responses[0], "data.facets.items.buckets", []);
