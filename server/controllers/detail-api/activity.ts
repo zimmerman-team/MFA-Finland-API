@@ -7,7 +7,6 @@ import {
   activityMetadataFl,
   activityTransactionsFl
 } from "../../static/activityDetailConsts";
-import { parseJsonSolrField } from "../../utils/parseJsonSolrField";
 import {
   getCountries,
   getDates,
@@ -20,6 +19,21 @@ import {
   getTransactions
 } from "./utils/activity";
 import { getFieldValueLang } from "../../utils/getFieldValueLang";
+import {
+  AF_DESCRIPTION_NARRATIVE,
+  AF_DESCRIPTION_NARRATIVE_LANG,
+  AF_IATI_IDENTIFIER,
+  AF_REPORTING_ORG_NARRATIVE,
+  AF_REPORTING_ORG_REF,
+  AF_REPORTING_ORG_TYPE_NAME,
+  AF_TITLE_NARRATIVE,
+  AF_TITLE_NARRATIVE_LANG,
+  AF_TRANSACTION_COUNTRY,
+  AF_TRANSACTION_REGION,
+  AF_TRANSACTION_SECTOR_CODE,
+  AF_TRANSACTION_TYPE_CODE,
+  AF_TRANSACTION_VALUE
+} from "../../static/apiFilterFields";
 
 export function activityDetail(req: any, res: any) {
   const lang = req.body.lang || "en";
@@ -31,16 +45,16 @@ export function activityDetail(req: any, res: any) {
   }
   const decodedId = decodeURIComponent(req.body.activityId);
   const metadata = {
-    q: `iati_identifier:"${decodedId}"`,
+    q: `${AF_IATI_IDENTIFIER}:"${decodedId}"`,
     fl: activityMetadataFl
   };
   const disbursements = {
-    q: `iati_identifier:"${decodedId}" AND (transaction_type:3)`,
+    q: `${AF_IATI_IDENTIFIER}:"${decodedId}" AND (${AF_TRANSACTION_TYPE_CODE}:3)`,
     fl: activityTransactionsFl,
     rows: 1000
   };
   const commitments = {
-    q: `iati_identifier:"${decodedId}" AND (transaction_type:2)`,
+    q: `${AF_IATI_IDENTIFIER}:"${decodedId}" AND (${AF_TRANSACTION_TYPE_CODE}:2)`,
     fl: activityTransactionsFl,
     rows: 1000
   };
@@ -87,62 +101,65 @@ export function activityDetail(req: any, res: any) {
         res.json({
           data: {
             metadata: {
-              iati_identifier: get(activityMetaData, "iati_identifier", ""),
-              reporting_org_ref: get(activityMetaData, "reporting_org_ref", ""),
+              iati_identifier: get(
+                activityMetaData,
+                `["${AF_IATI_IDENTIFIER}"]`,
+                ""
+              ),
+              reporting_org_ref: get(
+                activityMetaData,
+                AF_REPORTING_ORG_REF,
+                ""
+              ),
               reporting_org_narrative: get(
                 activityMetaData,
-                "reporting_org_narrative",
+                `["${AF_REPORTING_ORG_NARRATIVE}"]`,
                 [""]
               )[0],
-              reporting_org_type: parseJsonSolrField(
-                activityMetaData.reporting_org,
-                "type.name"
+              reporting_org_type: get(
+                activityMetaData,
+                AF_REPORTING_ORG_TYPE_NAME,
+                ""
               ),
               title: getFieldValueLang(
                 lang,
-                get(activityMetaData, "title_narrative_text", [""]),
-                get(activityMetaData, "title_narrative_lang", [""])
+                get(activityMetaData, `["${AF_TITLE_NARRATIVE}"]`, [""]),
+                get(activityMetaData, `["${AF_TITLE_NARRATIVE_LANG}"]`, [""])
               ),
-              dates: getDates(get(activityMetaData, "activity_date", [])),
+              dates: getDates(activityMetaData),
               description: getFieldValueLang(
                 lang,
-                get(activityMetaData, "description_narrative_text", [""]),
-                get(activityMetaData, "description_lang", [""])
+                get(activityMetaData, `["${AF_DESCRIPTION_NARRATIVE}"]`, [""]),
+                get(activityMetaData, `["${AF_DESCRIPTION_NARRATIVE_LANG}"]`, [
+                  ""
+                ])
               ),
-              participating_orgs: getParticipatingOrgs(
-                get(activityMetaData, "participating_org", []),
-                lang
-              ),
+              participating_orgs: getParticipatingOrgs(activityMetaData, lang),
               summary: getSummary(activityMetaData),
               countries: getCountries(
-                get(activityMetaData, "recipient_country", []),
-                get(activityMetaData, "transaction_recipient_country_code", []),
+                activityMetaData,
+                get(activityMetaData, AF_TRANSACTION_COUNTRY, []),
                 lang
               ),
               regions: getRegions(
-                get(activityMetaData, "recipient_region", []),
-                get(activityMetaData, "transaction_recipient_region_code", []),
+                activityMetaData,
+                get(activityMetaData, AF_TRANSACTION_REGION, []),
                 lang
               ),
               sectors: getSectors(
-                get(activityMetaData, "sector", []),
-                get(activityMetaData, "transaction_sector_code", []),
+                activityMetaData,
+                get(activityMetaData, AF_TRANSACTION_SECTOR_CODE, null),
                 lang
               ),
-              default_aid_types: getDefaultAidTypes(
-                get(activityMetaData, "default_aid_type", []),
-                lang
-              ),
-              policy_markers: getPolicyMarkers(
-                get(activityMetaData, "policy_marker", [])
-              )
+              default_aid_types: getDefaultAidTypes(activityMetaData, lang),
+              policy_markers: getPolicyMarkers(activityMetaData)
             },
             transactions: getTransactions([
               ...disbursementsData,
               ...commitmentsData
             ]),
-            disbursementsTotal: sumBy(disbursementsData, "transaction_value"),
-            commitmentsTotal: sumBy(commitmentsData, "transaction_value")
+            disbursementsTotal: sumBy(disbursementsData, AF_TRANSACTION_VALUE),
+            commitmentsTotal: sumBy(commitmentsData, AF_TRANSACTION_VALUE)
           }
         });
       })

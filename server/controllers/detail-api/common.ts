@@ -14,6 +14,7 @@ import { locationsMapping } from "../../static/locationsMapping";
 import { partnerCountries } from "../../static/partnerCountries";
 import { sectorTranslations } from "../../static/sectorTranslations";
 import {
+  AF_COUNTRY,
   AF_REPORTING_ORG_REF,
   AF_PARTICIPATING_ORG_REF,
   AF_PARTICIPATING_ORG_NARRATIVE,
@@ -22,16 +23,17 @@ import {
   AF_SECTOR,
   AF_TAG_NARRATIVE,
   AF_PARTICIPATING_ORG_TYPE
-} from "../static/apiFilterFields";
+} from "../../static/apiFilterFields";
 
 export function detailPageName(req: any, res: any) {
   const values = {
     q: `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND ${[
       req.body.detail_type
-    ]}:(${get(req.body.filters, `${req.body.detail_type}[0]`, "")})`,
+    ]}:(${get(req.body.filters, `["${req.body.detail_type}"][0]`, "")})`,
     fl: `${AF_PARTICIPATING_ORG_REF},${AF_PARTICIPATING_ORG_NARRATIVE},${AF_REGION},${AF_REGION_NAME},${AF_SECTOR}`,
     rows: 1
   };
+
   axios
     .get(
       `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
@@ -310,7 +312,6 @@ export function detailPageName(req: any, res: any) {
       }
     })
     .catch(errors => {
-      console.log(errors);
       genericError(errors, res);
     });
 }

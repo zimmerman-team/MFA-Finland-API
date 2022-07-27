@@ -18,270 +18,27 @@ import {
   translatedLines,
   budgetLineCodes2Values
 } from "../../static/budgetLineConsts";
-
-export function budgetLineBarChart1(req: any, res: any) {
-  const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
-    {
-      q: `${getFormattedFilters(
-        get(req.body, "filters", {})
-      )} AND tag_vocabulary:99 AND tag_code:2*`,
-      fl: "tag_code,budget_value,budget_value_date",
-      rows: 10000
-    },
-    "&",
-    "=",
-    {
-      encodeURIComponent: (str: string) => str
-    }
-  )}`;
-
-  axios
-    .get(url)
-    .then(call1Response => {
-      const actualData = get(call1Response, "data.response.docs", []);
-      const filteredData = filter(
-        actualData,
-        (doc: any) => doc.tag_code[0] === "2"
-      );
-      let years: string[] = [];
-      filteredData.forEach((doc: any) => {
-        if (doc.budget_value_date) {
-          years = [
-            ...years,
-            ...doc.budget_value_date.map((item: any) => item.slice(0, 4))
-          ];
-        }
-      });
-      years = uniq(years);
-      const yearsData = years.map((year: string) => {
-        const data = filter(filteredData, (doc: any) => {
-          if (doc.budget_value_date) {
-            return find(
-              doc.budget_value_date,
-              (item: any) => item.slice(0, 4) === year
-            );
-          }
-          return false;
-        });
-        let tags: string[] = [];
-        data.forEach((doc: any) => {
-          tags = [...tags, ...doc.tag_code];
-        });
-        tags = uniq(tags);
-        tags = filter(tags, (tag: string) => tag[0] === "2");
-        const tagsData = tags.map((tag: string) => {
-          const tagData = filter(
-            data,
-            (doc: any) => doc.tag_code.indexOf(tag) > -1
-          );
-          let totalBudget = 0;
-          tagData.forEach((doc: any) => {
-            if (doc.budget_value) {
-              totalBudget += sum(doc.budget_value);
-            }
-          });
-          return {
-            name: tag,
-            code: tag,
-            value: totalBudget
-          };
-        });
-        return {
-          year,
-          value: sumBy(tagsData, "value"),
-          children: tagsData
-        };
-      });
-      res.json({
-        count: yearsData.length,
-        vizData: yearsData
-      });
-    })
-    .catch(error => {
-      genericError(error, res);
-    });
-}
-
-export function ODAbarChart1(req: any, res: any) {
-  axios
-    .get(
-      `${process.env.DS_SOLR_API}/activity/?q=reporting_org_ref:${process.env.MFA_PUBLISHER_REF}&facet=on&facet.pivot=activity_date_start_actual&fl=facet_counts&rows=0`
-    )
-    .then(call1Response => {
-      const activityYears = uniq(
-        get(
-          call1Response,
-          "data.facet_counts.facet_pivot.activity_date_start_actual",
-          []
-        ).map((item: any) => item.value.split("-")[0])
-      );
-
-      let yearFacetsObj = {};
-
-      activityYears.forEach((yearValue: any) => {
-        yearFacetsObj = {
-          ...yearFacetsObj,
-          [`${yearValue}_total`]: {
-            type: "query",
-            q: `transaction_value_date:[${yearValue}-01-01T00:00:00Z TO ${yearValue}-12-31T23:59:59Z] AND (transaction_flow_type_code:10 OR default_flow_type_code:10) AND transaction_type:3`,
-            facet: {
-              value: "sum(transaction_value)"
-            }
-          },
-          [`${yearValue}_exclusive`]: {
-            type: "query",
-            q: `transaction_value_date:[${yearValue}-01-01T00:00:00Z TO ${yearValue}-12-31T23:59:59Z] AND tag_vocabulary:99 AND tag_code:243066* AND transaction_type:3`,
-            facet: {
-              value: "sum(transaction_value)"
-            }
-          }
-        };
-      });
-
-      const values = {
-        q: getFormattedFilters(get(req.body, "filters", {})),
-        "json.facet": JSON.stringify(yearFacetsObj),
-        rows: 0
-      };
-
-      axios
-        .get(
-          `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
-            values,
-            "&",
-            "=",
-            {
-              encodeURIComponent: (str: string) => str
-            }
-          )}`
-        )
-        .then(call2Response => {
-          const actualData = get(call2Response, "data.facets", {});
-
-          const result: any = [];
-
-          activityYears.forEach((year: any) => {
-            const total = get(actualData, `${year}_total.value`, 0);
-            const exclusive = get(actualData, `${year}_exclusive.value`, 0);
-            const other = total - exclusive;
-
-            if (total > 0) {
-              result.push({
-                year: parseInt(year, 10),
-                exclusive,
-                other,
-                exclusiveColor: "#ACD1D1",
-                otherColor: "#7491CE",
-                gni: 0,
-                gniColor: "#AE4764"
-              });
-            }
-          });
-
-          res.json({
-            count: get(call2Response, "data.response.numFound", 0),
-            vizData: orderBy(result, "year", "asc")
-          });
-        })
-        .catch(error => {
-          genericError(error, res);
-        });
-    })
-    .catch(error => {
-      genericError(error, res);
-    });
-}
-
-export function budgetLineBarChart2(req: any, res: any) {
-  axios
-    .get(
-      `${process.env.DS_SOLR_API}/activity/?q=reporting_org_ref:${process.env.MFA_PUBLISHER_REF}&facet=on&facet.pivot=activity_date_start_actual&fl=facet_counts&rows=0`
-    )
-    .then(call1Response => {
-      const activityYears = uniq(
-        get(
-          call1Response,
-          "data.facet_counts.facet_pivot.activity_date_start_actual",
-          []
-        ).map((item: any) => item.value.split("-")[0])
-      );
-
-      let yearFacetsObj = {};
-
-      activityYears.forEach((yearValue: any) => {
-        yearFacetsObj = {
-          ...yearFacetsObj,
-          [`${yearValue}`]: {
-            type: "query",
-            q: `transaction_value_date:[${yearValue}-01-01T00:00:00Z TO ${yearValue}-12-31T23:59:59Z] AND tag_vocabulary:99 AND tag_code:243066* AND transaction_type:3`,
-            facet: {
-              lines: {
-                type: "terms",
-                field: "tag_code",
-                limit: -1,
-                facet: { value: "sum(transaction_value)" }
-              }
-            }
-          }
-        };
-      });
-
-      const values = {
-        q: getFormattedFilters(get(req.body, "filters", {})),
-        "json.facet": JSON.stringify(yearFacetsObj),
-        rows: 0
-      };
-
-      axios
-        .get(
-          `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
-            values,
-            "&",
-            "=",
-            {
-              encodeURIComponent: (str: string) => str
-            }
-          )}`
-        )
-        .then(call2Response => {
-          const actualData = get(call2Response, "data.facets", {});
-
-          const result: any = [];
-
-          activityYears.forEach((year: any) => {
-            const tags = get(actualData, `${year}.lines.buckets`, []);
-
-            if (tags.length > 0) {
-              let item = {
-                year: parseInt(year, 10)
-              };
-              tags.forEach((tag: any) => {
-                const linename = get(budgetLineCodes2Values, tag.val, null);
-                if (linename) {
-                  item = {
-                    ...item,
-                    [linename]: tag.value,
-                    [`${linename}Color`]: get(colors, tag.val, "")
-                  };
-                }
-              });
-              result.push(item);
-            }
-          });
-
-          res.json({
-            count: get(call2Response, "data.response.numFound", 0),
-            vizData: result
-          });
-        })
-        .catch(error => {
-          genericError(error, res);
-        });
-    })
-    .catch(error => {
-      genericError(error, res);
-    });
-}
+import {
+  AF_TAG_CODE,
+  AF_TAG_VOCABULARY,
+  AF_BUDGET_VALUE,
+  AF_BUDGET_VALUE_UNDERSCORED,
+  AF_BUDGET_VALUE_DATE,
+  AF_REPORTING_ORG_REF,
+  AF_TRANSACTION_VALUE_DATE,
+  AF_TRANSACTION_FLOW_TYPE_CODE,
+  AF_TRANSACTION_TYPE_CODE,
+  AF_TRANSACTION_UNDERSCORED,
+  AF_DEFAULT_FLOW_TYPE_CODE,
+  AF_TRANSACTION,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX
+} from "../../static/apiFilterFields";
 
 export function ODAbarChart(req: any, res: any) {
   const totalURL = `${
@@ -292,8 +49,8 @@ export function ODAbarChart(req: any, res: any) {
         get(req.body, "filters", {}),
         false,
         true
-      )} AND (transaction_flow_type_code:10 OR default_flow_type_code:10) AND transaction_type:3`,
-      fl: "transaction_type,transaction_value,transaction_value_date",
+      )} AND (${AF_TRANSACTION_FLOW_TYPE_CODE}:10 OR ${AF_DEFAULT_FLOW_TYPE_CODE}:10) AND ${AF_TRANSACTION_TYPE_CODE}:3`,
+      fl: `${AF_TRANSACTION_TYPE_CODE},${AF_TRANSACTION},${AF_TRANSACTION_VALUE_DATE}`,
       rows: 20000
     },
     "&",
@@ -303,7 +60,8 @@ export function ODAbarChart(req: any, res: any) {
     }
   )}`;
 
-  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:${process.env.MFA_PUBLISHER_REF}&fl=organisation_total_expenditure`;
+  /** Review: organisation_identifier, needs to be fixed on solr before it can be migrated */
+  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:${process.env.MFA_PUBLISHER_REF}&fl=${AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED},${AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX}`;
 
   const exclusiveURL = `${
     process.env.DS_SOLR_API
@@ -313,8 +71,8 @@ export function ODAbarChart(req: any, res: any) {
         get(req.body, "filters", {}),
         false,
         true
-      )} tag_code:243066* AND transaction_type:3`,
-      fl: "transaction_type,transaction_value,transaction_value_date",
+      )} ${AF_TAG_CODE}:243066* AND ${AF_TRANSACTION_TYPE_CODE}:3`,
+      fl: `${AF_TRANSACTION_TYPE_CODE},${AF_TRANSACTION},${AF_TRANSACTION_VALUE_DATE}`,
       rows: 20000
     },
     "&",
@@ -323,68 +81,110 @@ export function ODAbarChart(req: any, res: any) {
       encodeURIComponent: (str: string) => str
     }
   )}`;
-
   axios
     .all([axios.get(totalURL), axios.get(exclusiveURL), axios.get(orgTotalURL)])
     .then(
       axios.spread((...responses) => {
         let totalRes = get(responses[0], "data.response.docs", []);
         let exclusiveRes = get(responses[1], "data.response.docs", []);
-        let orgtotalRes = get(
-          responses[2],
-          "data.response.docs[0].organisation_total_expenditure",
-          []
-        );
-
+        let orgtotalRes = get(responses[2], "data.response.docs[0]", []);
         totalRes = totalRes.map((item: any) => {
           const valueIndex = findIndex(
-            item.transaction_type,
+            item[AF_TRANSACTION_TYPE_CODE],
             (t: string) => t === "3"
           );
-          const value = get(item, `transaction_value[${valueIndex}]`, 0);
+          const value = get(item, `["${AF_TRANSACTION}"][${valueIndex}]`, 0);
           return {
             value,
-            year: get(item, `transaction_value_date[${valueIndex}]`, "").slice(
-              0,
-              4
-            )
+            year: get(
+              item,
+              `["${AF_TRANSACTION_VALUE_DATE}"][${valueIndex}]`,
+              ""
+            ).slice(0, 4)
           };
         });
 
-        orgtotalRes = orgtotalRes.map((item: any) => {
-          const parseditem = JSON.parse(item);
-          return {
-            value: parseditem.value.value,
-            year: parseditem.period_start.slice(0, 4),
-            exclusive: sumBy(
-              filter(
-                parseditem.expense_line,
-                (line: any) => line.ref.indexOf("24.30.66.") > -1
-              ).map((line: any) => line.value),
-              "value"
-            ),
-            gni: sumBy(
-              filter(
-                parseditem.expense_line,
-                (line: any) => line.ref.indexOf("ODA/GNI") > -1
-              ).map((line: any) => line.value),
-              "value"
-            )
-          };
+        // process the organisation total expenditure.
+        let organisationTotalExpenditures = [];
+        // value is 1..1
+        const allValues =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED];
+        const allYears =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START];
+
+        const lineRefs =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF];
+        const lineValues =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE];
+        const lineIndexes =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX];
+        const lineRefIndexes =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX];
+        const lineValueIndexes =
+          orgtotalRes[
+            AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX
+          ];
+        let expenselineStartIndex = 0;
+        allValues.forEach((value: number, valueIndex: number) => {
+          let exclusiveValues = [];
+          let gniValues = [];
+
+          const year = allYears[valueIndex].slice(0, 4); // year is also 1..1
+          const numberOfExpenseLines = lineIndexes[valueIndex];
+          const expenselineEndIndex =
+            expenselineStartIndex + numberOfExpenseLines;
+
+          if (numberOfExpenseLines !== 0) {
+            const expenselineValueIndexes = lineValueIndexes.slice(
+              expenselineStartIndex,
+              expenselineEndIndex
+            );
+            const expenselineRefIndexes = lineRefIndexes.slice(
+              expenselineStartIndex,
+              expenselineEndIndex
+            );
+
+            expenselineValueIndexes.forEach(
+              (expenselineValueIndex, expenselineIndex: number) => {
+                const expenselineRefIndex =
+                  expenselineRefIndexes[expenselineIndex];
+                const expenselineValue =
+                  lineValues[expenselineStartIndex + expenselineValueIndex];
+                const expenselineRef =
+                  lineRefs[expenselineStartIndex + expenselineRefIndex];
+
+                if (expenselineRef.indexOf("24.30.66.") > -1) {
+                  exclusiveValues.push(expenselineValue);
+                } else if (expenselineRef.indexOf("ODA/GNI") > -1) {
+                  gniValues.push(expenselineValue);
+                }
+              }
+            );
+          }
+          expenselineStartIndex = expenselineEndIndex;
+
+          organisationTotalExpenditures.push({
+            value: value,
+            year: year,
+            exclusive: sum(exclusiveValues),
+            gni: sum(gniValues)
+          });
         });
+        orgtotalRes = organisationTotalExpenditures;
 
         exclusiveRes = exclusiveRes.map((item: any) => {
           const valueIndex = findIndex(
-            item.transaction_type,
+            item[AF_TRANSACTION_TYPE_CODE],
             (t: string) => t === "3"
           );
-          const value = get(item, `transaction_value[${valueIndex}]`, 0);
+          const value = get(item, `["${AF_TRANSACTION}"][${valueIndex}]`, 0);
           return {
             value,
-            year: get(item, `transaction_value_date[${valueIndex}]`, "").slice(
-              0,
-              4
-            )
+            year: get(
+              item,
+              `["${AF_TRANSACTION_VALUE_DATE}"][${valueIndex}]`,
+              ""
+            ).slice(0, 4)
           };
         });
 
@@ -454,8 +254,7 @@ export function ODAbarChart(req: any, res: any) {
 export function budgetLineBarChart(req: any, res: any) {
   const extra_param = get(req.body, "extra_param", "");
   const yearFilter = get(req.body, "filters.years", []);
-  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:${process.env.MFA_PUBLISHER_REF}&fl=organisation_total_expenditure`;
-
+  const orgTotalURL = `${process.env.DS_SOLR_API}/organisation/?q=organisation_identifier:${process.env.MFA_PUBLISHER_REF}&fl=${AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED},${AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX},${AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX}`;
   if (
     yearFilter.length > 0 &&
     parseInt(yearFilter[0], 10) < 2015 &&
@@ -464,23 +263,70 @@ export function budgetLineBarChart(req: any, res: any) {
     axios
       .get(orgTotalURL)
       .then(response => {
-        let orgtotalRes = get(
-          response,
-          "data.response.docs[0].organisation_total_expenditure",
-          []
-        );
-        orgtotalRes = orgtotalRes.map((item: any) => {
-          const parseditem = JSON.parse(item);
-          return {
-            value: parseditem.value.value,
-            year: parseditem.period_start.slice(0, 4),
-            lines: filter(
-              parseditem.expense_line,
-              (line: any) => line.ref.indexOf("24.30.66.") > -1
-            )
-          };
-        });
+        let orgtotalRes = get(response, "data.response.docs[0]", []);
 
+        // process the organisation total expenditure.
+        let organisationTotalExpenditures = [];
+        // value is 1..1
+        const allValues =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED];
+        const allYears =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START];
+
+        const lineRefs =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF];
+        const lineValues =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE];
+        const lineIndexes =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX];
+        const lineRefIndexes =
+          orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX];
+        const lineValueIndexes =
+          orgtotalRes[
+            AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX
+          ];
+        let expenselineStartIndex = 0;
+        allValues.forEach((value: number, valueIndex: number) => {
+          const lines = [];
+          const year = allYears[valueIndex].slice(0, 4); // year is also 1..1
+          const numberOfExpenseLines = lineIndexes[valueIndex];
+          const expenselineEndIndex =
+            expenselineStartIndex + numberOfExpenseLines;
+
+          if (numberOfExpenseLines !== 0) {
+            const expenselineValueIndexes = lineValueIndexes.slice(
+              expenselineStartIndex,
+              expenselineEndIndex
+            );
+            const expenselineRefIndexes = lineRefIndexes.slice(
+              expenselineStartIndex,
+              expenselineEndIndex
+            );
+
+            expenselineValueIndexes.forEach(
+              (expenselineValueIndex, expenselineIndex: number) => {
+                const expenselineRefIndex =
+                  expenselineRefIndexes[expenselineIndex];
+                const expenselineValue =
+                  lineValues[expenselineStartIndex + expenselineValueIndex];
+                const expenselineRef =
+                  lineRefs[expenselineStartIndex + expenselineRefIndex];
+
+                if (expenselineRef.indexOf("24.30.66.") > -1) {
+                  lines.push({ expenselineRef, value: expenselineValue });
+                }
+              }
+            );
+          }
+          expenselineStartIndex = expenselineEndIndex;
+
+          organisationTotalExpenditures.push({
+            value,
+            year,
+            lines
+          });
+        });
+        orgtotalRes = organisationTotalExpenditures;
         let result = find(orgtotalRes, { year: yearFilter[0] });
 
         result = get(result, "lines", []).map((line: string) => {
@@ -490,7 +336,7 @@ export function budgetLineBarChart(req: any, res: any) {
             line: get(translatedLine, "info.name", ref),
             line_fi: get(translatedLine, "info.name_fi", ref),
             line_se: get(translatedLine, "info.name_se", ref),
-            value: line.value.value,
+            value: line.value,
             code: line.ref,
             valueColor: get(colors, ref, "")
           };
@@ -510,9 +356,8 @@ export function budgetLineBarChart(req: any, res: any) {
           get(req.body, "filters", {}),
           false,
           true
-        )} AND tag_code:243066* AND transaction_type:3`,
-        fl:
-          "transaction_type,transaction_value,transaction_value_date,tag_code",
+        )} AND ${AF_TAG_CODE}:243066* AND ${AF_TRANSACTION_TYPE_CODE}:3`,
+        fl: `${AF_TRANSACTION_TYPE_CODE},${AF_TRANSACTION},${AF_TRANSACTION_VALUE_DATE},${AF_TAG_CODE}`,
         rows: 20000
       },
       "&",
@@ -527,36 +372,88 @@ export function budgetLineBarChart(req: any, res: any) {
       .then(
         axios.spread((...responses) => {
           let exclusiveRes = get(responses[0], "data.response.docs", []);
-          let orgtotalRes = get(
-            responses[1],
-            "data.response.docs[0].organisation_total_expenditure",
-            []
-          );
+          let orgtotalRes = get(responses[1], "data.response.docs[0]", []);
 
-          orgtotalRes = orgtotalRes.map((item: any) => {
-            const parseditem = JSON.parse(item);
-            return {
-              value: parseditem.value.value,
-              year: parseditem.period_start.slice(0, 4),
-              lines: filter(
-                parseditem.expense_line,
-                (line: any) => line.ref.indexOf("24.30.66.") > -1
-              )
-            };
+          // process the organisation total expenditure.
+          let organisationTotalExpenditures = [];
+          // value is 1..1
+          const allValues =
+            orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED];
+          const allYears =
+            orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START];
+
+          const lineRefs =
+            orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF];
+          const lineValues =
+            orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE];
+          const lineIndexes =
+            orgtotalRes[AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX];
+          const lineRefIndexes =
+            orgtotalRes[
+              AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX
+            ];
+          const lineValueIndexes =
+            orgtotalRes[
+              AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX
+            ];
+          let expenselineStartIndex = 0;
+          allValues.forEach((value: number, valueIndex: number) => {
+            const lines = [];
+            const year = allYears[valueIndex].slice(0, 4); // year is also 1..1
+            const numberOfExpenseLines = lineIndexes[valueIndex];
+            const expenselineEndIndex =
+              expenselineStartIndex + numberOfExpenseLines;
+
+            if (numberOfExpenseLines !== 0) {
+              const expenselineValueIndexes = lineValueIndexes.slice(
+                expenselineStartIndex,
+                expenselineEndIndex
+              );
+              const expenselineRefIndexes = lineRefIndexes.slice(
+                expenselineStartIndex,
+                expenselineEndIndex
+              );
+
+              expenselineValueIndexes.forEach(
+                (expenselineValueIndex, expenselineIndex: number) => {
+                  const expenselineRefIndex =
+                    expenselineRefIndexes[expenselineIndex];
+                  const expenselineValue =
+                    lineValues[expenselineStartIndex + expenselineValueIndex];
+                  const expenselineRef =
+                    lineRefs[expenselineStartIndex + expenselineRefIndex];
+
+                  if (expenselineRef.indexOf("24.30.66.") > -1) {
+                    lines.push({
+                      ref: expenselineRef,
+                      value: expenselineValue
+                    });
+                  }
+                }
+              );
+            }
+            expenselineStartIndex = expenselineEndIndex;
+
+            organisationTotalExpenditures.push({
+              value,
+              year,
+              lines
+            });
           });
+          orgtotalRes = organisationTotalExpenditures;
 
           exclusiveRes = exclusiveRes.map((item: any) => {
             const valueIndex = findIndex(
-              item.transaction_type,
+              item[AF_TRANSACTION_TYPE_CODE],
               (t: string) => t === "3"
             );
-            const value = get(item, `transaction_value[${valueIndex}]`, 0);
+            const value = get(item, `["${AF_TRANSACTION}"][${valueIndex}]`, 0);
             return {
               value,
-              tags: get(item, "tag_code", []),
+              tags: get(item, AF_TAG_CODE, []),
               year: get(
                 item,
-                `transaction_value_date[${valueIndex}]`,
+                `["${AF_TRANSACTION_VALUE_DATE}"][${valueIndex}]`,
                 ""
               ).slice(0, 4)
             };
@@ -564,7 +461,6 @@ export function budgetLineBarChart(req: any, res: any) {
 
           const groupedTotalOrg = groupBy(orgtotalRes, "year");
           const groupedExclusive = groupBy(exclusiveRes, "year");
-
           const years = uniq([
             ...Object.keys(groupedTotalOrg),
             ...Object.keys(groupedExclusive)
@@ -622,15 +518,15 @@ export function budgetLineBarChart(req: any, res: any) {
                   const tagnamese = get(translatedLine, "info.name_se", null);
                   if (tagname) {
                     if (yearObj[tagname]) {
-                      yearObj[tagname] += item.value.value;
-                      yearObj[`${tagnamefi}_fi`] += item.value.value;
-                      yearObj[`${tagnamese}_se`] += item.value.value;
+                      yearObj[tagname] += item.value;
+                      yearObj[`${tagnamefi}_fi`] += item.value;
+                      yearObj[`${tagnamese}_se`] += item.value;
                     } else {
                       yearObj = {
                         ...yearObj,
-                        [tagname]: item.value.value,
-                        [`${tagnamefi}_fi`]: item.value.value,
-                        [`${tagnamese}_se`]: item.value.value,
+                        [tagname]: item.value,
+                        [`${tagnamefi}_fi`]: item.value,
+                        [`${tagnamese}_se`]: item.value,
                         [`${tagname}Code`]: ref,
                         [`${tagnamefi}Code`]: ref,
                         [`${tagnamese}Code`]: ref,

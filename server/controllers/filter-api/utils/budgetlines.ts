@@ -30,7 +30,7 @@ export function getBudgetLinesOptions(filterString = "*:*") {
         const actualData = get(callResponse, "data.response.docs", []);
         const result: any = [];
         actualData.forEach((activity: any) => {
-          activity[`"${AF_TAG_CODE}"`].forEach((tc: string) => {
+          activity[AF_TAG_CODE].forEach((tc: string) => {
             const budgetLine = get(budgetLineCodes2Values, tc, null);
             if (budgetLine) {
               const fItemIndex = findIndex(result, { code: tc });

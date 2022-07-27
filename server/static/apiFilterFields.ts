@@ -1,4 +1,5 @@
 // template, always prepend with `AF_` for API FIELD.
+// keep open
 export const _API_FIELD = "";
 
 // A
@@ -106,12 +107,36 @@ export const AF_OTHER_IDENTIFIER_OWNER_ORG_NARRATIVE =
   "other-identifier.owner-org.narrative";
 export const AF_OTHER_IDENTIFIER_REF = "other-identifier.ref";
 export const AF_OTHER_IDENTIFIER_TYPE = "other-identifier.type";
+export const AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED =
+  "organisation_total_expenditure_value";
+export const AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START =
+  "total-expenditure.period-start.iso-date";
+export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF =
+  "total-expenditure.expense-line.ref";
+export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE =
+  "total-expenditure.expense-line.value";
+export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX =
+  "total-expenditure.expense-line-index";
+export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX =
+  "total-expenditure.expense-line.ref-index";
+export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX =
+  "total-expenditure.expense-line.val-index";
 
 // P
 export const AF_PARTICIPATING_ORG_NARRATIVE = "participating-org.narrative";
+export const AF_PARTICIPATING_ORG_NARRATIVE_LANG =
+  "participating-org.narrative.lang";
 export const AF_PARTICIPATING_ORG_REF = "participating-org.ref";
 export const AF_PARTICIPATING_ORG_ROLE = "participating-org.role";
 export const AF_PARTICIPATING_ORG_TYPE = "participating-org.type";
+export const AF_PARTICIPATING_ORG_NARRATIVE_INDEX =
+  "participating-org.narrative-index";
+export const AF_PARTICIPATING_ORG_NARRATIVE_LANG_INDEX =
+  "participating-org.narrative.lang-index";
+export const AF_PARTICIPATING_ORG_REF_INDEX = "participating-org.ref-index";
+export const AF_PARTICIPATING_ORG_ROLE_INDEX = "participating-org.role-index";
+export const AF_PARTICIPATING_ORG_TYPE_INDEX = "participating-org.type-index";
+
 export const AF_POLICY_MARKER_CODE = "policy-marker.code";
 export const AF_POLICY_MARKER_COMBINED = "policy-marker.combined";
 export const AF_POLICY_MARKER_NAME = "policy-marker.name";

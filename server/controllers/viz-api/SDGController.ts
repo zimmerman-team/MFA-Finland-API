@@ -7,14 +7,20 @@ import findIndex from "lodash/findIndex";
 import { GOALS } from "../../static/sdgs";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
+import {
+  AF_TRANSACTION_UNDERSCORED,
+  AF_TRANSACTION_TYPE_CODE,
+  AF_TAG_CODE,
+  AF_TAG_VOCABULARY
+} from "../../static/apiFilterFields";
 
 export function SDGViz(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
     {
       q: `${getFormattedFilters(
         get(req.body, "filters", {})
-      )} AND tag_vocabulary:2 AND (transaction_type:2 OR transaction_type:3)`,
-      fl: "tag_code,transaction_type,transaction_value",
+      )} AND ${AF_TAG_VOCABULARY}:2 AND (${AF_TRANSACTION_TYPE_CODE}:2 OR ${AF_TRANSACTION_TYPE_CODE}:3)`,
+      fl: `${AF_TAG_CODE},${AF_TRANSACTION_TYPE_CODE},${AF_TRANSACTION_UNDERSCORED}`,
       rows: 20000
     },
     "&",
@@ -32,27 +38,38 @@ export function SDGViz(req: any, res: any) {
 
       goals.forEach((goal: any, index: number) => {
         const goalActivities = filter(activities, (act: any) =>
-          find(act.tag_code, (c: string) => c === goal.code)
+          find(act[AF_TAG_CODE], (c: string) => c === goal.code)
         );
 
         let disbursed = 0;
         let committed = 0;
 
         goalActivities.forEach((item: any) => {
-          if (item.transaction_type && item.transaction_value) {
+          if (
+            item[AF_TRANSACTION_TYPE_CODE] &&
+            item[AF_TRANSACTION_UNDERSCORED]
+          ) {
             const disbTransIndex = findIndex(
-              item.transaction_type,
+              item[AF_TRANSACTION_TYPE_CODE],
               (tt: string) => tt === "3"
             );
             const comTransIndex = findIndex(
-              item.transaction_type,
+              item[AF_TRANSACTION_TYPE_CODE],
               (tt: string) => tt === "2"
             );
             if (disbTransIndex > -1) {
-              disbursed += get(item, `transaction_value[${disbTransIndex}]`, 0);
+              disbursed += get(
+                item,
+                `${AF_TRANSACTION_UNDERSCORED}[${disbTransIndex}]`,
+                0
+              );
             }
             if (comTransIndex > -1) {
-              committed += get(item, `transaction_value[${comTransIndex}]`, 0);
+              committed += get(
+                item,
+                `${AF_TRANSACTION_UNDERSCORED}[${comTransIndex}]`,
+                0
+              );
             }
           }
         });

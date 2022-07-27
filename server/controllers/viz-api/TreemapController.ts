@@ -15,6 +15,25 @@ import {
   getFormattedFilters,
   normalizeActivity2TransactionFilters
 } from "../../utils/filters";
+import {
+  AF_IATI_IDENTIFIER,
+  AF_TITLE_NARRATIVE,
+  AF_COUNTRY,
+  AF_REGION,
+  AF_REGION_NAME,
+  AF_PARTICIPATING_ORG_NARRATIVE,
+  AF_PARTICIPATING_ORG_REF,
+  AF_PARTICIPATING_ORG_ROLE,
+  AF_PARTICIPATING_ORG_TYPE,
+  AF_REPORTING_ORG_NARRATIVE,
+  AF_REPORTING_ORG_REF,
+  AF_REPORTING_ORG_TYPE_NAME,
+  AF_TRANSACTION_USD,
+  AF_TRANSACTION_UNDERSCORED,
+  AF_TRANSACTION_PROVIDER_ORG_NARRATIVE,
+  AF_TRANSACTION_PROVIDER_ORG_REF,
+  AF_TRANSACTION_TYPE_CODE
+} from "../../static/apiFilterFields";
 
 export function projectsTreemapChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/transaction/?${querystring.stringify(
@@ -25,17 +44,17 @@ export function projectsTreemapChart(req: any, res: any) {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "iati_identifier",
+          field: AF_IATI_IDENTIFIER,
           limit: -1,
           facet: {
             name: {
               type: "terms",
-              field: "title_narrative"
+              field: AF_TITLE_NARRATIVE
             },
             disbursed: {
               type: "query",
-              q: "transaction_type:3",
-              facet: { value: "sum(transaction_value)" }
+              q: `${AF_TRANSACTION_TYPE_CODE}:3`,
+              facet: { value: `sum(${AF_TRANSACTION_UNDERSCORED})` }
             }
           }
         }
@@ -83,41 +102,41 @@ export function locationsTreemapChart(req: any, res: any) {
       "json.facet": JSON.stringify({
         countries: {
           type: "terms",
-          field: "activity_recipient_country_code",
+          field: AF_COUNTRY,
           limit: -1,
           facet: {
             disbursed: {
               type: "query",
-              q: "transaction_type:3",
-              facet: { value: "sum(transaction_value)" }
+              q: `${AF_TRANSACTION_TYPE_CODE}:3`,
+              facet: { value: `sum(${AF_TRANSACTION_UNDERSCORED})` }
             },
             committed: {
               type: "query",
-              q: "transaction_type:2",
-              facet: { value: "sum(transaction_value)" }
+              q: `${AF_TRANSACTION_TYPE_CODE}:2`,
+              facet: { value: `sum(${AF_TRANSACTION_UNDERSCORED})` }
             }
           }
         },
         regions: {
           type: "terms",
-          field: "activity_recipient_region_code",
+          field: AF_REGION,
           limit: -1,
           facet: {
             disbursed: {
               type: "query",
-              q: "transaction_type:3",
-              facet: { value: "sum(transaction_value)" }
+              q: `${AF_TRANSACTION_TYPE_CODE}:3`,
+              facet: { value: `sum(${AF_TRANSACTION_UNDERSCORED})` }
             },
             committed: {
               type: "query",
-              q: "transaction_type:2",
-              facet: { value: "sum(transaction_value)" }
+              q: `${AF_TRANSACTION_TYPE_CODE}:2`,
+              facet: { value: `sum(${AF_TRANSACTION_UNDERSCORED})` }
             }
           }
         },
         regionNames: {
           type: "terms",
-          field: "activity_recipient_region_name",
+          field: AF_REGION_NAME,
           limit: -1
         }
       }),
@@ -190,9 +209,8 @@ export function organisationsTreemapChart2(req: any, res: any) {
     {
       q: `${getFormattedFilters(
         get(req.body, "filters", {})
-      )} AND participating_org_ref:* AND (transaction_type:3 OR transaction_type:2)`,
-      fl:
-        "transaction_value,transaction_type,participating_org_ref,participating_org_type,participating_org_narrative,participating_org_role",
+      )} AND ${AF_PARTICIPATING_ORG_REF}:* AND (${AF_TRANSACTION_TYPE_CODE}:3 OR ${AF_TRANSACTION_TYPE_CODE}:2)`,
+      fl: `${AF_TRANSACTION_UNDERSCORED},${AF_TRANSACTION_TYPE_CODE},${AF_PARTICIPATING_ORG_REF},${AF_PARTICIPATING_ORG_TYPE},${AF_PARTICIPATING_ORG_NARRATIVE},${AF_PARTICIPATING_ORG_ROLE}`,
       rows: 20000
     },
     "&",
@@ -208,49 +226,65 @@ export function organisationsTreemapChart2(req: any, res: any) {
       const actualData = get(call1Response, "data.response.docs", []);
       let orgTypes: string[] = [];
       actualData.forEach((doc: any) => {
-        if (doc.transaction_value && doc.transaction_type) {
+        if (doc[AF_TRANSACTION_UNDERSCORED] && doc[AF_TRANSACTION_TYPE_CODE]) {
           doc.disbursed = 0;
           doc.committed = 0;
-          doc.transaction_type.forEach((type: string, index: number) => {
-            if (type === "3") {
-              doc.disbursed += get(doc, `transaction_value[${index}]`, 0);
-            } else if (type === "2") {
-              doc.committed += get(doc, `transaction_value[${index}]`, 0);
+          doc[AF_TRANSACTION_TYPE_CODE].forEach(
+            (type: string, index: number) => {
+              if (type === "3") {
+                doc.disbursed += get(
+                  doc,
+                  `${AF_TRANSACTION_UNDERSCORED}[${index}]`,
+                  0
+                );
+              } else if (type === "2") {
+                doc.committed += get(
+                  doc,
+                  `${AF_TRANSACTION_UNDERSCORED}[${index}]`,
+                  0
+                );
+              }
             }
-          });
+          );
         }
-        orgTypes = [...orgTypes, ...doc.participating_org_type];
+        orgTypes = [...orgTypes, ...doc[AF_PARTICIPATING_ORG_TYPE]];
       });
       orgTypes = uniq(orgTypes);
       const orgTypesData = orgTypes.map((type: string) => {
         const data = filter(
           actualData,
-          (doc: any) => doc.participating_org_type.indexOf(type) > -1
+          (doc: any) => doc[AF_PARTICIPATING_ORG_TYPE].indexOf(type) > -1
         );
         let orgs: any[] = [];
         data.forEach((doc: any) => {
-          doc.participating_org_ref.forEach((orgRef: string, index: number) => {
-            const orgRole = get(doc.participating_org_role, `[${index}]`, "");
-            if (orgRole !== "1") {
-              const fOrg = find(orgs, { ref: orgRef });
-              if (fOrg) {
-                fOrg.value += doc.disbursed;
-                fOrg.committed += doc.committed;
-              } else {
-                orgs.push({
-                  ref: orgRef,
-                  name: get(
-                    doc.participating_org_narrative,
-                    `[${index}]`,
-                    orgRef
-                  ),
-                  value: doc.disbursed,
-                  committed: doc.committed,
-                  orgs: []
-                });
+          doc[AF_PARTICIPATING_ORG_REF].forEach(
+            (orgRef: string, index: number) => {
+              const orgRole = get(
+                doc[AF_PARTICIPATING_ORG_ROLE],
+                `[${index}]`,
+                ""
+              );
+              if (orgRole !== "1") {
+                const fOrg = find(orgs, { ref: orgRef });
+                if (fOrg) {
+                  fOrg.value += doc.disbursed;
+                  fOrg.committed += doc.committed;
+                } else {
+                  orgs.push({
+                    ref: orgRef,
+                    name: get(
+                      doc[AF_PARTICIPATING_ORG_NARRATIVE],
+                      `[${index}]`,
+                      orgRef
+                    ),
+                    value: doc.disbursed,
+                    committed: doc.committed,
+                    orgs: []
+                  });
+                }
               }
             }
-          });
+          );
         });
         orgs = orgs.map((org: any) => ({
           ...org,
@@ -285,27 +319,27 @@ export function organisationsTreemapChart(req: any, res: any) {
     {
       q: `${normalizeActivity2TransactionFilters(
         getFormattedFilters(get(req.body, "filters", {}))
-      )} AND participating_org_ref:* AND (transaction_type:3 OR transaction_type:2)`,
+      )} AND ${AF_PARTICIPATING_ORG_REF}:* AND (${AF_TRANSACTION_TYPE_CODE}:3 OR ${AF_TRANSACTION_TYPE_CODE}:2)`,
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "participating_org_ref",
+          field: AF_PARTICIPATING_ORG_REF,
           limit: -1,
           facet: {
             names: {
               type: "terms",
-              field: "participating_org_narrative",
+              field: AF_PARTICIPATING_ORG_NARRATIVE,
               limit: 2
             },
             disbursed: {
               type: "query",
-              q: "transaction_type:3",
-              facet: { value: "sum(transaction_value)" }
+              q: `${AF_TRANSACTION_TYPE_CODE}:3`,
+              facet: { value: `sum(${AF_TRANSACTION_UNDERSCORED})` }
             },
             committed: {
               type: "query",
-              q: "transaction_type:2",
-              facet: { value: "sum(transaction_value)" }
+              q: `${AF_TRANSACTION_TYPE_CODE}:2`,
+              facet: { value: `sum(${AF_TRANSACTION_UNDERSCORED})` }
             }
           }
         }

@@ -27,7 +27,7 @@ export function getThematicAreaOptions(filterString = "*:*") {
         const actualData = get(callResponse, "data.response.docs", []);
         let items: any = [];
         actualData.forEach((activity: any) => {
-          activity.tag_code.forEach((tc: string) => {
+          activity[AF_TAG_CODE].forEach((tc: string) => {
             if (tc.indexOf("Priority") > -1) {
               const fItemIndex = findIndex(items, { code: tc });
               if (fItemIndex === -1) {
