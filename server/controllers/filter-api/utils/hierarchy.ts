@@ -30,6 +30,7 @@ export function getHierarchyOptions(filterString = "*:*") {
       )
       .then(callResponse => {
         const actualData = get(callResponse, "data.facets.items.buckets", []);
+        // TODO: This field does not have the name from the codelist, and therefore displays "1", "2" etc.
         resolve(
           orderBy(
             actualData.map((item: any) => ({
