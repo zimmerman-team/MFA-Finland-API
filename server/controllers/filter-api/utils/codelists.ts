@@ -3025,6 +3025,40 @@ export const policyMarkerCodelist = [
   }
 ];
 
+export const policyMarkerVocabularyCodelist = [
+  {
+    code: "1",
+    name: "OECD DAC CRS"
+  },
+  {
+    code: "99",
+    name: "Reporting Organisation"
+  }
+];
+
+export const policyMarkerSignificanceCodelist = [
+  {
+    code: "0",
+    name: "not targeted"
+  },
+  {
+    code: "1",
+    name: "significant objective"
+  },
+  {
+    code: "2",
+    name: "principal objective"
+  },
+  {
+    code: "3",
+    name: "principal objective AND in support of an action programme"
+  },
+  {
+    code: "4",
+    name: "Explicit primary objective"
+  }
+];
+
 export const organisationTypeCodelist = [
   {
     code: "10",

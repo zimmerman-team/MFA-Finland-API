@@ -16,6 +16,10 @@ import {
   defaultTiedStatusCodelist,
   tranlatedAidTypes
 } from "../../../static/codelists";
+import {
+  policyMarkerSignificanceCodelist,
+  policyMarkerVocabularyCodelist
+} from "../../filter-api/utils/codelists";
 import { orgTypesCodelist } from "../../../static/orgTypesCodelist";
 import { sectorTranslations } from "../../../static/sectorTranslations";
 import { orgMapping } from "../../../static/orgMapping";
@@ -55,7 +59,7 @@ import {
   AF_PARTICIPATING_ORG_ROLE_INDEX,
   AF_PARTICIPATING_ORG_TYPE_INDEX,
   AF_POLICY_MARKER_CODE,
-  AF_POLICY_MARKER_NAME,
+  AF_POLICY_MARKER_NARRATIVE,
   AF_POLICY_MARKER_SIGNIFICANCE,
   AF_POLICY_MARKER_VOCABULARY_NAME,
   AF_POLICY_MARKER_VOCABULARY_URI,
@@ -529,7 +533,7 @@ export function getPolicyMarkers(data: any) {
   // data contains all the activity metadata. We need to extract the
   // expanded fields from it.
   const policy_marker_code = get(data, `["${AF_POLICY_MARKER_CODE}"]`, []);
-  const policy_marker_name = get(data, `["${AF_POLICY_MARKER_NAME}"]`, []);
+  const policy_marker_name = get(data, `["${AF_POLICY_MARKER_NARRATIVE}"]`, []);
   const policy_marker_significance = get(
     data,
     `["${AF_POLICY_MARKER_SIGNIFICANCE}"]`,
@@ -547,15 +551,22 @@ export function getPolicyMarkers(data: any) {
   );
   const result: any[] = [];
   policy_marker_code.forEach((code: any, index: number) => {
-    if (
-      get(policy_marker_name, `[${index}]`, "").toLowerCase() !== "not targeted"
-    ) {
+    const name = get(policy_marker_name, `[${index}]`, "");
+    const significance =
+      find(policyMarkerSignificanceCodelist, {
+        code: get(policy_marker_significance, `[${index}]`, "")
+      })?.name ?? "no data";
+    const vocabulary =
+      find(policyMarkerVocabularyCodelist, {
+        code: get(policy_marker_vocabulary, `[${index}]`, "")
+      })?.name ?? "no data";
+    if (significance.toLowerCase() !== "not targeted") {
       result.push({
-        name: get(policy_marker_name, `[${index}]`, ""),
+        name,
         code,
-        significance: get(policy_marker_significance, `[${index}]`, ""),
+        significance,
         vocabulary_uri: get(policy_marker_vocabulary_uri, `[${index}]`, ""),
-        vocabulary: get(policy_marker_vocabulary, `[${index}]`, "")
+        vocabulary
       });
     }
   });
@@ -767,16 +778,21 @@ export function getConditions(types: any, texts: any) {
 }
 
 export function getTransactions(data: any) {
-  const transactions = data.map((item: any) => ({
-    date: item[AF_TRANSACTION_DATE_ISO_DATE].slice(0, 4),
-    type: item[AF_TRANSACTION_TYPE_CODE],
-    value: item[AF_TRANSACTION]
-  }));
-
+  let transactions: any[] = [];
+  data.forEach((item: any) => {
+    const dates = item[AF_TRANSACTION_DATE_ISO_DATE];
+    const types = item[AF_TRANSACTION_TYPE_CODE];
+    const values = item[AF_TRANSACTION];
+    values.forEach((value: number, index: number) => {
+      transactions.push({
+        date: dates[index],
+        type: types[index],
+        value: value
+      });
+    });
+  });
   const groupedYears = groupBy(transactions, "date");
-
   const result: any[] = [];
-
   Object.keys(groupedYears).forEach((year: string) => {
     const disbursed = sumBy(filter(groupedYears[year], { type: "3" }), "value");
     const commitment = sumBy(

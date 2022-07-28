@@ -140,8 +140,9 @@ export const AF_PARTICIPATING_ORG_TYPE_INDEX = "participating-org.type-index";
 export const AF_POLICY_MARKER_CODE = "policy-marker.code";
 export const AF_POLICY_MARKER_COMBINED = "policy-marker.combined";
 export const AF_POLICY_MARKER_NAME = "policy-marker.name";
-export const AF_POLICY_MARKER_SIGNIFICANCE = "policy-marker.significance.name";
-export const AF_POLICY_MARKER_VOCABULARY_NAME = "policy-marker.vocabulary.name";
+export const AF_POLICY_MARKER_NARRATIVE = "policy-marker.narrative";
+export const AF_POLICY_MARKER_SIGNIFICANCE = "policy-marker.significance";
+export const AF_POLICY_MARKER_VOCABULARY_NAME = "policy-marker.vocabulary";
 export const AF_POLICY_MARKER_VOCABULARY_URI = "policy-marker.vocabulary-uri";
 export const AF_PLANNED_DISBURSEMENT_PERIOD_START_ISO_DATE =
   "planned-disbursement.period-start.iso-date";
