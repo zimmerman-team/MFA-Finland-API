@@ -1,5 +1,6 @@
 import axios from "axios";
 import get from "lodash/get";
+import find from "lodash/find";
 import sumBy from "lodash/sumBy";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
@@ -25,6 +26,7 @@ import {
   AF_IATI_IDENTIFIER,
   AF_REPORTING_ORG_NARRATIVE,
   AF_REPORTING_ORG_REF,
+  AF_REPORTING_ORG_TYPE_CODE,
   AF_REPORTING_ORG_TYPE_NAME,
   AF_TITLE_NARRATIVE,
   AF_TITLE_NARRATIVE_LANG,
@@ -34,6 +36,7 @@ import {
   AF_TRANSACTION_TYPE_CODE,
   AF_TRANSACTION_VALUE
 } from "../../static/apiFilterFields";
+import { organisationTypeCodelist } from "../filter-api/utils/codelists";
 
 export function activityDetail(req: any, res: any) {
   const lang = req.body.lang || "en";
@@ -119,7 +122,13 @@ export function activityDetail(req: any, res: any) {
               reporting_org_type: get(
                 activityMetaData,
                 AF_REPORTING_ORG_TYPE_NAME,
-                ""
+                find(organisationTypeCodelist, {
+                  code: get(
+                    activityMetaData,
+                    `["${AF_REPORTING_ORG_TYPE_CODE}"]`,
+                    ""
+                  )
+                })?.name || ""
               ),
               title: getFieldValueLang(
                 lang,
