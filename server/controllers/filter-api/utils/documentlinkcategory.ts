@@ -2,6 +2,8 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatActivituStatusOptions } from ".";
+import { AF_DOCUMENT_LINK_CATEGORY_CODE } from "../../../static/apiFilterFields";
+import { documentLinkCategoryCodelist } from "./codelists";
 
 export function getDocumentLinkCategoryOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,40 +12,27 @@ export function getDocumentLinkCategoryOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "document_link_category_code",
+          field: AF_DOCUMENT_LINK_CATEGORY_CODE,
           limit: -1
         }
       }),
       rows: 0
     };
+    const codelistData = documentLinkCategoryCodelist;
     axios
-      .get(`${process.env.DS_REST_API}/codelists/DocumentCategory/?format=json`)
-      .then(codelistResponse => {
-        const codelistData = get(codelistResponse, "data", []);
-        axios
-          .get(
-            `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
-              values,
-              "&",
-              "=",
-              {
-                encodeURIComponent: (str: string) => str
-              }
-            )}`
-          )
-          .then(callResponse => {
-            const actualData = get(
-              callResponse,
-              "data.facets.items.buckets",
-              []
-            );
-            resolve(formatActivituStatusOptions(actualData, codelistData));
-          })
-          .catch(error => {
-            const _error = error.response ? error.response.data : error;
-            console.error(_error);
-            resolve([]);
-          });
+      .get(
+        `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
+          values,
+          "&",
+          "=",
+          {
+            encodeURIComponent: (str: string) => str
+          }
+        )}`
+      )
+      .then(callResponse => {
+        const actualData = get(callResponse, "data.facets.items.buckets", []);
+        resolve(formatActivituStatusOptions(actualData, codelistData));
       })
       .catch(error => {
         const _error = error.response ? error.response.data : error;

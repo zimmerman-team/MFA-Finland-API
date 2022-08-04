@@ -5,6 +5,7 @@ import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { getFormattedSearchParam } from "../../utils/filters";
 import { thematicAreaNames } from "../../static/thematicAreaConsts";
+import { AF_TAG_CODE } from "../../static/apiFilterFields";
 
 export function searchThematicareas(req: any, res: any) {
   if (!req.body.q || req.body.q.length === 0) {
@@ -16,11 +17,11 @@ export function searchThematicareas(req: any, res: any) {
   const values = {
     q: `${getFormattedSearchParam(
       req.body.q
-    )} AND (tag_code:Priority* OR tag_code:(${req.body.q}))`,
+    )} AND (${AF_TAG_CODE}:Priority* OR ${AF_TAG_CODE}:(${req.body.q}))`,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "tag_code",
+        field: AF_TAG_CODE,
         limit: -1
       }
     }),

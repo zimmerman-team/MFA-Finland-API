@@ -3,6 +3,12 @@ import get from "lodash/get";
 import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
+import {
+  AF_PARTICIPATING_ORG_NARRATIVE,
+  AF_PARTICIPATING_ORG_REF,
+  AF_REPORTING_ORG_REF,
+  AF_TRANSACTION_PROVIDER_ORG_REF
+} from "../../static/apiFilterFields";
 
 export function organisationDetail(req: any, res: any) {
   const activitiesValues = {
@@ -10,13 +16,13 @@ export function organisationDetail(req: any, res: any) {
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "participating_org_ref",
+        field: AF_PARTICIPATING_ORG_REF,
         limit: 1,
         numBuckets: true,
         facet: {
           sub: {
             type: "terms",
-            field: "participating_org_narrative",
+            field: AF_PARTICIPATING_ORG_NARRATIVE,
             limit: -1,
             numBuckets: true
           }
@@ -30,12 +36,12 @@ export function organisationDetail(req: any, res: any) {
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "participating_org_ref",
+        field: AF_PARTICIPATING_ORG_REF,
         limit: 1,
         facet: {
           sub: {
             type: "terms",
-            field: "transaction_provider_org_ref",
+            field: AF_TRANSACTION_PROVIDER_ORG_REF,
             limit: -1,
             numBuckets: true
           }
@@ -49,12 +55,12 @@ export function organisationDetail(req: any, res: any) {
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "participating_org_ref",
+        field: AF_PARTICIPATING_ORG_REF,
         limit: 1,
         facet: {
           sub: {
             type: "terms",
-            field: "reporting_org_ref",
+            field: AF_REPORTING_ORG_REF,
             limit: -1,
             numBuckets: true
           }
@@ -101,7 +107,7 @@ export function organisationDetail(req: any, res: any) {
       axios.spread((...responses) => {
         const name = get(
           responses[0],
-          "data.facets.items.buckets.sub[0].participating_org_narrative",
+          `data.facets.items.buckets.sub[0]["${AF_PARTICIPATING_ORG_NARRATIVE}"]`,
           ""
         );
         const activities = get(responses[0], "data.facets.items.buckets", []);

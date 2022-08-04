@@ -4,6 +4,7 @@ import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { getCountries } from "../../utils/globalSearch";
 import { getFormattedSearchParam } from "../../utils/filters";
+import { AF_COUNTRY } from "../../static/apiFilterFields";
 
 export function searchCountries(req: any, res: any) {
   if (!req.body.q || req.body.q.length === 0) {
@@ -19,7 +20,7 @@ export function searchCountries(req: any, res: any) {
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "recipient_country_code",
+        field: AF_COUNTRY,
         limit,
         offset,
         numBuckets: true

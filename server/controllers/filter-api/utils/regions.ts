@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatRegionOptions } from ".";
+import { AF_REGION, AF_REGION_NAME } from "../../../static/apiFilterFields";
 
 export function getRegionsOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,12 +11,12 @@ export function getRegionsOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "recipient_region_code",
+          field: AF_REGION,
           limit: -1,
           facet: {
             sub: {
               type: "terms",
-              field: "recipient_region_name",
+              field: AF_REGION_NAME,
               limit: 1
             }
           }

@@ -5,13 +5,14 @@ import orderBy from "lodash/orderBy";
 import querystring from "querystring";
 import findIndex from "lodash/findIndex";
 import { thematicAreaNames } from "../../../static/thematicAreaConsts";
+import { AF_TAG_CODE } from "../../../static/apiFilterFields";
 
 export function getThematicAreaOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
     const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
       {
-        q: `${filterString} AND tag_code:Priority*`,
-        fl: "tag_code",
+        q: `${filterString} AND ${AF_TAG_CODE}:Priority*`,
+        fl: AF_TAG_CODE,
         rows: 20000
       },
       "&",
@@ -26,7 +27,7 @@ export function getThematicAreaOptions(filterString = "*:*") {
         const actualData = get(callResponse, "data.response.docs", []);
         let items: any = [];
         actualData.forEach((activity: any) => {
-          activity.tag_code.forEach((tc: string) => {
+          activity[AF_TAG_CODE].forEach((tc: string) => {
             if (tc.indexOf("Priority") > -1) {
               const fItemIndex = findIndex(items, { code: tc });
               if (fItemIndex === -1) {

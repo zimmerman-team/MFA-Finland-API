@@ -10,16 +10,33 @@ import {
   normalizeActivity2TransactionFilters
 } from "../../utils/filters";
 import { thematicAreaNames } from "../../static/thematicAreaConsts";
+import {
+  AF_TAG_CODE,
+  AF_TAG_VOCABULARY,
+  AF_BUDGET_VALUE,
+  AF_BUDGET_VALUE_UNDERSCORED,
+  AF_BUDGET_VALUE_DATE,
+  AF_REPORTING_ORG_REF,
+  AF_TRANSACTION_VALUE_DATE,
+  AF_TRANSACTION_FLOW_TYPE_CODE,
+  AF_TRANSACTION_TYPE_CODE,
+  AF_TRANSACTION_UNDERSCORED,
+  AF_DEFAULT_FLOW_TYPE_CODE,
+  AF_TRANSACTION,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_VALUE_UNDERSCORED,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_PERIOD_START,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF,
+  AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE
+} from "../../static/apiFilterFields";
 
 const sizes = [120, 100, 80, 60];
-
 export function thematicAreasChart(req: any, res: any) {
   const url = `${process.env.DS_SOLR_API}/activity/?${querystring.stringify(
     {
       q: `${getFormattedFilters(
         get(req.body, "filters", {})
-      )} AND tag_code:Priority* AND transaction_type:3 AND tag_vocabulary:99`,
-      fl: "tag_code,transaction_type,transaction_value",
+      )} AND ${AF_TAG_CODE}:Priority* AND ${AF_TRANSACTION_TYPE_CODE}:3 AND ${AF_TAG_VOCABULARY}:99`,
+      fl: `${AF_TAG_CODE},${AF_TRANSACTION_TYPE_CODE},${AF_TRANSACTION_UNDERSCORED}`,
       rows: 20000
     },
     "&",
@@ -35,23 +52,27 @@ export function thematicAreasChart(req: any, res: any) {
       const activities = get(call1Response, "data.response.docs", []);
       const items: any = [];
       activities.forEach((activity: any) => {
-        activity.tag_code.forEach((tc: string) => {
+        activity[AF_TAG_CODE].forEach((tc: string) => {
           if (tc.indexOf("Priority") > -1) {
             const fItemIndex = findIndex(items, { name: tc });
             const disbTransIndex = findIndex(
-              activity.transaction_type,
+              activity[AF_TRANSACTION_TYPE_CODE],
               (tt: string) => tt === "3"
             );
             if (fItemIndex === -1) {
               items.push({
                 name: tc,
                 area: get(thematicAreaNames, tc, ""),
-                value: get(activity, `transaction_value[${disbTransIndex}]`, 0)
+                value: get(
+                  activity,
+                  `${AF_TRANSACTION_UNDERSCORED}[${disbTransIndex}]`,
+                  0
+                )
               });
             } else {
               items[fItemIndex].value += get(
                 activity,
-                `transaction_value[${disbTransIndex}]`,
+                `${AF_TRANSACTION_UNDERSCORED}[${disbTransIndex}]`,
                 0
               );
             }
@@ -272,8 +293,8 @@ export function thematicAreasChart2(req: any, res: any) {
     {
       q: `${normalizeActivity2TransactionFilters(
         getFormattedFilters(get(req.body, "filters", {}))
-      )} AND tag_code:Priority* AND transaction_type:3 AND tag_vocabulary:99`,
-      fl: "tag_code,transaction_type,transaction_value",
+      )} AND ${AF_TAG_CODE}:Priority* AND ${AF_TRANSACTION_TYPE_CODE}:3 AND ${AF_TAG_VOCABULARY}:99`,
+      fl: `${AF_TAG_CODE},${AF_TRANSACTION_TYPE_CODE},${AF_TRANSACTION_UNDERSCORED}`,
       rows: 20000
     },
     "&",
@@ -289,19 +310,19 @@ export function thematicAreasChart2(req: any, res: any) {
       const transactions = get(call1Response, "data.response.docs", []);
       const items: any = [];
       transactions.forEach((transaction: any) => {
-        transaction.tag_code.forEach((tc: string) => {
+        transaction[AF_TAG_CODE].forEach((tc: string) => {
           if (tc.indexOf("Priority") > -1) {
             const fItemIndex = findIndex(items, { name: tc });
             if (fItemIndex === -1) {
               items.push({
                 name: tc,
                 area: get(thematicAreaNames, tc, ""),
-                value: get(transaction, `transaction_value`, 0)
+                value: get(transaction, `${AF_TRANSACTION_UNDERSCORED}`, 0)
               });
             } else {
               items[fItemIndex].value += get(
                 transaction,
-                `transaction_value`,
+                `${AF_TRANSACTION_UNDERSCORED}`,
                 0
               );
             }

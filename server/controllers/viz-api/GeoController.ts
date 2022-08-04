@@ -10,18 +10,26 @@ import {
   getFormattedFilters,
   normalizeActivity2TransactionFilters
 } from "../../utils/filters";
+import {
+  AF_COUNTRY,
+  AF_TRANSACTION_UNDERSCORED,
+  AF_TRANSACTION_COUNTRY,
+  AF_TRANSACTION_TYPE_CODE,
+  AF_REGION,
+  AF_TRANSACTION_REGION
+} from "../../static/apiFilterFields";
 
 export function geoChart(req: any, res: any) {
   const values = {
     q: `${normalizeActivity2TransactionFilters(
       getFormattedFilters(get(req.body, "filters", {}), true)
-    )} AND transaction_type:3`,
+    )} AND ${AF_TRANSACTION_TYPE_CODE}:3`,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "activity_recipient_country_code",
+        field: AF_COUNTRY,
         limit: -1,
-        facet: { sum: "sum(transaction_value)" }
+        facet: { sum: `sum(${AF_TRANSACTION_UNDERSCORED})` }
       }
     }),
     rows: 0
@@ -33,14 +41,13 @@ export function geoChart(req: any, res: any) {
     "json.facet": JSON.stringify({
       unallocable: {
         type: "query",
-        query:
-          "transaction_type:3 AND (activity_recipient_country_code:998 OR transaction_recipient_country_code:998 OR activity_recipient_region_code:998 OR transaction_recipient_region_code:998)",
-        facet: { sum: "sum(transaction_value)" }
+        query: `${AF_TRANSACTION_TYPE_CODE}:3 AND (${AF_COUNTRY}:998 OR ${AF_TRANSACTION_COUNTRY}:998 OR ${AF_REGION}:998 OR ${AF_TRANSACTION_REGION}:998)`,
+        facet: { sum: `sum(${AF_TRANSACTION_UNDERSCORED})` }
       },
       total: {
         type: "query",
-        query: "transaction_type:3",
-        facet: { sum: "sum(transaction_value)" }
+        query: `${AF_TRANSACTION_TYPE_CODE}:3`,
+        facet: { sum: `sum(${AF_TRANSACTION_UNDERSCORED})` }
       }
     }),
     rows: 0

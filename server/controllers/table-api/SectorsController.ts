@@ -9,6 +9,7 @@ import querystring from "querystring";
 import { genericError } from "../../utils/general";
 import { getFormattedFilters } from "../../utils/filters";
 import { sectorMapping } from "../../static/sectorMapping";
+import { AF_SECTOR, AF_SECTOR_NARRATIVE } from "../../static/apiFilterFields";
 
 // exclude sectors that don't have data
 export function getSectorsWithData(sectorData: any) {
@@ -41,14 +42,14 @@ export function sectorsTable(req: any, res: any) {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "sector_code",
+          field: AF_SECTOR,
           limit: -1,
           missing: true,
           numBuckets: true,
           facet: {
             sub: {
               type: "terms",
-              field: "sector_narrative_text",
+              field: AF_SECTOR_NARRATIVE,
               limit: 1
             }
           }

@@ -2,6 +2,10 @@ import axios from "axios";
 import get from "lodash/get";
 import querystring from "querystring";
 import { formatPublishersOptions } from ".";
+import {
+  AF_REPORTING_ORG_NARRATIVE,
+  AF_REPORTING_ORG_REF
+} from "../../../static/apiFilterFields";
 
 export function getPublishersOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,12 +14,12 @@ export function getPublishersOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "reporting_org_ref",
+          field: AF_REPORTING_ORG_REF,
           limit: -1,
           facet: {
             sub: {
               type: "terms",
-              field: "reporting_org_narrative",
+              field: AF_REPORTING_ORG_NARRATIVE,
               limit: 1
             }
           }

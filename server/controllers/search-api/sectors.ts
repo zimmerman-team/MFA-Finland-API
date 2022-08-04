@@ -6,6 +6,7 @@ import { genericError } from "../../utils/general";
 import { getSectors } from "../../utils/globalSearch";
 import { dac3sectors } from "../../static/dac3sectors";
 import { dac5sectors } from "../../static/dac5sectors";
+import { AF_REPORTING_ORG_REF, AF_SECTOR } from "../../static/apiFilterFields";
 
 export function searchSectors(req: any, res: any) {
   if (!req.body.q || req.body.q.length === 0) {
@@ -23,11 +24,11 @@ export function searchSectors(req: any, res: any) {
     .map((s: any) => s.code)
     .join(" ");
   const values = {
-    q: `reporting_org_ref:${process.env.MFA_PUBLISHER_REF} AND (sector_code:"${req.body.q}" OR sector_code:(${fSectors}))`,
+    q: `${AF_REPORTING_ORG_REF}:${process.env.MFA_PUBLISHER_REF} AND (${AF_SECTOR}:"${req.body.q}" OR ${AF_SECTOR}:(${fSectors}))`,
     "json.facet": JSON.stringify({
       items: {
         type: "terms",
-        field: "sector_code",
+        field: AF_SECTOR,
         limit,
         offset,
         numBuckets: true

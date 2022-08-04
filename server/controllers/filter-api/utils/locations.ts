@@ -6,6 +6,11 @@ import {
   formatCountryOptions,
   formatLocationOptions
 } from ".";
+import {
+  AF_COUNTRY,
+  AF_REGION,
+  AF_REGION_NAME
+} from "../../../static/apiFilterFields";
 
 export function getLocationsOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -14,17 +19,17 @@ export function getLocationsOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         countries: {
           type: "terms",
-          field: "recipient_country_code",
+          field: AF_COUNTRY,
           limit: -1
         },
         regions: {
           type: "terms",
-          field: "recipient_region_code",
+          field: AF_REGION,
           limit: -1,
           facet: {
             sub: {
               type: "terms",
-              field: "recipient_region_name",
+              field: AF_REGION_NAME,
               limit: 1
             }
           }

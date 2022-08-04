@@ -33,7 +33,6 @@ PROJECT_URL=http://localhost:3000
 
 # data
 DS_SOLR_API=https://iati.cloud/search
-DS_REST_API=https://iati.cloud/api
 MFA_PUBLISHER_REF=FI-3
 HDRO_API=http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php
 UM_FI_API=https://um.fi/o/public-api/v1/content
@@ -59,7 +58,6 @@ Project will be running on http://localhost:4200/api
 BACKEND_PORT=4200
 MFA_PUBLISHER_REF=FI-3
 PROJECT_URL=http://localhost:4200
-DS_REST_API=https://iati.cloud/api
 DS_SOLR_API=https://iati.cloud/search
 HDRO_API=http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php
 UM_FI_API=https://um.fi/o/public-api/v1/content

@@ -15,6 +15,12 @@ import {
   getFormattedFilters,
   normalizeActivity2TransactionFilters
 } from "../../utils/filters";
+import {
+  AF_SECTOR,
+  AF_SECTOR_PERCENTAGE,
+  AF_TRANSACTION_TYPE_CODE,
+  AF_TRANSACTION_UNDERSCORED
+} from "../../static/apiFilterFields";
 
 // exclude sectors that don't have data
 function getSectorsWithData(sectorData: any) {
@@ -79,9 +85,8 @@ export function basicSunburstChart(req: any, res: any) {
     {
       q: `${normalizeActivity2TransactionFilters(
         getFormattedFilters(get(req.body, "filters", {}), true)
-      )} AND transaction_type:(2 3)`,
-      fl:
-        "activity_sector_code,activity_sector_percentage,transaction_type,transaction_value",
+      )} AND ${AF_TRANSACTION_TYPE_CODE}:(2 3)`,
+      fl: `${AF_SECTOR},${AF_SECTOR_PERCENTAGE},${AF_TRANSACTION_TYPE_CODE},${AF_TRANSACTION_UNDERSCORED}`,
       rows: 50000
     },
     "&",
@@ -98,37 +103,35 @@ export function basicSunburstChart(req: any, res: any) {
       const rawSectors: any = [];
 
       rawData.forEach((doc: any) => {
-        get(doc, "activity_sector_code", []).forEach(
-          (sector: string, index: number) => {
-            const fSectorIndex = findIndex(rawSectors, { val: sector });
-            const percentage = get(doc, `sector_percentage[${index}]`, 100);
-            const data = {
-              val: sector,
-              committed: { value: 0 },
-              disbursed: { value: 0 }
-            };
-            if (doc.transaction_type === "2") {
-              if (fSectorIndex > -1) {
-                rawSectors[fSectorIndex].committed.value +=
-                  (doc.transaction_value * percentage) / 100;
-              } else {
-                data.committed.value =
-                  (doc.transaction_value * percentage) / 100;
-              }
-            } else if (doc.transaction_type === "3") {
-              if (fSectorIndex > -1) {
-                rawSectors[fSectorIndex].disbursed.value +=
-                  (doc.transaction_value * percentage) / 100;
-              } else {
-                data.disbursed.value =
-                  (doc.transaction_value * percentage) / 100;
-              }
+        get(doc, AF_SECTOR, []).forEach((sector: string, index: number) => {
+          const fSectorIndex = findIndex(rawSectors, { val: sector });
+          const percentage = get(doc, `${AF_SECTOR_PERCENTAGE}[${index}]`, 100);
+          const data = {
+            val: sector,
+            committed: { value: 0 },
+            disbursed: { value: 0 }
+          };
+          if (doc[AF_TRANSACTION_TYPE_CODE][0] === "2") {
+            if (fSectorIndex > -1) {
+              rawSectors[fSectorIndex].committed.value +=
+                (doc[AF_TRANSACTION_UNDERSCORED] * percentage) / 100;
+            } else {
+              data.committed.value =
+                (doc[AF_TRANSACTION_UNDERSCORED] * percentage) / 100;
             }
-            if (fSectorIndex === -1) {
-              rawSectors.push(data);
+          } else if (doc[AF_TRANSACTION_TYPE_CODE][0] === "3") {
+            if (fSectorIndex > -1) {
+              rawSectors[fSectorIndex].disbursed.value +=
+                (doc[AF_TRANSACTION_UNDERSCORED] * percentage) / 100;
+            } else {
+              data.disbursed.value =
+                (doc[AF_TRANSACTION_UNDERSCORED] * percentage) / 100;
             }
           }
-        );
+          if (fSectorIndex === -1) {
+            rawSectors.push(data);
+          }
+        });
       });
 
       let baseData = {
@@ -360,7 +363,6 @@ export function basicSunburstChart(req: any, res: any) {
       });
     })
     .catch(error => {
-      console.log(error);
       genericError(error, res);
     });
 }

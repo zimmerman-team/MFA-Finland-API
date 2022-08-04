@@ -22,7 +22,30 @@ import {
   activitySearchFields
 } from "../../static/globalSearchFields";
 import { sectorTranslations } from "../../static/sectorTranslations";
+import {
+  AF_ACTIVITY_DATE_END_PLANNED,
+  AF_ACTIVITY_DATE_START_PLANNED,
+  AF_ACTIVITY_STATUS_CODE,
+  AF_COUNTRY,
+  AF_IATI_IDENTIFIER,
+  AF_TITLE_NARRATIVE,
+  AF_TRANSACTION_COUNTRY,
+  AF_DEFAULT_AID_TYPE_CODE,
+  AF_DEFAULT_AID_TYPE_NAME,
+  AF_DEFAULT_AID_TYPE_VOCABULARY,
+  AF_PARTICIPATING_ORG_NARRATIVE,
+  AF_PARTICIPATING_ORG_NARRATIVE_LANG,
+  AF_PARTICIPATING_ORG_REF,
+  AF_PARTICIPATING_ORG_ROLE,
+  AF_PARTICIPATING_ORG_TYPE,
+  AF_PARTICIPATING_ORG_NARRATIVE_INDEX,
+  AF_PARTICIPATING_ORG_NARRATIVE_LANG_INDEX,
+  AF_PARTICIPATING_ORG_REF_INDEX,
+  AF_PARTICIPATING_ORG_ROLE_INDEX,
+  AF_PARTICIPATING_ORG_TYPE_INDEX
+} from "../../static/apiFilterFields";
 
+/** Basic functionality has been mapped, needs future steps to fully convert to direct-indexing */
 export function activitiesTable(req: any, res: any) {
   const lang = req.body.lang || "en";
   const rows = get(req.body, "rows", 10);
@@ -37,7 +60,7 @@ export function activitiesTable(req: any, res: any) {
 
   const values = {
     q: getQuery(filters, search, globalSearchFields),
-    fl: `iati_identifier,default_aid_type:[json],participating_org:[json],title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,recipient_country_code,transaction_recipient_country_code,recipient_region_code,transaction_recipient_region_code,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
+    fl: `iati_identifier,${AF_DEFAULT_AID_TYPE_CODE},${AF_DEFAULT_AID_TYPE_NAME},${AF_DEFAULT_AID_TYPE_VOCABULARY},${AF_PARTICIPATING_ORG_NARRATIVE},${AF_PARTICIPATING_ORG_NARRATIVE_LANG},${AF_PARTICIPATING_ORG_REF},${AF_PARTICIPATING_ORG_TYPE},${AF_PARTICIPATING_ORG_ROLE},${AF_PARTICIPATING_ORG_ROLE_INDEX},${AF_PARTICIPATING_ORG_REF_INDEX},${AF_PARTICIPATING_ORG_TYPE_INDEX},${AF_PARTICIPATING_ORG_NARRATIVE_INDEX},${AF_PARTICIPATING_ORG_NARRATIVE_LANG_INDEX},title_narrative_text,title_narrative_lang,description_narrative_text,description_lang,recipient_country_code,transaction_recipient_country_code,recipient_region_code,transaction_recipient_region_code,sector_code,transaction_sector_code,budget_value,budget_type,transaction_type,transaction_value,activity_date_start_planned,activity_date_end_planned`,
     start,
     rows,
     sort: "iati_identifier desc"
@@ -61,7 +84,7 @@ export function activitiesTable(req: any, res: any) {
       const result = actualData.map((activity: any) => {
         const startDate = activity.activity_date_start_planned || "";
         const endDate = activity.activity_date_end_planned || "";
-        const aidTypes = getDefaultAidTypes(activity.default_aid_type, lang)
+        const aidTypes = getDefaultAidTypes(activity, lang)
           .map((type: any) => type.name)
           .join(", ");
         const code = get(activity, "iati_identifier", "");
@@ -97,14 +120,9 @@ export function activitiesTable(req: any, res: any) {
                 return "";
               })
             : [];
-        const orgs = filter(
-          getParticipatingOrgs(
-            get(activity, "participating_org", []),
-            lang,
-            true
-          ),
-          { role: "Extending" }
-        )
+        const orgs = filter(getParticipatingOrgs(activity, lang, true), {
+          role: "Extending"
+        })
           .map((org: any) => org.name)
           .join(", ");
         let disbursed = 0;

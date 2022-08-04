@@ -3,6 +3,10 @@ import get from "lodash/get";
 import querystring from "querystring";
 import { formatOrganisationsOptions2 } from ".";
 // import { orgDacChannel } from "../../../static/orgDacChannel";
+import {
+  AF_PARTICIPATING_ORG_REF,
+  AF_PARTICIPATING_ORG_NARRATIVE
+} from "../../../static/apiFilterFields";
 
 export function getOrganisationsOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -11,12 +15,12 @@ export function getOrganisationsOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "participating_org_ref",
+          field: AF_PARTICIPATING_ORG_REF,
           limit: -1,
           facet: {
             names: {
               type: "terms",
-              field: "participating_org_narrative",
+              field: AF_PARTICIPATING_ORG_NARRATIVE,
               limit: 2
             }
           }

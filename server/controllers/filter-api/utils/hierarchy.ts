@@ -2,6 +2,7 @@ import axios from "axios";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
 import querystring from "querystring";
+import { AF_HIERARCHY } from "../../../static/apiFilterFields";
 
 export function getHierarchyOptions(filterString = "*:*") {
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export function getHierarchyOptions(filterString = "*:*") {
       "json.facet": JSON.stringify({
         items: {
           type: "terms",
-          field: "hierarchy",
+          field: AF_HIERARCHY,
           limit: -1
         }
       }),
@@ -29,6 +30,7 @@ export function getHierarchyOptions(filterString = "*:*") {
       )
       .then(callResponse => {
         const actualData = get(callResponse, "data.facets.items.buckets", []);
+        // TODO: This field does not have the name from the codelist, and therefore displays "1", "2" etc.
         resolve(
           orderBy(
             actualData.map((item: any) => ({
