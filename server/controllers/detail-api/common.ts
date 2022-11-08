@@ -247,7 +247,41 @@ export function detailPageName(req: any, res: any) {
                 })
               )
               .catch((error: any) => {
-                genericError(error, res);
+                // genericError(error, res);
+                const _error = error.response ? error.response.data : error;
+                console.log(_error);
+                res.json({
+                  data: {
+                    region,
+                    isPartner,
+                    indicators: [],
+                    name: get(
+                      fCountry,
+                      "info.name",
+                      req.body.filters[AF_COUNTRY][0]
+                    ),
+                    name_fi: get(
+                      fCountry,
+                      "info.name_fi",
+                      req.body.filters[AF_COUNTRY][0]
+                    ),
+                    name_se: get(
+                      fCountry,
+                      "info.name_se",
+                      req.body.filters[AF_COUNTRY][0]
+                    ),
+                    news: [],
+                    contact: {
+                      title: "",
+                      link: "",
+                      embassy: {
+                        title: "",
+                        link: ""
+                      },
+                      strategy: null
+                    }
+                  }
+                });
               });
           }
         }
