@@ -120,7 +120,7 @@ export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_INDEX =
 export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_REF_INDEX =
   "total-expenditure.expense-line.ref-index";
 export const AF_ORGANISATION_TOTAL_EXPENDITURE_EXPENSE_LINE_VALUE_INDEX =
-  "total-expenditure.expense-line.val-index";
+  "total-expenditure.expense-line.ref-index";
 
 // P
 export const AF_PARTICIPATING_ORG_NARRATIVE = "participating-org.narrative";
