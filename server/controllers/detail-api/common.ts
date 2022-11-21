@@ -127,9 +127,9 @@ export function detailPageName(req: any, res: any) {
           });
           if (iso3) {
             const calls = [
-              axios.get(
-                `${process.env.HDRO_API}/country_code=${iso3}/indicator_id=69206,69706,103006,195706,146206/structure=ciy`
-              ),
+              // axios.get(
+              //   `${process.env.HDRO_API}/country_code=${iso3}/indicator_id=69206,69706,103006,195706,146206/structure=ciy`
+              // ),
               axios.get(
                 `${
                   process.env.UM_FI_API
@@ -153,48 +153,48 @@ export function detailPageName(req: any, res: any) {
               .all(calls)
               .then(
                 axios.spread((...responses) => {
-                  const indicatorsData =
-                    responses[0].data.indicator_value[iso3];
-                  const indicators = Object.keys(indicatorsData).map(
-                    (indicator: string) => {
-                      let value = 0;
-                      const length = Object.keys(indicatorsData[indicator])
-                        .length;
-                      let yearvalue = "";
-                      Object.keys(indicatorsData[indicator]).forEach(
-                        (year: string, index: number) => {
-                          if (index === length - 1) {
-                            yearvalue = year;
-                            value = indicatorsData[indicator][year];
-                          }
-                        }
-                      );
-                      switch (indicator) {
-                        case "69206":
-                          return `Life expectancy at birth (${yearvalue}): ${value}`;
-                        case "69706":
-                          return `Expected years of schooling (${yearvalue}): ${value}`;
-                        case "103006":
-                          return `Mean years of schooling (${yearvalue}): ${value}`;
-                        case "195706":
-                          return `Gross national income (GNI) per capita (${yearvalue}): ${formatLocale(
-                            value
-                          ).replace("€", "$")}`;
-                        case "146206":
-                          return `HDI rank (${yearvalue}): ${value}`;
-                        default:
-                          return "";
-                      }
-                    }
-                  );
-                  const newsData = responses[1].data;
+                  // const indicatorsData =
+                  //   responses[0].data.indicator_value[iso3];
+                  // const indicators = Object.keys(indicatorsData).map(
+                  //   (indicator: string) => {
+                  //     let value = 0;
+                  //     const length = Object.keys(indicatorsData[indicator])
+                  //       .length;
+                  //     let yearvalue = "";
+                  //     Object.keys(indicatorsData[indicator]).forEach(
+                  //       (year: string, index: number) => {
+                  //         if (index === length - 1) {
+                  //           yearvalue = year;
+                  //           value = indicatorsData[indicator][year];
+                  //         }
+                  //       }
+                  //     );
+                  //     switch (indicator) {
+                  //       case "69206":
+                  //         return `Life expectancy at birth (${yearvalue}): ${value}`;
+                  //       case "69706":
+                  //         return `Expected years of schooling (${yearvalue}): ${value}`;
+                  //       case "103006":
+                  //         return `Mean years of schooling (${yearvalue}): ${value}`;
+                  //       case "195706":
+                  //         return `Gross national income (GNI) per capita (${yearvalue}): ${formatLocale(
+                  //           value
+                  //         ).replace("€", "$")}`;
+                  //       case "146206":
+                  //         return `HDI rank (${yearvalue}): ${value}`;
+                  //       default:
+                  //         return "";
+                  //     }
+                  //   }
+                  // );
+                  const newsData = responses[0].data;
                   const contactData = get(
-                    responses[2],
+                    responses[1],
                     "data.contactInfos[0]",
                     null
                   );
                   const embassyData = get(
-                    responses[3],
+                    responses[2],
                     "data.contactInfos[0]",
                     null
                   );
@@ -296,7 +296,7 @@ export function detailPageName(req: any, res: any) {
           );
           result = get(
             data,
-            `${AF_PARTICIPATING_ORG_NARRATIVE}[${refIndex}]`,
+            `["${AF_PARTICIPATING_ORG_NARRATIVE}"][${refIndex}]`,
             ""
           );
           const fOrgMapping = find(orgMapping, {
@@ -316,7 +316,7 @@ export function detailPageName(req: any, res: any) {
             data[AF_REGION],
             (ref: string) => ref === req.body.filters[AF_REGION][0]
           );
-          result = get(data, `${AF_REGION}[${refIndex}]`, "");
+          result = get(data, `["${AF_REGION_NAME}"][${refIndex}]`, "");
         }
         if (req.body.detail_type === AF_TAG_NARRATIVE) {
           result = req.body.filters[AF_TAG_NARRATIVE][0];
