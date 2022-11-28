@@ -202,7 +202,7 @@ export function detailPageName(req: any, res: any) {
                     data: {
                       region,
                       isPartner,
-                      indicators,
+                      indicators: [],
                       name: get(
                         fCountry,
                         "info.name",
