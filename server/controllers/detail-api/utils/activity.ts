@@ -172,8 +172,7 @@ export function getParticipatingOrgs(
       "name",
       "no data"
     );
-    const url =
-      ref !== "" ? `/organisation/${encodeURIComponent(ref)}/projects` : "";
+    const url = ref !== "" ? `/organisations/${encodeURIComponent(ref)}` : "";
 
     let name = "";
     // check if there is any narrative
@@ -354,7 +353,7 @@ export function getCountries(
       name,
       code,
       percentage: get(country_percentage, `[${index}]`, ""),
-      url: `/country/${encodeURIComponent(name)}/projects`
+      url: `/countries/${encodeURIComponent(name)}`
     });
   });
   return result;
