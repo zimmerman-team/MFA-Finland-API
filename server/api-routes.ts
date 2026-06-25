@@ -26,9 +26,6 @@ const ActivitiesTableController = require("./controllers/table-api/ActivitiesCon
 const ActivityDetailController = require("./controllers/detail-api/activity");
 const DetailCommonController = require("./controllers/detail-api/common");
 
-// feedback
-const FeedbackController = require("./controllers/feedback-api");
-
 router.get("/", (req: any, res: any) => {
   res.json({ status: 200, message: "api working" });
 });
@@ -106,7 +103,6 @@ router
   .post(ActivitiesTableController.simpleActivitiesTable);
 
 router.route("/activity-detail").post(ActivityDetailController.activityDetail);
-router.route("/feedback").post(FeedbackController.sendMail);
 
 module.exports = router;
 
